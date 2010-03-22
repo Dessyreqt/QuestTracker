@@ -87,14 +87,17 @@ namespace QuestTracker
 
         private void rename_TextChanged(object sender, EventArgs e)
         {
-            name.Text = rename.Text.Trim();
+            name.Text = rename.Text.Trim().Replace("\r", "").Replace("\n", "");
             quest.Name = name.Text;
         }
 
         private void rename_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
+            {
+                rename.SelectionLength = 0;
                 rename.Visible = false;
+            }
         }
 
         private void selected_CheckedChanged(object sender, EventArgs e)
@@ -112,7 +115,7 @@ namespace QuestTracker
                     }
                 }
 
-                ((QuestGroupControl)Parent).selected.Checked = allQuestsChecked;
+                ((QuestGroupControl)Parent).selected.Checked &= allQuestsChecked;
             }
         }
     }

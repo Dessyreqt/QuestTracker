@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.uncomplete = new System.Windows.Forms.Button();
             this.complete = new System.Windows.Forms.Button();
             this.addGroup = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
@@ -36,11 +37,10 @@
             this.quests = new System.Windows.Forms.Panel();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.showCompleted = new System.Windows.Forms.CheckBox();
             this.completeDate = new System.Windows.Forms.Label();
             this.startDate = new System.Windows.Forms.Label();
             this.questDescription = new System.Windows.Forms.TextBox();
-            this.uncomplete = new System.Windows.Forms.Button();
-            this.showCompleted = new System.Windows.Forms.CheckBox();
             this.bottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
@@ -58,6 +58,18 @@
             this.bottomPanel.Size = new System.Drawing.Size(787, 46);
             this.bottomPanel.TabIndex = 0;
             // 
+            // uncomplete
+            // 
+            this.uncomplete.BackColor = System.Drawing.SystemColors.Control;
+            this.uncomplete.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.uncomplete.Location = new System.Drawing.Point(545, 6);
+            this.uncomplete.Name = "uncomplete";
+            this.uncomplete.Size = new System.Drawing.Size(122, 28);
+            this.uncomplete.TabIndex = 4;
+            this.uncomplete.Text = "Uncomplete Checked";
+            this.uncomplete.UseVisualStyleBackColor = true;
+            this.uncomplete.Click += new System.EventHandler(this.uncomplete_Click);
+            // 
             // complete
             // 
             this.complete.BackColor = System.Drawing.SystemColors.Control;
@@ -66,7 +78,7 @@
             this.complete.Name = "complete";
             this.complete.Size = new System.Drawing.Size(110, 28);
             this.complete.TabIndex = 3;
-            this.complete.Text = "Complete Selected";
+            this.complete.Text = "Complete Checked";
             this.complete.UseVisualStyleBackColor = true;
             this.complete.Click += new System.EventHandler(this.complete_Click);
             // 
@@ -88,7 +100,7 @@
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(102, 28);
             this.delete.TabIndex = 1;
-            this.delete.Text = "Delete Selected";
+            this.delete.Text = "Delete Checked";
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
@@ -134,6 +146,17 @@
             this.panel1.Size = new System.Drawing.Size(384, 73);
             this.panel1.TabIndex = 4;
             // 
+            // showCompleted
+            // 
+            this.showCompleted.AutoSize = true;
+            this.showCompleted.Location = new System.Drawing.Point(9, 50);
+            this.showCompleted.Name = "showCompleted";
+            this.showCompleted.Size = new System.Drawing.Size(142, 17);
+            this.showCompleted.TabIndex = 2;
+            this.showCompleted.Text = "Show Completed Quests";
+            this.showCompleted.UseVisualStyleBackColor = true;
+            this.showCompleted.CheckedChanged += new System.EventHandler(this.showCompleted_CheckedChanged);
+            // 
             // completeDate
             // 
             this.completeDate.AutoSize = true;
@@ -165,29 +188,6 @@
             this.questDescription.Size = new System.Drawing.Size(384, 397);
             this.questDescription.TabIndex = 5;
             this.questDescription.TextChanged += new System.EventHandler(this.questDescription_TextChanged);
-            // 
-            // uncomplete
-            // 
-            this.uncomplete.BackColor = System.Drawing.SystemColors.Control;
-            this.uncomplete.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.uncomplete.Location = new System.Drawing.Point(545, 6);
-            this.uncomplete.Name = "uncomplete";
-            this.uncomplete.Size = new System.Drawing.Size(122, 28);
-            this.uncomplete.TabIndex = 4;
-            this.uncomplete.Text = "Uncomplete Selected";
-            this.uncomplete.UseVisualStyleBackColor = true;
-            this.uncomplete.Click += new System.EventHandler(this.uncomplete_Click);
-            // 
-            // showCompleted
-            // 
-            this.showCompleted.AutoSize = true;
-            this.showCompleted.Location = new System.Drawing.Point(9, 50);
-            this.showCompleted.Name = "showCompleted";
-            this.showCompleted.Size = new System.Drawing.Size(142, 17);
-            this.showCompleted.TabIndex = 2;
-            this.showCompleted.Text = "Show Completed Quests";
-            this.showCompleted.UseVisualStyleBackColor = true;
-            this.showCompleted.CheckedChanged += new System.EventHandler(this.showCompleted_CheckedChanged);
             // 
             // MainForm
             // 

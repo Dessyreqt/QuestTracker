@@ -135,14 +135,17 @@ namespace QuestTracker
 
         private void rename_TextChanged(object sender, EventArgs e)
         {
-            name.Text = rename.Text.Trim();
+            name.Text = rename.Text.Trim().Replace("\r", "").Replace("\n", "");
             questGroup.Name = name.Text;
         }
 
         private void rename_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == '\r')
+            {
+                rename.SelectionLength = 0;
                 rename.Visible = false;
+            }
         }
     }
 }
