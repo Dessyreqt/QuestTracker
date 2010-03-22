@@ -40,7 +40,7 @@
             this.filler.Dock = System.Windows.Forms.DockStyle.Left;
             this.filler.Location = new System.Drawing.Point(0, 0);
             this.filler.Name = "filler";
-            this.filler.Size = new System.Drawing.Size(23, 24);
+            this.filler.Size = new System.Drawing.Size(46, 24);
             this.filler.TabIndex = 0;
             this.filler.Click += new System.EventHandler(this.filler_Click);
             // 
@@ -48,7 +48,7 @@
             // 
             this.selected.BackColor = System.Drawing.SystemColors.Window;
             this.selected.Dock = System.Windows.Forms.DockStyle.Left;
-            this.selected.Location = new System.Drawing.Point(23, 0);
+            this.selected.Location = new System.Drawing.Point(46, 0);
             this.selected.Name = "selected";
             this.selected.Size = new System.Drawing.Size(15, 24);
             this.selected.TabIndex = 1;
@@ -59,10 +59,10 @@
             // 
             this.name.BackColor = System.Drawing.SystemColors.Window;
             this.name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.name.Location = new System.Drawing.Point(38, 0);
+            this.name.Location = new System.Drawing.Point(61, 0);
             this.name.Name = "name";
             this.name.Padding = new System.Windows.Forms.Padding(5);
-            this.name.Size = new System.Drawing.Size(276, 24);
+            this.name.Size = new System.Drawing.Size(253, 24);
             this.name.TabIndex = 2;
             this.name.Text = "Unnamed Quest";
             this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
@@ -70,7 +70,7 @@
             // 
             // rename
             // 
-            this.rename.Location = new System.Drawing.Point(43, 2);
+            this.rename.Location = new System.Drawing.Point(66, 2);
             this.rename.Multiline = true;
             this.rename.Name = "rename";
             this.rename.Size = new System.Drawing.Size(100, 20);

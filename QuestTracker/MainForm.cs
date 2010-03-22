@@ -25,7 +25,10 @@ namespace QuestTracker
         private void addQuest_Click(object sender, EventArgs e)
         {
             if (questLog.Groups.Count == 0)
+            {
                 questLog.Groups.Add(new QuestGroup());
+                lastSelectedQuestGroup = questLog.Groups[0];
+            }
 
             if (lastSelectedQuestGroup == null)
                 questLog.Groups[0].Quests.Add(new Quest());
