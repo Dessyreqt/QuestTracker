@@ -176,9 +176,12 @@ namespace QuestTracker
 
         private void AutoSave()
         {
-            Thread.Sleep(15000);
+            while (true)
+            {
+                Thread.Sleep(15000);
 
-            FileWriter.WriteToFile(questLog);
+                FileWriter.WriteToFile(questLog);
+            }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
