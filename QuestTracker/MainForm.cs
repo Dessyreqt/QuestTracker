@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -8,79 +10,97 @@ namespace QuestTracker
     {
         public QuestLog questLog;
         public QuestGroup lastSelectedQuestGroup;
+        public QuestGroupControl lastSelectedQuestGroupControl;
         public Quest lastSelectedQuest;
+        public QuestControl lastSelectedQuestControl;
 
         private float splitRatio;
         private readonly Thread autoSaveThread;
+        public readonly List<QuestControl> questControls;
+        private readonly List<QuestGroupControl> questGroupControls;
+        private bool anyChecked;
+        private bool allCheckedComplete = true;
+
 
         public MainForm()
         {
             InitializeComponent();
 
+            questControls = new List<QuestControl>();
+            questGroupControls = new List<QuestGroupControl>();
+
             autoSaveThread = new Thread(AutoSave);
-
             autoSaveThread.Start();
-        }
-
-        private void addQuest_Click(object sender, EventArgs e)
-        {
-            if (questLog.Groups.Count == 0)
-            {
-                questLog.Groups.Add(new QuestGroup());
-                lastSelectedQuestGroup = questLog.Groups[0];
-            }
-
-            if (lastSelectedQuestGroup == null)
-                questLog.Groups[0].Quests.Add(new Quest());
-            else
-                lastSelectedQuestGroup.Quests.Add(new Quest());
-
-            RenderLog();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
             splitRatio = (float)quests.Width / Width;
+
             questLog = FileWriter.ReadFromFile();
+            showCompleted.Checked = questLog.ShowCompletedQuests;
+
             RenderLog();
         }
 
-        private void RenderLog()
+        public void RenderLog()
         {
+            int questScrollOffset = quests.VerticalScroll.Value;
+            
             quests.Controls.Clear();
+            questControls.Clear();
+            questGroupControls.Clear();
 
-            foreach(QuestGroup questGroup in questLog.Groups)
+            foreach(var questGroup in questLog.Groups)
             {
                 var questGroupControl = new QuestGroupControl {Dock = DockStyle.Top, QuestGroup = questGroup};
 
-                if (!showCompleted.Checked)
-                foreach (Control questControl in questGroupControl.Controls)
+                foreach (Control control in questGroupControl.Controls)
                 {
-                    if (questControl.GetType() == typeof(QuestControl))
-                        if (((QuestControl)questControl).Quest.Completed)
-                        {
-                            questControl.Visible = false;
-                            questGroupControl.Height -= 24;
-                        }
+                    if (control.GetType() != typeof (QuestControl)) 
+                        continue;
+
+                    var questControl = (QuestControl)control;  
+
+                    questControls.Add(questControl);
+                    if (questControl.Quest == lastSelectedQuest)
+                        lastSelectedQuestControl = questControl;
+
+                    if (questControl.Quest.Completed && !showCompleted.Checked)
+                    {
+                        questControl.Visible = false;
+                        questGroupControl.Height -= 24;
+                    }
+
                 }
 
                 quests.Controls.Add(questGroupControl);
+                questGroupControls.Add(questGroupControl);
+
+                if (questGroupControl.QuestGroup == lastSelectedQuestGroup)
+                    lastSelectedQuestGroupControl = questGroupControl;
+
+                if (questLog.Groups.Count == 1)
+                {
+                    lastSelectedQuestGroupControl = questGroupControl;
+                }
 
                 questGroupControl.BringToFront();
             }
-        }
 
-        private void addGroup_Click(object sender, EventArgs e)
-        {
-            questLog.Groups.Add(new QuestGroup());
+            var addGroup = new AddGroup {Dock = DockStyle.Top};
+            quests.Controls.Add(addGroup);
+            addGroup.BringToFront();
+            
+            SetSelectionPlurality();
 
-            RenderLog();
+            quests.VerticalScroll.Value = questScrollOffset;
+            quests.Refresh();
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
             delete.Left = Width - 130;
-            uncomplete.Left = Width - 258;
 
             var newWidth = (int)(Width * splitRatio);
             newWidth = Width - newWidth < 176 ? Width - 176 : newWidth;
@@ -93,85 +113,153 @@ namespace QuestTracker
             splitRatio = (float)quests.Width / Width;
         }
 
+        public void SetSelectionPlurality()
+        {
+            anyChecked = false;
+            allCheckedComplete = true;
+
+            foreach (var questControl in questControls)
+            {
+                if (questControl.selected.Checked)
+                {
+                    anyChecked = true;
+                    if (!questControl.Quest.Completed)
+                        allCheckedComplete = false;
+                }
+            }
+
+            foreach (var questGroupControl in questGroupControls)
+            {
+                if (questGroupControl.selected.Checked)
+                {
+                    anyChecked = true;
+                }
+            }
+
+            if (anyChecked)
+            {
+                if (allCheckedComplete)
+                    complete.Text = "Uncomplete Checked";
+                else
+                    complete.Text = "Complete Checked";
+
+                delete.Text = "Delete Checked";
+            }
+            else
+            {
+                if (lastSelectedQuest == null || !lastSelectedQuest.Completed)
+                    complete.Text = "Complete";
+                else
+                    complete.Text = "Uncomplete";
+
+                delete.Text = "Delete";
+            }
+        }
+
         private void complete_Click(object sender, EventArgs e)
         {
-            foreach (Control questGroup in quests.Controls)
-                foreach (Control questControl in questGroup.Controls)
-                    if (questControl.GetType() == typeof(QuestControl))
+            if (anyChecked)
+            {
+                if (allCheckedComplete)
+                {
+                    foreach (var questControl in questControls)
                     {
-                        if (((QuestControl)questControl).selected.Checked)
-                        {
-                            Quest quest = ((QuestControl)questControl).Quest;
-                            quest.Completed = true;
+                        if (!questControl.selected.Checked) continue;
 
-                            if (quest.CompleteDate == DateTime.MinValue)
-                                quest.CompleteDate = DateTime.Now;
-
-                            ((QuestControl)questControl).selected.Checked = false;
-                        }
+                        questControl.Quest.Completed = false;
+                        questControl.Quest.CompleteDate = DateTime.MinValue;
+                        questControl.selected.Checked = false;
                     }
 
-            foreach (Control questGroup in quests.Controls)
-                foreach (Control questControl in questGroup.Controls)
-                    if (questControl.GetType() == typeof(QuestControl))
-                        if (((QuestControl)questControl).Quest == lastSelectedQuest)
-                            questControl.Focus();
+                    RenderLog();
+                    SelectLastSelected();
+                }
+                else
+                {
+                    foreach (var questControl in questControls)
+                    {
+                        if (!questControl.selected.Checked) continue;
 
-            RenderLog();
+                        var quest = questControl.Quest;
+                        quest.Completed = true;
+
+                        if (quest.CompleteDate == DateTime.MinValue)
+                            quest.CompleteDate = DateTime.Now;
+
+                        questControl.selected.Checked = false;
+                    }
+
+                    RenderLog();
+                    SelectLastSelected();
+                }
+            }
+            else
+            {
+                if (lastSelectedQuest != null)
+                {
+                    if (lastSelectedQuest.Completed)
+                    {
+                        lastSelectedQuest.Completed = false;
+                        lastSelectedQuest.CompleteDate = DateTime.MinValue;
+                    }
+                    else
+                    {
+                        lastSelectedQuest.Completed = true;
+
+                        if (lastSelectedQuest.CompleteDate == DateTime.MinValue)
+                            lastSelectedQuest.CompleteDate = DateTime.Now;
+                    }
+
+                    RenderLog();
+                    SelectLastSelected();
+                }
+            }
+        }
+
+        private void SelectLastSelected()
+        {
+            if (lastSelectedQuestControl != null)
+                lastSelectedQuestControl.Focus();
+            else if (lastSelectedQuestGroupControl != null) 
+                lastSelectedQuestGroupControl.Focus();
         }
 
         private void delete_Click(object sender, EventArgs e)
         {
-            foreach (Control questGroup in quests.Controls)
+            if (anyChecked)
             {
-                foreach (Control questControl in questGroup.Controls)
+                foreach (var questGroup in questGroupControls)
                 {
-                    if (questControl.GetType() == typeof (QuestControl))
+                    foreach (var questControl in questControls)
                     {
-                        if (((QuestControl)questControl).selected.Checked)
+                        if (questControl.selected.Checked)
                         {
-                            ((QuestGroupControl)questGroup).QuestGroup.Quests.Remove(((QuestControl)questControl).Quest);
+                            questGroup.QuestGroup.Quests.Remove(questControl.Quest);
                         }
                     }
+
+                    if (questGroup.selected.Checked)
+                        questLog.Groups.Remove(questGroup.QuestGroup);
                 }
 
-                if (questGroup.GetType() == typeof (QuestGroupControl))
+                RenderLog();
+            }
+            else
+            {
+                if (lastSelectedQuest != null)
                 {
-                    if (((QuestGroupControl)questGroup).selected.Checked)
-                        questLog.Groups.Remove(((QuestGroupControl)questGroup).QuestGroup);
+                    lastSelectedQuestGroup.Quests.Remove(lastSelectedQuest);
+
+                    RenderLog();
                 }
             }
-
-            RenderLog();
-        }
-
-        private void uncomplete_Click(object sender, EventArgs e)
-        {
-            foreach (Control questGroup in quests.Controls)
-                foreach (Control questControl in questGroup.Controls)
-                    if (questControl.GetType() == typeof(QuestControl))
-                    {
-                        if (((QuestControl)questControl).selected.Checked)
-                        {
-                            Quest quest = ((QuestControl)questControl).Quest;
-                            quest.Completed = false;
-                            quest.CompleteDate = DateTime.MinValue;
-                            ((QuestControl)questControl).selected.Checked = false;
-                        }
-                    }
-
-            foreach (Control questGroup in quests.Controls)
-                foreach (Control questControl in questGroup.Controls)
-                    if (questControl.GetType() == typeof(QuestControl))
-                        if (((QuestControl)questControl).Quest == lastSelectedQuest)
-                            questControl.Focus();
-
-            RenderLog();
         }
 
         private void showCompleted_CheckedChanged(object sender, EventArgs e)
         {
+            questLog.ShowCompletedQuests = showCompleted.Checked;
             RenderLog();
+            SelectLastSelected();
         }
 
         private void AutoSave()
@@ -195,6 +283,63 @@ namespace QuestTracker
             if (questDescription.Focused)
                 if (lastSelectedQuest != null)
                     lastSelectedQuest.Description = questDescription.Text;
+        }
+
+        private void questDescription_Enter(object sender, EventArgs e)
+        {
+            if (lastSelectedQuestControl != null) 
+                lastSelectedQuestControl.SetHighlightedBackcolor();
+        }
+
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var openFileDialog = new OpenFileDialog
+                                     {
+                                         Filter = "XML files (*.xml)|*.xml",
+                                         FilterIndex = 0,
+                                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\QuestTracker\\",
+                                         RestoreDirectory = true,
+                                         Title = "Select File to Import"
+                                     };
+
+            if (openFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+
+            var filename = openFileDialog.FileName;
+
+            questLog = FileWriter.Import(filename);
+            showCompleted.Checked = questLog.ShowCompletedQuests;
+
+            RenderLog();
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+            var saveFileDialog = new SaveFileDialog
+                                     {
+                                         FileName = "QuestTracker." + now.Month.ToString("00") + "-" + now.Day.ToString("00") + "-" + now.Year.ToString("0000") + "-" + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00") + ".xml",
+                                         Filter = "XML files (*.xml)|*.xml",
+                                         FilterIndex = 0,
+                                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\QuestTracker\\",
+                                         RestoreDirectory = true,
+                                         Title = "Select file to Export"
+                                     };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                FileWriter.Export(questLog, saveFileDialog.FileName);
+            }
+        }
+
+        private void questTrackerWebsiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(null, "http://questtracker.codeplex.com/");
+        }
+
+        private void donateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Help.ShowHelp(null, "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FDSTUC7EAYTH2");
         }
     }
 }

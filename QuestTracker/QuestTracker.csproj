@@ -64,6 +64,22 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddGroup.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddGroup.Designer.cs">
+      <DependentUpon>AddGroup.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddQuest.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddQuest.Designer.cs">
+      <DependentUpon>AddQuest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ErrorLog.cs" />
+    <Compile Include="FixedLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,7 +102,7 @@
     </Compile>
     <Compile Include="FileWriter.cs" />
     <Compile Include="QuestLog.cs" />
-    <Compile Include="QuestTracker.cs" />
+    <Compile Include="QuestTrackerApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
@@ -124,6 +140,14 @@
     <EmbeddedResource Include="collapse.bmp" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddGroup.resx">
+      <DependentUpon>AddGroup.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddQuest.resx">
+      <DependentUpon>AddQuest.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="expand.bmp" />
   </ItemGroup>
   <ItemGroup>

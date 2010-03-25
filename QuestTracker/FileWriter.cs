@@ -20,7 +20,7 @@ namespace QuestTracker
                 {
                     var questLog = (QuestLog)serializer.Deserialize(reader);
                     reader.Close();
-                    return (questLog);
+                    return questLog;
                 }
             }
             catch (Exception)
@@ -48,6 +48,41 @@ namespace QuestTracker
             {
                 serializer.Serialize(writer, questLog);
                 writer.Close();
+            }
+        }
+
+        public static void Export(QuestLog questLog)
+        {
+            var now = DateTime.Now;
+            Export(questLog, Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\QuestTracker\\" + "QuestTracker." + now.Month.ToString("00") + "-" + now.Day.ToString("00") + "-" + now.Year.ToString("0000") + "-" + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00") + ".xml");
+        }
+
+        public static void Export(QuestLog questLog, string filename)
+        {
+            var serializer = new XmlSerializer(typeof(QuestLog));
+
+            if (!Directory.GetParent(filename).Exists)
+                Directory.CreateDirectory(filename);
+
+            using (Stream writer = new FileStream(filename, FileMode.Create))
+            {
+                serializer.Serialize(writer, questLog);
+                writer.Close();
+            }
+        }
+
+        public static QuestLog Import(string filename)
+        {
+            var serializer = new XmlSerializer(typeof(QuestLog));
+
+            if (!Directory.GetParent(filename).Exists)
+                Directory.CreateDirectory(filename);
+
+            using (Stream reader = new FileStream(filename, FileMode.Open, FileAccess.Read))
+            {
+                var questLog = (QuestLog)serializer.Deserialize(reader);
+                reader.Close();
+                return questLog;
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace QuestTracker
+﻿using System.Windows.Forms;
+
+namespace QuestTracker
 {
     partial class QuestGroupControl
     {
@@ -30,9 +32,10 @@
         {
             this.panel = new System.Windows.Forms.Panel();
             this.rename = new System.Windows.Forms.TextBox();
-            this.name = new System.Windows.Forms.Label();
+            this.name = new FixedLabel();
             this.selected = new System.Windows.Forms.CheckBox();
-            this.expand = new System.Windows.Forms.Label();
+            this.expand = new FixedLabel();
+            this.addQuest = new QuestTracker.AddQuest();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -61,10 +64,12 @@
             this.rename.TabIndex = 6;
             this.rename.Visible = false;
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
+            this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
             // 
             // name
             // 
+            this.name.AutoEllipsis = true;
             this.name.BackColor = System.Drawing.SystemColors.Control;
             this.name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.name.Location = new System.Drawing.Point(38, 0);
@@ -99,13 +104,23 @@
             this.expand.TabIndex = 3;
             this.expand.Click += new System.EventHandler(this.expand_Click);
             // 
+            // addQuest
+            // 
+            this.addQuest.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.addQuest.Location = new System.Drawing.Point(0, 24);
+            this.addQuest.Name = "addQuest";
+            this.addQuest.Size = new System.Drawing.Size(346, 24);
+            this.addQuest.TabIndex = 1;
+            // 
             // QuestGroupControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.addQuest);
             this.Controls.Add(this.panel);
+            this.MinimumSize = new System.Drawing.Size(0, 24);
             this.Name = "QuestGroupControl";
-            this.Size = new System.Drawing.Size(346, 24);
+            this.Size = new System.Drawing.Size(346, 48);
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             this.ResumeLayout(false);
@@ -114,10 +129,11 @@
 
         #endregion
 
-        private System.Windows.Forms.Label expand;
-        private System.Windows.Forms.TextBox rename;
-        private System.Windows.Forms.Label name;
-        public System.Windows.Forms.CheckBox selected;
-        private System.Windows.Forms.Panel panel;
+        private FixedLabel expand;
+        private TextBox rename;
+        private FixedLabel name;
+        public CheckBox selected;
+        private Panel panel;
+        private AddQuest addQuest;
     }
 }
