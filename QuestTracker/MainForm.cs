@@ -228,6 +228,8 @@ namespace QuestTracker
         {
             if (anyChecked)
             {
+                FileWriter.Export(questLog);
+                
                 foreach (var questGroup in questGroupControls)
                 {
                     foreach (var questControl in questControls)
@@ -248,6 +250,8 @@ namespace QuestTracker
             {
                 if (lastSelectedQuest != null)
                 {
+                    FileWriter.Export(questLog);
+
                     lastSelectedQuestGroup.Quests.Remove(lastSelectedQuest);
 
                     RenderLog();
