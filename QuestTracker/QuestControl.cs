@@ -7,6 +7,7 @@ namespace QuestTracker
     public partial class QuestControl : UserControl
     {
         private Quest quest;
+        private string currentName;
 
         public Quest Quest
         {
@@ -25,13 +26,12 @@ namespace QuestTracker
 
         private void QuestControl_Enter(object sender, EventArgs e)
         {
-            name.BackColor = SystemColors.MenuHighlight;
-            selected.BackColor = SystemColors.MenuHighlight;
-            filler.BackColor = SystemColors.MenuHighlight;
+            SetHighlightedBackcolor();
 
             var mainForm = (MainForm)ParentForm;
 
-            if (mainForm == null) throw new Exception("Could not identify main form.");
+            if (mainForm == null) 
+                throw new Exception("Could not identify main form.");
 
             mainForm.startDate.Text = "Date Started: " + quest.StartDate;
             mainForm.completeDate.Visible = true;
@@ -49,16 +49,44 @@ namespace QuestTracker
             mainForm.questDescription.Enabled = true;
             mainForm.questDescription.Lines = quest.Description.Split('\n');
 
+            if (mainForm.lastSelectedQuestControl != null && mainForm.lastSelectedQuestControl != this)
+                mainForm.lastSelectedQuestControl.SetNormalBackcolor();
+
             mainForm.lastSelectedQuest = quest;
+            mainForm.lastSelectedQuestControl = this;
             mainForm.lastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
+            mainForm.lastSelectedQuestGroupControl = (QuestGroupControl)Parent;
+
+            mainForm.SetSelectionPlurality();
         }
 
-        private void QuestControl_Leave(object sender, EventArgs e)
+        public void SetHighlightedBackcolor()
         {
-            name.BackColor = SystemColors.Window;
-            selected.BackColor = SystemColors.Window;
-            filler.BackColor = SystemColors.Window;
+            name.BackColor = SystemColors.MenuHighlight;
+            selected.BackColor = SystemColors.MenuHighlight;
+            filler.BackColor = SystemColors.MenuHighlight;
+        }
+
+        public void QuestControl_Leave(object sender, EventArgs e)
+        {
+            SetNormalBackcolor();
             rename.Visible = false;
+        }
+
+        public void SetNormalBackcolor()
+        {
+            if (quest.Completed)
+            {
+                name.BackColor = Color.LightGreen;
+                selected.BackColor = Color.LightGreen;
+                filler.BackColor = Color.LightGreen;
+            }
+            else
+            {
+                name.BackColor = SystemColors.Window;
+                selected.BackColor = SystemColors.Window;
+                filler.BackColor = SystemColors.Window;
+            }
         }
 
         private void name_Click(object sender, EventArgs e)
@@ -66,10 +94,11 @@ namespace QuestTracker
             name.Focus();
         }
 
-        private void name_DoubleClick(object sender, EventArgs e)
+        public void name_DoubleClick(object sender, EventArgs e)
         {
             rename.Width = Width - rename.Left - 2;
             rename.Text = name.Text;
+            currentName = name.Text;
             rename.Visible = true;
             rename.SelectAll();
             rename.Focus();
@@ -116,6 +145,21 @@ namespace QuestTracker
                 }
 
                 ((QuestGroupControl)Parent).selected.Checked &= allQuestsChecked;
+            }
+
+            var mainForm = (MainForm)ParentForm;
+
+            if (mainForm == null) throw new Exception("Could not identify main form.");
+
+            mainForm.SetSelectionPlurality();
+        }
+
+        private void rename_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                rename.Text = currentName;
+                rename.Visible = false;
             }
         }
     }

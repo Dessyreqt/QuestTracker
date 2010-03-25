@@ -1,4 +1,6 @@
-﻿namespace QuestTracker
+﻿using System.Windows.Forms;
+
+namespace QuestTracker
 {
     partial class QuestControl
     {
@@ -28,9 +30,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.filler = new System.Windows.Forms.Label();
+            this.filler = new FixedLabel();
             this.selected = new System.Windows.Forms.CheckBox();
-            this.name = new System.Windows.Forms.Label();
+            this.name = new FixedLabel();
             this.rename = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
@@ -57,6 +59,7 @@
             // 
             // name
             // 
+            this.name.AutoEllipsis = true;
             this.name.BackColor = System.Drawing.SystemColors.Window;
             this.name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.name.Location = new System.Drawing.Point(61, 0);
@@ -77,6 +80,7 @@
             this.rename.TabIndex = 3;
             this.rename.Visible = false;
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
+            this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
             // 
             // QuestControl
@@ -99,10 +103,10 @@
 
         #endregion
 
-        private System.Windows.Forms.Label filler;
-        public System.Windows.Forms.CheckBox selected;
-        private System.Windows.Forms.Label name;
-        private System.Windows.Forms.TextBox rename;
+        private FixedLabel filler;
+        public CheckBox selected;
+        private FixedLabel name;
+        private TextBox rename;
 
     }
 }
