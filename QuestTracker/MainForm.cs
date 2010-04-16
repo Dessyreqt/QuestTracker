@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -285,8 +286,19 @@ namespace QuestTracker
         private void questDescription_TextChanged(object sender, EventArgs e)
         {
             if (questDescription.Focused)
+            {
                 if (lastSelectedQuest != null)
-                    lastSelectedQuest.Description = questDescription.Text;
+                {
+                    var description = new StringBuilder();
+                    
+                    foreach (string line in questDescription.Lines)
+                    {
+                        description.AppendLine(line);
+                    }
+
+                    lastSelectedQuest.Description = description.ToString();
+                }
+            }
         }
 
         private void questDescription_Enter(object sender, EventArgs e)
