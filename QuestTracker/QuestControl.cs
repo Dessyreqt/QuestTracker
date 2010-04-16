@@ -47,7 +47,7 @@ namespace QuestTracker
             }
 
             mainForm.questDescription.Enabled = true;
-            mainForm.questDescription.Lines = quest.Description.Split('\n');
+            mainForm.questDescription.Lines = quest.Description.Split(new[]{"\r\n","\r", "\n"}, StringSplitOptions.None);
 
             if (mainForm.lastSelectedQuestControl != null && mainForm.lastSelectedQuestControl != this)
                 mainForm.lastSelectedQuestControl.SetNormalBackcolor();
