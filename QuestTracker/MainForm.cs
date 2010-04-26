@@ -13,14 +13,15 @@ namespace QuestTracker
         public QuestGroupControl lastSelectedQuestGroupControl;
         public Quest lastSelectedQuest;
         public QuestControl lastSelectedQuestControl;
+        public readonly List<QuestControl> questControls;
+        public bool dialogOpen;
+        public Form dialog;
 
         private float splitRatio;
         private readonly Thread autoSaveThread;
-        public readonly List<QuestControl> questControls;
         private readonly List<QuestGroupControl> questGroupControls;
         private bool anyChecked;
         private bool allCheckedComplete = true;
-
 
         public MainForm()
         {
@@ -31,6 +32,8 @@ namespace QuestTracker
 
             autoSaveThread = new Thread(AutoSave);
             autoSaveThread.Start();
+
+            recurringQuestWorker.RunWorkerAsync();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -94,7 +97,7 @@ namespace QuestTracker
             
             SetSelectionPlurality();
 
-            quests.VerticalScroll.Value = questScrollOffset;
+            quests.VerticalScroll.Value = Math.Min(questScrollOffset, quests.VerticalScroll.Maximum);
             quests.Refresh();
         }
 
@@ -167,7 +170,7 @@ namespace QuestTracker
                         if (!questControl.selected.Checked) continue;
 
                         questControl.Quest.Completed = false;
-                        questControl.Quest.CompleteDate = DateTime.MinValue;
+                        questControl.Quest.CompleteDates.RemoveAt(questControl.Quest.CompleteDates.Count - 1);
                         questControl.selected.Checked = false;
                     }
 
@@ -181,10 +184,13 @@ namespace QuestTracker
                         if (!questControl.selected.Checked) continue;
 
                         var quest = questControl.Quest;
-                        quest.Completed = true;
 
-                        if (quest.CompleteDate == DateTime.MinValue)
-                            quest.CompleteDate = DateTime.Now;
+                        if (!quest.Completed)
+                        {
+                            quest.CompleteDates.Add(DateTime.Now);
+                            quest.Completed = true;
+                            SetNextRecurDate(quest);
+                        }
 
                         questControl.selected.Checked = false;
                     }
@@ -200,14 +206,13 @@ namespace QuestTracker
                     if (lastSelectedQuest.Completed)
                     {
                         lastSelectedQuest.Completed = false;
-                        lastSelectedQuest.CompleteDate = DateTime.MinValue;
+                        lastSelectedQuest.CompleteDates.RemoveAt(lastSelectedQuest.CompleteDates.Count - 1);
                     }
                     else
                     {
                         lastSelectedQuest.Completed = true;
-
-                        if (lastSelectedQuest.CompleteDate == DateTime.MinValue)
-                            lastSelectedQuest.CompleteDate = DateTime.Now;
+                        lastSelectedQuest.CompleteDates.Add(DateTime.Now);
+                        SetNextRecurDate(lastSelectedQuest);
                     }
 
                     RenderLog();
@@ -273,6 +278,75 @@ namespace QuestTracker
                 Thread.Sleep(15000);
 
                 FileWriter.WriteToFile(questLog);
+            }
+        }
+
+        private void CheckRecurringQuests()
+        {
+            while (true)
+            {
+                if (questLog != null)
+                {
+                    bool refreshLog = false;
+
+                    foreach (var group in questLog.Groups)
+                    {
+                        foreach (var quest in group.Quests)
+                        {
+                            if (!quest.Recurring) continue;
+                            if (!quest.Completed) continue;
+
+                            if (quest.Schedule.Unit == RecurrenceUnit.Minutes && quest.Schedule.StartDate.AddMinutes(quest.Schedule.Frequency) < DateTime.Now)
+                            {
+                                RecurQuest(quest);
+                                refreshLog = true;
+                            }
+                            if (quest.Schedule.Unit == RecurrenceUnit.Hours && quest.Schedule.StartDate.AddHours(quest.Schedule.Frequency) < DateTime.Now)
+                            {
+                                RecurQuest(quest);
+                                refreshLog = true;
+                            }
+                            if (quest.Schedule.Unit == RecurrenceUnit.Days && quest.Schedule.StartDate.AddDays(quest.Schedule.Frequency) < DateTime.Now)
+                            {
+                                RecurQuest(quest);
+                                refreshLog = true;
+                            }
+                        }
+                    }
+
+                    if (refreshLog)
+                        recurringQuestWorker.ReportProgress(0);
+                }
+
+                Thread.Sleep(5000);
+            }
+        }
+
+        private void RecurQuest(Quest quest)
+        {
+            quest.Completed = false;
+            SetNextRecurDate(quest);
+        }
+
+        private void SetNextRecurDate(Quest quest)
+        {
+            if (!quest.Recurring) return;
+
+            TimeSpan timeElapsed = DateTime.Now - quest.Schedule.StartDate;
+
+            switch(quest.Schedule.Unit)
+            {
+                case RecurrenceUnit.Minutes:
+                    quest.Schedule.StartDate = quest.Schedule.StartDate.AddMinutes((int)timeElapsed.TotalMinutes - ((int)timeElapsed.TotalMinutes % quest.Schedule.Frequency));
+                    break;
+                case RecurrenceUnit.Hours:
+                    quest.Schedule.StartDate = quest.Schedule.StartDate.AddHours((int)timeElapsed.TotalHours - ((int)timeElapsed.TotalHours % quest.Schedule.Frequency));
+                    break;
+                case RecurrenceUnit.Days:
+                    quest.Schedule.StartDate = quest.Schedule.StartDate.AddDays((int)timeElapsed.TotalDays - ((int)timeElapsed.TotalDays % quest.Schedule.Frequency));
+                    break;
+                default:
+                    break;
             }
         }
 
@@ -344,6 +418,16 @@ namespace QuestTracker
         private void donateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Help.ShowHelp(null, "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=FDSTUC7EAYTH2");
+        }
+
+        private void recurringQuestWorker_DoWork(object sender, System.ComponentModel.DoWorkEventArgs e)
+        {
+            CheckRecurringQuests();
+        }
+
+        private void recurringQuestWorker_ProgressChanged(object sender, System.ComponentModel.ProgressChangedEventArgs e)
+        {
+            RenderLog();
         }
     }
 }
