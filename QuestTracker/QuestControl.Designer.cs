@@ -30,25 +30,20 @@ namespace QuestTracker
         /// </summary>
         private void InitializeComponent()
         {
-            this.filler = new FixedLabel();
+            this.components = new System.ComponentModel.Container();
             this.selected = new System.Windows.Forms.CheckBox();
-            this.name = new FixedLabel();
             this.rename = new System.Windows.Forms.TextBox();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.questRecurranToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.name = new QuestTracker.FixedLabel();
+            this.filler = new QuestTracker.FixedLabel();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // filler
-            // 
-            this.filler.BackColor = System.Drawing.SystemColors.Window;
-            this.filler.Dock = System.Windows.Forms.DockStyle.Left;
-            this.filler.Location = new System.Drawing.Point(0, 0);
-            this.filler.Name = "filler";
-            this.filler.Size = new System.Drawing.Size(46, 24);
-            this.filler.TabIndex = 0;
-            this.filler.Click += new System.EventHandler(this.filler_Click);
             // 
             // selected
             // 
             this.selected.BackColor = System.Drawing.SystemColors.Window;
+            this.selected.ContextMenuStrip = this.contextMenu;
             this.selected.Dock = System.Windows.Forms.DockStyle.Left;
             this.selected.Location = new System.Drawing.Point(46, 0);
             this.selected.Name = "selected";
@@ -56,20 +51,6 @@ namespace QuestTracker
             this.selected.TabIndex = 1;
             this.selected.UseVisualStyleBackColor = false;
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
-            // 
-            // name
-            // 
-            this.name.AutoEllipsis = true;
-            this.name.BackColor = System.Drawing.SystemColors.Window;
-            this.name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.name.Location = new System.Drawing.Point(61, 0);
-            this.name.Name = "name";
-            this.name.Padding = new System.Windows.Forms.Padding(5);
-            this.name.Size = new System.Drawing.Size(253, 24);
-            this.name.TabIndex = 2;
-            this.name.Text = "Unnamed Quest";
-            this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
-            this.name.Click += new System.EventHandler(this.name_Click);
             // 
             // rename
             // 
@@ -82,6 +63,47 @@ namespace QuestTracker
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
             this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.questRecurranToolStripMenuItem});
+            this.contextMenu.Name = "contextMenuStrip1";
+            this.contextMenu.Size = new System.Drawing.Size(201, 48);
+            this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
+            // 
+            // questRecurranToolStripMenuItem
+            // 
+            this.questRecurranToolStripMenuItem.Name = "questRecurranToolStripMenuItem";
+            this.questRecurranToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.questRecurranToolStripMenuItem.Text = "Make Quest Recurring...";
+            this.questRecurranToolStripMenuItem.Click += new System.EventHandler(this.questRecurranToolStripMenuItem_Click);
+            // 
+            // name
+            // 
+            this.name.AutoEllipsis = true;
+            this.name.BackColor = System.Drawing.SystemColors.Window;
+            this.name.ContextMenuStrip = this.contextMenu;
+            this.name.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.name.Location = new System.Drawing.Point(61, 0);
+            this.name.Name = "name";
+            this.name.Padding = new System.Windows.Forms.Padding(5);
+            this.name.Size = new System.Drawing.Size(253, 24);
+            this.name.TabIndex = 2;
+            this.name.Text = "Unnamed Quest";
+            this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
+            this.name.Click += new System.EventHandler(this.name_Click);
+            // 
+            // filler
+            // 
+            this.filler.BackColor = System.Drawing.SystemColors.Window;
+            this.filler.ContextMenuStrip = this.contextMenu;
+            this.filler.Dock = System.Windows.Forms.DockStyle.Left;
+            this.filler.Location = new System.Drawing.Point(0, 0);
+            this.filler.Name = "filler";
+            this.filler.Size = new System.Drawing.Size(46, 24);
+            this.filler.TabIndex = 0;
+            this.filler.Click += new System.EventHandler(this.filler_Click);
             // 
             // QuestControl
             // 
@@ -96,6 +118,7 @@ namespace QuestTracker
             this.Leave += new System.EventHandler(this.QuestControl_Leave);
             this.Resize += new System.EventHandler(this.QuestControl_Resize);
             this.Enter += new System.EventHandler(this.QuestControl_Enter);
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -107,6 +130,8 @@ namespace QuestTracker
         public CheckBox selected;
         private FixedLabel name;
         private TextBox rename;
+        private ContextMenuStrip contextMenu;
+        private ToolStripMenuItem questRecurranToolStripMenuItem;
 
     }
 }

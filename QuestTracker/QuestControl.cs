@@ -38,7 +38,7 @@ namespace QuestTracker
             if (quest.Completed)
             {
                 mainForm.completeDate.ForeColor = Color.Green;
-                mainForm.completeDate.Text = "Date Completed: " + quest.CompleteDate;
+                mainForm.completeDate.Text = "Date Last Completed: " + quest.CompleteDates[quest.CompleteDates.Count - 1];
             }
             else
             {
@@ -161,6 +161,25 @@ namespace QuestTracker
                 rename.Text = currentName;
                 rename.Visible = false;
             }
+        }
+
+        private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            var mainForm = (MainForm)ParentForm;
+
+            if (mainForm == null) throw new Exception("Could not identify main form.");
+
+            if (mainForm.lastSelectedQuestGroupControl !=  null)
+                mainForm.lastSelectedQuestGroupControl.QuestGroupControl_Leave(sender, e);
+
+            QuestControl_Enter(sender, e);
+        }
+
+        private void questRecurranToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var recurringQuestDialog = new RecurringQuestDialog(quest);
+
+            recurringQuestDialog.ShowDialog(ParentForm);
         }
     }
 }
