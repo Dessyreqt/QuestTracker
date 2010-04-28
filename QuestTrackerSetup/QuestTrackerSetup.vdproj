@@ -21,6 +21,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_880CB7CC96AD4A70B6C899BA0A54C9B0"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
         "MsmSig" = "8:_UNDEFINED"
@@ -50,6 +56,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
         "Release"
@@ -74,6 +93,19 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Net.Framework.3.5.SP1"
+                    {
+                    "Name" = "8:.NET Framework 3.5 SP1"
+                    "ProductCode" = "8:Microsoft.Net.Framework.3.5.SP1"
+                    }
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:Microsoft.Windows.Installer.3.1"
+                    {
+                    "Name" = "8:Windows Installer 3.1"
+                    "ProductCode" = "8:Microsoft.Windows.Installer.3.1"
+                    }
+                }
             }
         }
     }
@@ -104,6 +136,26 @@
         }
         "File"
         {
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_880CB7CC96AD4A70B6C899BA0A54C9B0"
+            {
+            "SourcePath" = "8:..\\QuestTracker\\Resources\\QuestTracker.ico"
+            "TargetName" = "8:QuestTracker.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -161,7 +213,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuestTracker"
         "ProductCode" = "8:{B55FB1D5-879A-4739-9506-2E0D0B92A8B0}"
-        "PackageCode" = "8:{0EF7721A-B46A-45B8-94EF-F5BA0EFDF0EC}"
+        "PackageCode" = "8:{2EC5E570-53B9-4490-9F03-9F56CD11113A}"
         "UpgradeCode" = "8:{B35E1B8B-A6B1-40F8-99C7-E30BFDDD728B}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
@@ -177,7 +229,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_880CB7CC96AD4A70B6C899BA0A54C9B0"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"
@@ -383,7 +435,7 @@
             "Target" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
             "Folder" = "8:_57AA8C1C14EE4E8C97DF1D471016828F"
             "WorkingFolder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"
-            "Icon" = "8:"
+            "Icon" = "8:_880CB7CC96AD4A70B6C899BA0A54C9B0"
             "Feature" = "8:"
             }
         }
@@ -787,7 +839,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_598FCD4095E84ECF942D3FD43A8C1575"
             {
-            "SourcePath" = "8:..\\QuestTracker\\obj\\Debug\\QuestTracker.exe"
+            "SourcePath" = "8:..\\QuestTracker\\obj\\Release\\QuestTracker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"

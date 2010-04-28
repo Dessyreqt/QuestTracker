@@ -32,9 +32,9 @@ namespace QuestTracker
         {
             this.components = new System.ComponentModel.Container();
             this.selected = new System.Windows.Forms.CheckBox();
-            this.rename = new System.Windows.Forms.TextBox();
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.questRecurranToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.makeQuestRecurring = new System.Windows.Forms.ToolStripMenuItem();
+            this.rename = new System.Windows.Forms.TextBox();
             this.name = new QuestTracker.FixedLabel();
             this.filler = new QuestTracker.FixedLabel();
             this.contextMenu.SuspendLayout();
@@ -52,6 +52,21 @@ namespace QuestTracker
             this.selected.UseVisualStyleBackColor = false;
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
             // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.makeQuestRecurring});
+            this.contextMenu.Name = "contextMenuStrip1";
+            this.contextMenu.Size = new System.Drawing.Size(201, 48);
+            this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
+            // 
+            // makeQuestRecurring
+            // 
+            this.makeQuestRecurring.Name = "makeQuestRecurring";
+            this.makeQuestRecurring.Size = new System.Drawing.Size(200, 22);
+            this.makeQuestRecurring.Text = "Make Quest Recurring...";
+            this.makeQuestRecurring.Click += new System.EventHandler(this.makeQuestRecurring_Click);
+            // 
             // rename
             // 
             this.rename.Location = new System.Drawing.Point(66, 2);
@@ -63,21 +78,6 @@ namespace QuestTracker
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
             this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
-            // 
-            // contextMenu
-            // 
-            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.questRecurranToolStripMenuItem});
-            this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(201, 48);
-            this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
-            // 
-            // questRecurranToolStripMenuItem
-            // 
-            this.questRecurranToolStripMenuItem.Name = "questRecurranToolStripMenuItem";
-            this.questRecurranToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
-            this.questRecurranToolStripMenuItem.Text = "Make Quest Recurring...";
-            this.questRecurranToolStripMenuItem.Click += new System.EventHandler(this.questRecurranToolStripMenuItem_Click);
             // 
             // name
             // 
@@ -131,7 +131,7 @@ namespace QuestTracker
         private FixedLabel name;
         private TextBox rename;
         private ContextMenuStrip contextMenu;
-        private ToolStripMenuItem questRecurranToolStripMenuItem;
+        private ToolStripMenuItem makeQuestRecurring;
 
     }
 }
