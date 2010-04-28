@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{87CE7A59-E994-4C3D-8EEC-E4EAA2E9B528}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -13,7 +13,8 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ApplicationIcon>QuestTracker.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -197,9 +198,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\QuestTracker.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="QuestTracker.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
