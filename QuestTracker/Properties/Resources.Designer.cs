@@ -73,5 +73,12 @@ namespace QuestTracker.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        internal static System.Drawing.Icon QuestTracker {
+            get {
+                object obj = ResourceManager.GetObject("QuestTracker", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
     }
 }

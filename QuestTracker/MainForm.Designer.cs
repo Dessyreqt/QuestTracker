@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.complete = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
@@ -237,6 +238,7 @@
             this.Controls.Add(this.quests);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(625, 325);
             this.Name = "MainForm";

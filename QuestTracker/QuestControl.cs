@@ -175,11 +175,12 @@ namespace QuestTracker
             QuestControl_Enter(sender, e);
         }
 
-        private void questRecurranToolStripMenuItem_Click(object sender, EventArgs e)
+        private void makeQuestRecurring_Click(object sender, EventArgs e)
         {
             var recurringQuestDialog = new RecurringQuestDialog(quest);
 
             recurringQuestDialog.ShowDialog(ParentForm);
         }
+
     }
 }
