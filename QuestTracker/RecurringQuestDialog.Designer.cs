@@ -106,7 +106,7 @@
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(40, 13);
             this.cancel.TabIndex = 6;
-            this.cancel.TabStop = true;
+            this.cancel.TabStop = false;
             this.cancel.Text = "Cancel";
             this.cancel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.cancel_LinkClicked);
             // 

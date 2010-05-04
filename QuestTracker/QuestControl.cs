@@ -8,6 +8,7 @@ namespace QuestTracker
     {
         private Quest quest;
         private string currentName;
+        private DateTime lastMouseDown = DateTime.MinValue;
 
         public Quest Quest
         {
@@ -24,14 +25,20 @@ namespace QuestTracker
             InitializeComponent();
         }
 
+        private MainForm GetMainForm()
+        {
+            var retVal = (MainForm)ParentForm;
+
+            if (retVal == null) throw new Exception("Could not identify main form.");
+
+            return retVal;
+        }
+
         private void QuestControl_Enter(object sender, EventArgs e)
         {
             SetHighlightedBackcolor();
 
-            var mainForm = (MainForm)ParentForm;
-
-            if (mainForm == null) 
-                throw new Exception("Could not identify main form.");
+            var mainForm = GetMainForm();
 
             mainForm.startDate.Text = "Date Started: " + quest.StartDate;
             mainForm.completeDate.Visible = true;
@@ -52,12 +59,10 @@ namespace QuestTracker
             if (mainForm.lastSelectedQuestControl != null && mainForm.lastSelectedQuestControl != this)
                 mainForm.lastSelectedQuestControl.SetNormalBackcolor();
 
-            mainForm.lastSelectedQuest = quest;
+            mainForm.LastSelectedQuest = quest;
             mainForm.lastSelectedQuestControl = this;
-            mainForm.lastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
+            mainForm.LastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
             mainForm.lastSelectedQuestGroupControl = (QuestGroupControl)Parent;
-
-            mainForm.SetSelectionPlurality();
         }
 
         public void SetHighlightedBackcolor()
@@ -87,11 +92,6 @@ namespace QuestTracker
                 selected.BackColor = SystemColors.Window;
                 filler.BackColor = SystemColors.Window;
             }
-        }
-
-        private void name_Click(object sender, EventArgs e)
-        {
-            name.Focus();
         }
 
         public void name_DoubleClick(object sender, EventArgs e)
@@ -165,9 +165,7 @@ namespace QuestTracker
 
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var mainForm = (MainForm)ParentForm;
-
-            if (mainForm == null) throw new Exception("Could not identify main form.");
+            var mainForm = GetMainForm();
 
             if (mainForm.lastSelectedQuestGroupControl !=  null)
                 mainForm.lastSelectedQuestGroupControl.QuestGroupControl_Leave(sender, e);
@@ -182,5 +180,31 @@ namespace QuestTracker
             recurringQuestDialog.ShowDialog(ParentForm);
         }
 
+        private void QuestControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((Cursor.Position.Y < PointToScreen(new Point(0, 0)).Y || Cursor.Position.Y > PointToScreen(new Point(0, 23)).Y) && MouseButtons == MouseButtons.Left)
+            {
+                Focus();
+                DoDragDrop(this, DragDropEffects.Move);
+            }
+        }
+
+        private void name_MouseClick(object sender, MouseEventArgs e)
+        {
+            name.Focus();
+        }
+
+        private void QuestControl_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Tab)
+            {
+                GetMainForm().questDescription.Focus();
+            }
+        }
+
+        private void name_Click(object sender, EventArgs e)
+        {
+            name.Focus();
+        }
     }
 }

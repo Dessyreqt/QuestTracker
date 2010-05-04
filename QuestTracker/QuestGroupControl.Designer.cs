@@ -31,11 +31,12 @@ namespace QuestTracker
         private void InitializeComponent()
         {
             this.panel = new System.Windows.Forms.Panel();
+            this.line = new System.Windows.Forms.Panel();
             this.rename = new System.Windows.Forms.TextBox();
-            this.selected = new System.Windows.Forms.CheckBox();
-            this.addQuest = new QuestTracker.AddQuest();
             this.name = new QuestTracker.FixedLabel();
+            this.selected = new System.Windows.Forms.CheckBox();
             this.expand = new QuestTracker.FixedLabel();
+            this.addQuest = new QuestTracker.AddQuest();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -55,6 +56,15 @@ namespace QuestTracker
             this.panel.Resize += new System.EventHandler(this.panel_Resize);
             this.panel.Enter += new System.EventHandler(this.QuestGroupControl_Enter);
             // 
+            // line
+            // 
+            this.line.BackColor = System.Drawing.Color.Black;
+            this.line.Location = new System.Drawing.Point(0, 23);
+            this.line.Name = "line";
+            this.line.Size = new System.Drawing.Size(346, 2);
+            this.line.TabIndex = 7;
+            this.line.Visible = false;
+            // 
             // rename
             // 
             this.rename.Location = new System.Drawing.Point(43, 2);
@@ -66,25 +76,6 @@ namespace QuestTracker
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
             this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
-            // 
-            // selected
-            // 
-            this.selected.BackColor = System.Drawing.SystemColors.Control;
-            this.selected.Dock = System.Windows.Forms.DockStyle.Left;
-            this.selected.Location = new System.Drawing.Point(23, 0);
-            this.selected.Name = "selected";
-            this.selected.Size = new System.Drawing.Size(15, 24);
-            this.selected.TabIndex = 4;
-            this.selected.UseVisualStyleBackColor = false;
-            this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
-            // 
-            // addQuest
-            // 
-            this.addQuest.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.addQuest.Location = new System.Drawing.Point(0, 24);
-            this.addQuest.Name = "addQuest";
-            this.addQuest.Size = new System.Drawing.Size(346, 24);
-            this.addQuest.TabIndex = 1;
             // 
             // name
             // 
@@ -100,6 +91,17 @@ namespace QuestTracker
             this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
             this.name.Click += new System.EventHandler(this.name_Click);
             // 
+            // selected
+            // 
+            this.selected.BackColor = System.Drawing.SystemColors.Control;
+            this.selected.Dock = System.Windows.Forms.DockStyle.Left;
+            this.selected.Location = new System.Drawing.Point(23, 0);
+            this.selected.Name = "selected";
+            this.selected.Size = new System.Drawing.Size(15, 24);
+            this.selected.TabIndex = 4;
+            this.selected.UseVisualStyleBackColor = false;
+            this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
+            // 
             // expand
             // 
             this.expand.BackColor = System.Drawing.SystemColors.Control;
@@ -112,15 +114,30 @@ namespace QuestTracker
             this.expand.TabIndex = 3;
             this.expand.Click += new System.EventHandler(this.expand_Click);
             // 
+            // addQuest
+            // 
+            this.addQuest.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.addQuest.Location = new System.Drawing.Point(0, 24);
+            this.addQuest.Name = "addQuest";
+            this.addQuest.Size = new System.Drawing.Size(346, 24);
+            this.addQuest.TabIndex = 1;
+            this.addQuest.TabStop = false;
+            // 
             // QuestGroupControl
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.addQuest);
             this.Controls.Add(this.panel);
+            this.Controls.Add(this.line);
             this.MinimumSize = new System.Drawing.Size(0, 24);
             this.Name = "QuestGroupControl";
             this.Size = new System.Drawing.Size(346, 48);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragOver);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragDrop);
+            this.DragLeave += new System.EventHandler(this.QuestGroupControl_DragLeave);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragEnter);
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
             this.ResumeLayout(false);
@@ -135,5 +152,6 @@ namespace QuestTracker
         public CheckBox selected;
         private Panel panel;
         private AddQuest addQuest;
+        private Panel line;
     }
 }

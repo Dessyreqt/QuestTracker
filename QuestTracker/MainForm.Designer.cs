@@ -69,7 +69,7 @@
             this.complete.Location = new System.Drawing.Point(12, 6);
             this.complete.Name = "complete";
             this.complete.Size = new System.Drawing.Size(130, 28);
-            this.complete.TabIndex = 3;
+            this.complete.TabIndex = 1;
             this.complete.Text = "Complete";
             this.complete.UseVisualStyleBackColor = true;
             this.complete.Click += new System.EventHandler(this.complete_Click);
@@ -81,7 +81,7 @@
             this.delete.Location = new System.Drawing.Point(673, 6);
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(102, 28);
-            this.delete.TabIndex = 1;
+            this.delete.TabIndex = 3;
             this.delete.Text = "Delete";
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
@@ -125,6 +125,7 @@
             this.showCompleted.Name = "showCompleted";
             this.showCompleted.Size = new System.Drawing.Size(142, 17);
             this.showCompleted.TabIndex = 2;
+            this.showCompleted.TabStop = false;
             this.showCompleted.Text = "Show Completed Quests";
             this.showCompleted.UseVisualStyleBackColor = true;
             this.showCompleted.CheckedChanged += new System.EventHandler(this.showCompleted_CheckedChanged);
@@ -158,7 +159,7 @@
             this.questDescription.Name = "questDescription";
             this.questDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.questDescription.Size = new System.Drawing.Size(384, 373);
-            this.questDescription.TabIndex = 5;
+            this.questDescription.TabIndex = 0;
             this.questDescription.TextChanged += new System.EventHandler(this.questDescription_TextChanged);
             this.questDescription.Enter += new System.EventHandler(this.questDescription_Enter);
             // 
