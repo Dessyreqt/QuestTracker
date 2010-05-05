@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Text;
 using System.Windows.Forms;
 
 namespace QuestTracker
@@ -21,15 +22,8 @@ namespace QuestTracker
             set 
             { 
                 questGroup = value;
-                name.Text = questGroup.Name;
+                SetQuestName(true);
                 collapsed = questGroup.collapsed;
-
-                //foreach (Quest quest in questGroup.Quests)
-                //{
-                //    var questControl = new QuestControl {Quest = quest, TabStop = false};
-
-                //    AddQuestControl(questControl);
-                //}
             } 
         }
            
@@ -48,6 +42,25 @@ namespace QuestTracker
             if (retVal == null) throw new Exception("Could not identify main form.");
 
             return retVal;
+        }
+
+        public void SetQuestName(bool showCount)
+        {
+            var completedQuests = from Quest quest in questGroup.Quests
+                                  where quest.Completed
+                                  select quest;
+
+            var questCount = new StringBuilder();
+            if (showCount)
+            {
+                questCount.Append(" (");
+                questCount.Append(completedQuests.Count());
+                questCount.Append(" completed of ");
+                questCount.Append(questGroup.Quests.Count);
+                questCount.Append(")");
+            }
+
+            name.Text = questGroup.Name + questCount;
         }
 
         private void RenderCollapseState()
@@ -186,8 +199,8 @@ namespace QuestTracker
         public void name_DoubleClick(object sender, EventArgs e)
         {
             rename.Width = Width - rename.Left - 2;
-            rename.Text = name.Text;
-            currentName = name.Text;
+            rename.Text = questGroup.Name;
+            currentName = questGroup.Name;
             rename.Visible = true;
             rename.SelectAll();
             rename.Focus();
@@ -220,8 +233,7 @@ namespace QuestTracker
 
         private void rename_TextChanged(object sender, EventArgs e)
         {
-            name.Text = rename.Text.Trim().Replace("\r", "").Replace("\n", "");
-            questGroup.Name = name.Text;
+            questGroup.Name = rename.Text.Trim().Replace("\r", "").Replace("\n", "");
         }
 
         private void rename_KeyPress(object sender, KeyPressEventArgs e)
@@ -230,6 +242,7 @@ namespace QuestTracker
             {
                 rename.SelectionLength = 0;
                 rename.Visible = false;
+                SetQuestName(true);
             }
         }
 
@@ -316,6 +329,8 @@ namespace QuestTracker
 
         public void RenderGroup()
         {
+            SetQuestName(true);
+
             //remove controls that aren't in the group
             var controlsToDelete = from Control questControl in Controls.Cast<Control>()
                                    where questControl.GetType() == typeof(QuestControl) && !questGroup.Quests.Contains(((QuestControl)questControl).Quest)
@@ -343,7 +358,6 @@ namespace QuestTracker
             }
 
             FixZOrder();
-
             RenderCompletionBased();
         }
 
@@ -400,6 +414,11 @@ namespace QuestTracker
 
                 mainForm.DeleteQuests();
             }
+        }
+
+        private void rename_VisibleChanged(object sender, EventArgs e)
+        {
+            SetQuestName(true);
         }
     }
 }

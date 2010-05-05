@@ -88,51 +88,6 @@ namespace QuestTracker
         {
             int questScrollOffset = quests.VerticalScroll.Value;
             
-            //quests.Controls.Clear();
-            //questControls.Clear();
-            //questGroupControls.Clear();
-
-            //foreach(var questGroup in questLog.Groups)
-            //{
-            //    var questGroupControl = new QuestGroupControl {Dock = DockStyle.Top, QuestGroup = questGroup, TabStop = false, ShowCompleted = showCompleted.Checked};
-
-            //    questGroupControl.RenderGroup();
-            //    //foreach (Control control in questGroupControl.Controls)
-            //    //{
-            //    //    if (control.GetType() != typeof(QuestControl)) 
-            //    //        continue;
-
-            //    //    var questControl = (QuestControl)control;  
-
-            //    //    questControls.Add(questControl);
-            //    //    if (questControl.Quest == lastSelectedQuest)
-            //    //        lastSelectedQuestControl = questControl;
-
-            //    //    if (questControl.Quest.Completed && !showCompleted.Checked)
-            //    //    {
-            //    //        questControl.Visible = false;
-            //    //        questGroupControl.Height -= 24;
-            //    //    }
-            //    //}
-
-            //    quests.Controls.Add(questGroupControl);
-            //    questGroupControls.Add(questGroupControl);
-
-            //    if (questGroupControl.QuestGroup == lastSelectedQuestGroup)
-            //        lastSelectedQuestGroupControl = questGroupControl;
-
-            //    if (questLog.Groups.Count == 1)
-            //    {
-            //        lastSelectedQuestGroupControl = questGroupControl;
-            //    }
-
-            //    questGroupControl.BringToFront();
-            //}
-
-            //var addGroup = new AddGroup {Dock = DockStyle.Top, TabStop = false};
-            //quests.Controls.Add(addGroup);
-            //addGroup.BringToFront();
-
             //remove groups that aren't in the log
             var controlsToDelete = (from Control questGroupControl in quests.Controls.Cast<Control>()
                                    where questGroupControl.GetType() == typeof(QuestGroupControl) && !questLog.Groups.Contains(((QuestGroupControl)questGroupControl).QuestGroup)
@@ -482,8 +437,8 @@ namespace QuestTracker
                                      {
                                          Filter = "XML files (*.xml)|*.xml",
                                          FilterIndex = 0,
-                                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\QuestTracker\\",
-                                         RestoreDirectory = true,
+                                         InitialDirectory = Settings.GetPath(),
+                                         RestoreDirectory = false,
                                          Title = "Select File to Import"
                                      };
 
@@ -506,7 +461,7 @@ namespace QuestTracker
                                          FileName = "QuestTracker." + now.Month.ToString("00") + "-" + now.Day.ToString("00") + "-" + now.Year.ToString("0000") + "-" + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00") + ".xml",
                                          Filter = "XML files (*.xml)|*.xml",
                                          FilterIndex = 0,
-                                         InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\QuestTracker\\",
+                                         InitialDirectory = Settings.GetPath(),
                                          RestoreDirectory = true,
                                          Title = "Select file to Export"
                                      };
