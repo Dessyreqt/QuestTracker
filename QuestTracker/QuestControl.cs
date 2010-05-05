@@ -8,7 +8,6 @@ namespace QuestTracker
     {
         private Quest quest;
         private string currentName;
-        private DateTime lastMouseDown = DateTime.MinValue;
 
         public Quest Quest
         {
@@ -189,22 +188,22 @@ namespace QuestTracker
             }
         }
 
-        private void name_MouseClick(object sender, MouseEventArgs e)
-        {
-            name.Focus();
-        }
-
-        private void QuestControl_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Tab)
-            {
-                GetMainForm().questDescription.Focus();
-            }
-        }
-
         private void name_Click(object sender, EventArgs e)
         {
             name.Focus();
+        }
+
+        private void QuestControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                name_DoubleClick(sender, e);
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                var mainForm = GetMainForm();
+                mainForm.DeleteQuests();
+            }
         }
     }
 }

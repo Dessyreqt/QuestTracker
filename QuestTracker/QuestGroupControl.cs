@@ -383,5 +383,23 @@ namespace QuestTracker
             var mainForm = GetMainForm();
             mainForm.questControls.Remove(questControl);
         }
+
+        private void QuestGroupControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.F2)
+            {
+                name_DoubleClick(sender, e);
+            }
+            else if (e.KeyCode == Keys.Delete)
+            {
+                var mainForm = GetMainForm();
+                
+                selected.Checked = true;
+                foreach (QuestControl questControl in questControls)
+                    questControl.selected.Checked = true;
+
+                mainForm.DeleteQuests();
+            }
+        }
     }
 }

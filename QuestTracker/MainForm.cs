@@ -328,6 +328,14 @@ namespace QuestTracker
 
         private void delete_Click(object sender, EventArgs e)
         {
+            DeleteQuests();
+        }
+
+        public void DeleteQuests()
+        {
+            if (MessageBox.Show("Are you sure you wish to delete the selected quests?\n\nA backup of the current file will be made if you choose to delete.", "Confirm Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
+                return;
+
             if (anyChecked)
             {
                 FileWriter.Export(questLog);
