@@ -15,6 +15,12 @@
     {
         "Entry"
         {
+        "MsmKey" = "8:_13E58DE0C1914A30FC3C250853727116"
+        "OwnerKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -29,6 +35,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_13E58DE0C1914A30FC3C250853727116"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -136,6 +148,37 @@
         }
         "File"
         {
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_13E58DE0C1914A30FC3C250853727116"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_13E58DE0C1914A30FC3C250853727116"
+                    {
+                    "Name" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_880CB7CC96AD4A70B6C899BA0A54C9B0"
             {
             "SourcePath" = "8:..\\QuestTracker\\Resources\\QuestTracker.ico"
@@ -839,7 +882,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_598FCD4095E84ECF942D3FD43A8C1575"
             {
-            "SourcePath" = "8:..\\QuestTracker\\obj\\Release\\QuestTracker.exe"
+            "SourcePath" = "8:..\\QuestTracker\\obj\\Debug\\QuestTracker.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"

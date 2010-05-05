@@ -32,11 +32,11 @@ namespace QuestTracker
         {
             this.panel = new System.Windows.Forms.Panel();
             this.rename = new System.Windows.Forms.TextBox();
+            this.name = new QuestTracker.FixedLabel();
             this.selected = new System.Windows.Forms.CheckBox();
+            this.expand = new QuestTracker.FixedLabel();
             this.line = new System.Windows.Forms.Panel();
             this.addQuest = new QuestTracker.AddQuest();
-            this.name = new QuestTracker.FixedLabel();
-            this.expand = new QuestTracker.FixedLabel();
             this.panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,9 +64,25 @@ namespace QuestTracker
             this.rename.Size = new System.Drawing.Size(100, 20);
             this.rename.TabIndex = 6;
             this.rename.Visible = false;
+            this.rename.VisibleChanged += new System.EventHandler(this.rename_VisibleChanged);
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
             this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
+            // 
+            // name
+            // 
+            this.name.AutoEllipsis = true;
+            this.name.BackColor = System.Drawing.SystemColors.Control;
+            this.name.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.name.Location = new System.Drawing.Point(38, 0);
+            this.name.Name = "name";
+            this.name.Padding = new System.Windows.Forms.Padding(5);
+            this.name.Size = new System.Drawing.Size(308, 24);
+            this.name.TabIndex = 5;
+            this.name.Text = "Unnamed Quest Group";
+            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
+            this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
+            this.name.Click += new System.EventHandler(this.name_Click);
             // 
             // selected
             // 
@@ -79,6 +95,19 @@ namespace QuestTracker
             this.selected.UseVisualStyleBackColor = false;
             this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
+            // 
+            // expand
+            // 
+            this.expand.BackColor = System.Drawing.SystemColors.Control;
+            this.expand.Dock = System.Windows.Forms.DockStyle.Left;
+            this.expand.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expand.Image = global::QuestTracker.Properties.Resources.collapse;
+            this.expand.Location = new System.Drawing.Point(0, 0);
+            this.expand.Name = "expand";
+            this.expand.Size = new System.Drawing.Size(23, 24);
+            this.expand.TabIndex = 3;
+            this.expand.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
+            this.expand.Click += new System.EventHandler(this.expand_Click);
             // 
             // line
             // 
@@ -97,34 +126,6 @@ namespace QuestTracker
             this.addQuest.Size = new System.Drawing.Size(346, 24);
             this.addQuest.TabIndex = 1;
             this.addQuest.TabStop = false;
-            // 
-            // name
-            // 
-            this.name.AutoEllipsis = true;
-            this.name.BackColor = System.Drawing.SystemColors.Control;
-            this.name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.name.Location = new System.Drawing.Point(38, 0);
-            this.name.Name = "name";
-            this.name.Padding = new System.Windows.Forms.Padding(5);
-            this.name.Size = new System.Drawing.Size(308, 24);
-            this.name.TabIndex = 5;
-            this.name.Text = "Unnamed Quest Group";
-            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
-            this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
-            this.name.Click += new System.EventHandler(this.name_Click);
-            // 
-            // expand
-            // 
-            this.expand.BackColor = System.Drawing.SystemColors.Control;
-            this.expand.Dock = System.Windows.Forms.DockStyle.Left;
-            this.expand.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expand.Image = global::QuestTracker.Properties.Resources.collapse;
-            this.expand.Location = new System.Drawing.Point(0, 0);
-            this.expand.Name = "expand";
-            this.expand.Size = new System.Drawing.Size(23, 24);
-            this.expand.TabIndex = 3;
-            this.expand.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
-            this.expand.Click += new System.EventHandler(this.expand_Click);
             // 
             // QuestGroupControl
             // 
