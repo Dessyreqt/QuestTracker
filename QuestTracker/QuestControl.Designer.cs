@@ -51,6 +51,7 @@ namespace QuestTracker
             this.selected.TabIndex = 1;
             this.selected.TabStop = false;
             this.selected.UseVisualStyleBackColor = false;
+            this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
             this.selected.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             // 
@@ -95,6 +96,7 @@ namespace QuestTracker
             this.name.Size = new System.Drawing.Size(253, 24);
             this.name.TabIndex = 2;
             this.name.Text = "Unnamed Quest";
+            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
             this.name.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             this.name.Click += new System.EventHandler(this.name_Click);
@@ -108,6 +110,7 @@ namespace QuestTracker
             this.filler.Name = "filler";
             this.filler.Size = new System.Drawing.Size(46, 24);
             this.filler.TabIndex = 0;
+            this.filler.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             this.filler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             this.filler.Click += new System.EventHandler(this.filler_Click);
             // 
@@ -121,11 +124,11 @@ namespace QuestTracker
             this.Controls.Add(this.filler);
             this.Name = "QuestControl";
             this.Size = new System.Drawing.Size(314, 24);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             this.Leave += new System.EventHandler(this.QuestControl_Leave);
             this.Resize += new System.EventHandler(this.QuestControl_Resize);
             this.Enter += new System.EventHandler(this.QuestControl_Enter);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QuestControl_KeyDown);
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

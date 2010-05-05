@@ -24,10 +24,7 @@ namespace QuestTracker
 
         private static QuestLog ConvertQuestLog0_2to0_3(QuestLog_0_2 oldQuestLog)
         {
-            var retVal = new QuestLog();
-
-            retVal.Version = "0.3";
-            retVal.ShowCompletedQuests = oldQuestLog.ShowCompletedQuests;
+            var retVal = new QuestLog {Version = "0.3", ShowCompletedQuests = oldQuestLog.ShowCompletedQuests};
 
             foreach (var oldGroup in oldQuestLog.Groups)
             {
@@ -39,10 +36,8 @@ namespace QuestTracker
 
         private static QuestGroup ConverQuestGroup0_2to0_3(QuestGroup_0_2 oldGroup)
         {
-            var retVal = new QuestGroup();
+            var retVal = new QuestGroup {collapsed = oldGroup.collapsed, Name = oldGroup.Name};
 
-            retVal.collapsed = oldGroup.collapsed;
-            retVal.Name = oldGroup.Name;
             foreach(var oldQuest in oldGroup.Quests)
             {
                 retVal.Quests.Add(ConvertQuest0_2to0_3(oldQuest));
@@ -53,12 +48,8 @@ namespace QuestTracker
 
         private static Quest ConvertQuest0_2to0_3(Quest_0_2 oldQuest)
         {
-            var retVal = new Quest();
+            var retVal = new Quest {Completed = oldQuest.Completed, Description = oldQuest.Description, Name = oldQuest.Name, StartDate = oldQuest.StartDate};
 
-            retVal.Completed = oldQuest.Completed;
-            retVal.Description = oldQuest.Description;
-            retVal.Name = oldQuest.Name;
-            retVal.StartDate = oldQuest.StartDate;
             if (oldQuest.Completed)
                 retVal.CompleteDates.Add(oldQuest.CompleteDate);
 
