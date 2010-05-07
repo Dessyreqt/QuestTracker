@@ -161,6 +161,7 @@
             this.questDescription.Size = new System.Drawing.Size(384, 373);
             this.questDescription.TabIndex = 0;
             this.questDescription.TextChanged += new System.EventHandler(this.questDescription_TextChanged);
+            this.questDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questDescription_KeyDown);
             this.questDescription.Enter += new System.EventHandler(this.questDescription_Enter);
             // 
             // menuStrip1
