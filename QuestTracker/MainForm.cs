@@ -491,5 +491,13 @@ namespace QuestTracker
         {
             RenderLog();
         }
+
+        private void questDescription_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Control && e.KeyCode == Keys.A)
+            {
+                questDescription.SelectAll();
+            }
+        }
     }
 }

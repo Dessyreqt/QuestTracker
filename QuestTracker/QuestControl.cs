@@ -62,6 +62,8 @@ namespace QuestTracker
             mainForm.lastSelectedQuestControl = this;
             mainForm.LastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
             mainForm.lastSelectedQuestGroupControl = (QuestGroupControl)Parent;
+
+            mainForm.SetSelectionPlurality();
         }
 
         public void SetHighlightedBackcolor()
@@ -125,6 +127,7 @@ namespace QuestTracker
             {
                 rename.SelectionLength = 0;
                 rename.Visible = false;
+                name.Focus();
             }
         }
 
@@ -159,6 +162,7 @@ namespace QuestTracker
             {
                 rename.Text = currentName;
                 rename.Visible = false;
+                name.Focus();
             }
         }
 
@@ -203,6 +207,15 @@ namespace QuestTracker
             {
                 var mainForm = GetMainForm();
                 mainForm.DeleteQuests();
+            }
+            else if (e.Control && e.KeyCode == Keys.N)
+            {
+                var parentQuestGroupControl = (QuestGroupControl)Parent;
+
+                if (parentQuestGroupControl == null)
+                    throw new Exception("Could not identify parent quest group control.");
+
+                parentQuestGroupControl.AddNewQuest(sender, e);
             }
         }
     }

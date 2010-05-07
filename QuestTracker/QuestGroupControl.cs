@@ -243,6 +243,7 @@ namespace QuestTracker
                 rename.SelectionLength = 0;
                 rename.Visible = false;
                 SetQuestName(true);
+                name.Focus();
             }
         }
 
@@ -252,6 +253,7 @@ namespace QuestTracker
             {
                 rename.Text = currentName;
                 rename.Visible = false;
+                name.Focus();
             }
         }
 
@@ -332,9 +334,9 @@ namespace QuestTracker
             SetQuestName(true);
 
             //remove controls that aren't in the group
-            var controlsToDelete = from Control questControl in Controls.Cast<Control>()
+            var controlsToDelete = (from Control questControl in Controls.Cast<Control>()
                                    where questControl.GetType() == typeof(QuestControl) && !questGroup.Quests.Contains(((QuestControl)questControl).Quest)
-                                   select questControl;
+                                   select questControl).ToList();
 
             foreach (QuestControl questControl in controlsToDelete)
             {
@@ -414,6 +416,27 @@ namespace QuestTracker
 
                 mainForm.DeleteQuests();
             }
+            else if (e.Control && e.KeyCode == Keys.N)
+            {
+                AddNewQuest(sender, e);
+            }
+        }
+
+        public void AddNewQuest(object sender, EventArgs e)
+        {
+            var newQuest = new Quest();
+            questGroup.Quests.Add(newQuest);
+            RenderGroup();
+
+            var mainForm = GetMainForm();
+
+            if (mainForm.lastSelectedQuestControl != null)
+                mainForm.lastSelectedQuestControl.QuestControl_Leave(sender, e);
+
+            mainForm.LastSelectedQuest = newQuest;
+
+            if (mainForm.lastSelectedQuestControl != null)
+                mainForm.lastSelectedQuestControl.name_DoubleClick(sender, e);
         }
 
         private void rename_VisibleChanged(object sender, EventArgs e)

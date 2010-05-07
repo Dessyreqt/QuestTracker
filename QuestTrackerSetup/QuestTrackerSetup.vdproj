@@ -15,8 +15,8 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_13E58DE0C1914A30FC3C250853727116"
-        "OwnerKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
+        "MsmKey" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -33,14 +33,14 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
+        "MsmKey" = "8:_D787B4D9481B4C38BBFE6E625DB72343"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_13E58DE0C1914A30FC3C250853727116"
+        "OwnerKey" = "8:_598FCD4095E84ECF942D3FD43A8C1575"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -148,21 +148,10 @@
         }
         "File"
         {
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_13E58DE0C1914A30FC3C250853727116"
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_1B97C5634E5D49D79DA5D94622C285C0"
             {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Microsoft.VisualBasic.PowerPacks.Vs, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_13E58DE0C1914A30FC3C250853727116"
-                    {
-                    "Name" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Microsoft.VisualBasic.PowerPacks.Vs.dll"
-            "TargetName" = "8:"
+            "SourcePath" = "8:..\\QuestTracker\\banner.bmp"
+            "TargetName" = "8:banner.bmp"
             "Tag" = "8:"
             "Folder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"
             "Condition" = "8:"
@@ -175,8 +164,8 @@
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
+            "Exclude" = "11:TRUE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_880CB7CC96AD4A70B6C899BA0A54C9B0"
@@ -196,6 +185,26 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D787B4D9481B4C38BBFE6E625DB72343"
+            {
+            "SourcePath" = "8:..\\QuestTracker\\License.rtf"
+            "TargetName" = "8:License.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_AD6C270A8CDD4AC8ADDDC67D44F34C8E"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:TRUE"
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
@@ -256,10 +265,10 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:QuestTracker"
         "ProductCode" = "8:{B55FB1D5-879A-4739-9506-2E0D0B92A8B0}"
-        "PackageCode" = "8:{2EC5E570-53B9-4490-9F03-9F56CD11113A}"
+        "PackageCode" = "8:{5366E370-B4FB-4414-BC04-C5E80635982B}"
         "UpgradeCode" = "8:{B35E1B8B-A6B1-40F8-99C7-E30BFDDD728B}"
         "RestartWWWService" = "11:FALSE"
-        "RemovePreviousVersions" = "11:FALSE"
+        "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
         "ProductVersion" = "8:1.0.0"
@@ -508,7 +517,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -539,7 +549,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -589,7 +600,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "ShowProgress"
@@ -633,7 +645,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "UpdateText"
@@ -677,7 +690,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -688,8 +702,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This program is open source. You can find it online for free at http://questtracker.codeplex.com/"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -725,7 +739,56 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                        }
+                    }
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_4F5A12E63B974E43919D9C02A321A25D"
+                    {
+                    "Sequence" = "3:110"
+                    "DisplayName" = "8:License Agreement"
+                    "UseDynamicProperties" = "11:TRUE"
+                    "IsDependency" = "11:FALSE"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdAdminLicenseDlg.wid"
+                        "Properties"
+                        {
+                            "BannerBitmap"
+                            {
+                            "Name" = "8:BannerBitmap"
+                            "DisplayName" = "8:#1001"
+                            "Description" = "8:#1101"
+                            "Type" = "3:8"
+                            "ContextData" = "8:Bitmap"
+                            "Attributes" = "3:4"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "EulaText"
+                            {
+                            "Name" = "8:EulaText"
+                            "DisplayName" = "8:#1008"
+                            "Description" = "8:#1108"
+                            "Type" = "3:6"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:_D787B4D9481B4C38BBFE6E625DB72343"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Sunken"
+                            {
+                            "Name" = "8:Sunken"
+                            "DisplayName" = "8:#1007"
+                            "Description" = "8:#1107"
+                            "Type" = "3:5"
+                            "ContextData" = "8:4;True=4;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:4"
+                            "DefaultValue" = "3:4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -747,7 +810,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -761,7 +825,7 @@
             "Attributes" = "3:1"
                 "Dialogs"
                 {
-                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_73A5B425ED684150A0900B8BA6C45A36"
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_550FCB45581B48158DF7D1C758A9BC42"
                     {
                     "Sequence" = "3:100"
                     "DisplayName" = "8:Welcome"
@@ -778,7 +842,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "CopyrightWarning"
@@ -789,8 +854,8 @@
                             "Type" = "3:3"
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
-                            "Setting" = "3:1"
-                            "Value" = "8:#1202"
+                            "Setting" = "3:2"
+                            "Value" = "8:This program is open source. You can find it online for free at http://questtracker.codeplex.com/"
                             "DefaultValue" = "8:#1202"
                             "UsePlugInResources" = "11:TRUE"
                             }
@@ -826,7 +891,56 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                        }
+                    }
+                    "{688940B3-5CA9-4162-8DEE-2993FA9D8CBC}:_C1292AE65FD84B519B551B9C0DC8AE7A"
+                    {
+                    "Sequence" = "3:110"
+                    "DisplayName" = "8:License Agreement"
+                    "UseDynamicProperties" = "11:TRUE"
+                    "IsDependency" = "11:FALSE"
+                    "SourcePath" = "8:<VsdDialogDir>\\VsdLicenseDlg.wid"
+                        "Properties"
+                        {
+                            "BannerBitmap"
+                            {
+                            "Name" = "8:BannerBitmap"
+                            "DisplayName" = "8:#1001"
+                            "Description" = "8:#1101"
+                            "Type" = "3:8"
+                            "ContextData" = "8:Bitmap"
+                            "Attributes" = "3:4"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "EulaText"
+                            {
+                            "Name" = "8:EulaText"
+                            "DisplayName" = "8:#1008"
+                            "Description" = "8:#1108"
+                            "Type" = "3:6"
+                            "ContextData" = "8:"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:2"
+                            "Value" = "8:_D787B4D9481B4C38BBFE6E625DB72343"
+                            "UsePlugInResources" = "11:TRUE"
+                            }
+                            "Sunken"
+                            {
+                            "Name" = "8:Sunken"
+                            "DisplayName" = "8:#1007"
+                            "Description" = "8:#1107"
+                            "Type" = "3:5"
+                            "ContextData" = "8:4;True=4;False=0"
+                            "Attributes" = "3:0"
+                            "Setting" = "3:0"
+                            "Value" = "3:4"
+                            "DefaultValue" = "3:4"
                             "UsePlugInResources" = "11:TRUE"
                             }
                         }
@@ -848,7 +962,8 @@
                             "Type" = "3:8"
                             "ContextData" = "8:Bitmap"
                             "Attributes" = "3:4"
-                            "Setting" = "3:1"
+                            "Setting" = "3:2"
+                            "Value" = "8:_1B97C5634E5D49D79DA5D94622C285C0"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "InstallAllUsersVisible"
