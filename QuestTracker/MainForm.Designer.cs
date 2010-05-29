@@ -33,6 +33,7 @@
             this.complete = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
             this.quests = new System.Windows.Forms.Panel();
+            this.line = new System.Windows.Forms.Panel();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
             this.showCompleted = new System.Windows.Forms.CheckBox();
@@ -48,6 +49,7 @@
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.recurringQuestWorker = new System.ComponentModel.BackgroundWorker();
             this.bottomPanel.SuspendLayout();
+            this.quests.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -88,13 +90,28 @@
             // 
             // quests
             // 
+            this.quests.AllowDrop = true;
             this.quests.AutoScroll = true;
             this.quests.BackColor = System.Drawing.SystemColors.Window;
+            this.quests.Controls.Add(this.line);
             this.quests.Dock = System.Windows.Forms.DockStyle.Left;
             this.quests.Location = new System.Drawing.Point(0, 24);
             this.quests.Name = "quests";
             this.quests.Size = new System.Drawing.Size(393, 446);
             this.quests.TabIndex = 1;
+            this.quests.DragOver += new System.Windows.Forms.DragEventHandler(this.quests_DragOver);
+            this.quests.DragDrop += new System.Windows.Forms.DragEventHandler(this.quests_DragDrop);
+            this.quests.DragLeave += new System.EventHandler(this.quests_DragLeave);
+            this.quests.DragEnter += new System.Windows.Forms.DragEventHandler(this.quests_DragEnter);
+            // 
+            // line
+            // 
+            this.line.BackColor = System.Drawing.Color.Black;
+            this.line.Location = new System.Drawing.Point(0, 23);
+            this.line.Name = "line";
+            this.line.Size = new System.Drawing.Size(393, 2);
+            this.line.TabIndex = 7;
+            this.line.Visible = false;
             // 
             // splitter
             // 
@@ -250,6 +267,7 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.bottomPanel.ResumeLayout(false);
+            this.quests.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -279,6 +297,7 @@
         private System.Windows.Forms.ToolStripMenuItem questTrackerWebsiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
         private System.ComponentModel.BackgroundWorker recurringQuestWorker;
+        private System.Windows.Forms.Panel line;
 
 
 

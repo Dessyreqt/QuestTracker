@@ -63,20 +63,30 @@ namespace QuestTracker
             name.Text = questGroup.Name + questCount;
         }
 
-        private void RenderCollapseState()
+        public void RenderCollapseState()
         {
             if (collapsed)
             {
-                Height = 24;
-                addQuest.Visible = false;   //otherwise addQuest will be the only visible control in the group.
-                expand.Image = Properties.Resources.expand;
+                RenderCollapsed();
             }
             else
             {
-                addQuest.Visible = true;
-                expand.Image = Properties.Resources.collapse;
-                SetHeight();
+                RenderExpanded();
             }
+        }
+
+        public void RenderCollapsed()
+        {
+            Height = 24;
+            addQuest.Visible = false;   //otherwise addQuest will be the only visible control in the group.
+            expand.Image = Properties.Resources.expand;
+        }
+
+        public void RenderExpanded()
+        {
+            addQuest.Visible = true;
+            expand.Image = Properties.Resources.collapse;
+            SetHeight();
         }
 
         private void SetHeight()
@@ -150,6 +160,7 @@ namespace QuestTracker
                 
             var mainForm = GetMainForm();
 
+            mainForm.RestoreAllGroups();
             mainForm.startDate.Text = "Date Started: ";
             mainForm.completeDate.Visible = false;
 
@@ -259,69 +270,84 @@ namespace QuestTracker
 
         private void QuestGroupControl_DragEnter(object sender, DragEventArgs e)
         {
-            e.Effect = DragDropEffects.Move;
+            if (e.Data.GetDataPresent(typeof(QuestControl)))
+                e.Effect = DragDropEffects.Move;
+            else if (e.Data.GetDataPresent(typeof(QuestGroupControl)))
+                e.Effect = DragDropEffects.Move;
         }
 
         private void QuestGroupControl_DragDrop(object sender, DragEventArgs e)
         {
-            var data = (QuestControl)e.Data.GetData(typeof(QuestControl));
-            var mainForm = GetMainForm();
-
-            int questScrollOffset = mainForm.quests.VerticalScroll.Value;
-            
-            if (data == null) 
-                return;
-
-            var tempQuestControls = new List<QuestControl>();
-            for (int i = Controls.Count - 1; i >= 0; i--)
+            if (e.Data.GetDataPresent(typeof(QuestControl)))
             {
-                if (Controls[i].GetType() != typeof(QuestControl))
-                    continue;
-                
-                var control = (QuestControl)Controls[i];
-                if (control.PointToScreen(new Point(0, 0)).Y > Cursor.Position.Y - 12)
+                var data = (QuestControl)e.Data.GetData(typeof(QuestControl));
+                var mainForm = GetMainForm();
+
+                int questScrollOffset = mainForm.quests.VerticalScroll.Value;
+
+                if (data == null)
+                    return;
+
+                var tempQuestControls = new List<QuestControl>();
+                for (int i = Controls.Count - 1; i >= 0; i--)
                 {
-                    if (control != data)
-                        tempQuestControls.Add(control);
+                    if (Controls[i].GetType() != typeof(QuestControl))
+                        continue;
+
+                    var control = (QuestControl)Controls[i];
+                    if (control.PointToScreen(new Point(0, 0)).Y > Cursor.Position.Y - 12)
+                    {
+                        if (control != data)
+                            tempQuestControls.Add(control);
+                    }
                 }
+
+                mainForm.LastSelectedQuestGroup.Quests.Remove(data.Quest);
+                mainForm.lastSelectedQuestGroupControl.RenderGroup();
+
+                foreach (QuestControl control in tempQuestControls)
+                {
+                    questGroup.Quests.Remove(control.Quest);
+                }
+
+                questGroup.Quests.Add(data.Quest);
+
+                foreach (QuestControl control in tempQuestControls)
+                {
+                    questGroup.Quests.Add(control.Quest);
+                }
+
+                line.Visible = false;
+
+                RenderGroup();
+                mainForm.LastSelectedQuest = data.Quest;
+
+                var questControl = from Control control in Controls.Cast<Control>()
+                                   where control.GetType() == typeof(QuestControl) && ((QuestControl)control).Quest == data.Quest
+                                   select (QuestControl)control;
+
+                questControl.First().Focus();
+                questControl.First().selected.Checked = data.selected.Checked;
+
+                mainForm.quests.VerticalScroll.Value = Math.Min(questScrollOffset, mainForm.quests.VerticalScroll.Maximum);
             }
-
-            mainForm.LastSelectedQuestGroup.Quests.Remove(data.Quest);
-            mainForm.lastSelectedQuestGroupControl.RenderGroup();
-
-            foreach (QuestControl control in tempQuestControls)
+            else if (e.Data.GetDataPresent(typeof(QuestGroupControl)))
             {
-                questGroup.Quests.Remove(control.Quest);
+                GetMainForm().RestoreAllGroups();
             }
-            
-            questGroup.Quests.Add(data.Quest);
-
-            foreach (QuestControl control in tempQuestControls)
-            {
-                questGroup.Quests.Add(control.Quest);
-            }
-
-            line.Visible = false;
-
-            RenderGroup();
-            mainForm.LastSelectedQuest = data.Quest;
-
-            var questControl = from Control control in Controls.Cast<Control>()
-                               where control.GetType() == typeof(QuestControl) && ((QuestControl)control).Quest == data.Quest
-                               select (QuestControl)control;
-
-            questControl.First().Focus();
-            questControl.First().selected.Checked = data.selected.Checked; 
-
-            mainForm.quests.VerticalScroll.Value = Math.Min(questScrollOffset, mainForm.quests.VerticalScroll.Maximum);
+            GetMainForm().quests_DragDrop(sender, e);
         }
 
         private void QuestGroupControl_DragOver(object sender, DragEventArgs e)
         {
-            int indicatorY =  Cursor.Position.Y - PointToScreen(new Point(0, 0)).Y;
-            line.Top = Math.Min(Math.Max((indicatorY + 12) / 24 * 24, 24), Height - 24) - 1;
-            line.Visible = true;
-            line.BringToFront();
+            if (e.Data.GetDataPresent(typeof(QuestControl)))
+            {
+                int indicatorY = Cursor.Position.Y - PointToScreen(new Point(0, 0)).Y;
+                line.Top = Math.Min(Math.Max((indicatorY + 12) / 24 * 24, 24), Height - 24) - 1;
+                line.Visible = true;
+                line.BringToFront();
+            }
+            GetMainForm().quests_DragOver(sender, e);
         }
 
         private void QuestGroupControl_DragLeave(object sender, EventArgs e)
@@ -442,6 +468,18 @@ namespace QuestTracker
         private void rename_VisibleChanged(object sender, EventArgs e)
         {
             SetQuestName(true);
+        }
+
+        private void QuestGroupControl_MouseMove(object sender, MouseEventArgs e)
+        {
+            if ((Cursor.Position.Y < PointToScreen(new Point(0, 0)).Y || Cursor.Position.Y > PointToScreen(new Point(0, 23)).Y) && MouseButtons == MouseButtons.Left)
+            {
+                Focus();
+
+                GetMainForm().CollapseAllGroups();
+
+                DoDragDrop(this, DragDropEffects.Move);
+            }
         }
     }
 }
