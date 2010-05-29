@@ -46,11 +46,15 @@
             // 
             // AddGroup
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.add);
             this.Name = "AddGroup";
             this.Size = new System.Drawing.Size(346, 24);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.AddGroup_DragOver);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.AddGroup_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.AddGroup_DragEnter);
             this.ResumeLayout(false);
 
         }

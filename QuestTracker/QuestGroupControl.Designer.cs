@@ -82,6 +82,7 @@ namespace QuestTracker
             this.name.Text = "Unnamed Quest Group";
             this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
+            this.name.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
             this.name.Click += new System.EventHandler(this.name_Click);
             // 
             // selected
@@ -95,6 +96,7 @@ namespace QuestTracker
             this.selected.UseVisualStyleBackColor = false;
             this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
+            this.selected.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
             // 
             // expand
             // 
@@ -107,6 +109,7 @@ namespace QuestTracker
             this.expand.Size = new System.Drawing.Size(23, 24);
             this.expand.TabIndex = 3;
             this.expand.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
+            this.expand.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
             this.expand.Click += new System.EventHandler(this.expand_Click);
             // 
             // line
