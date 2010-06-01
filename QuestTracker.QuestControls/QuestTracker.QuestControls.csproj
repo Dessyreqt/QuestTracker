@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="3.5" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6E42ED83-E92F-4984-A828-DBCFDB01C88F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>QuestTracker.QuestControls</RootNamespace>
+    <AssemblyName>QuestTracker.QuestControls</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AddGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddGroupControl.Designer.cs">
+      <DependentUpon>AddGroupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddQuestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="AddQuestControl.Designer.cs">
+      <DependentUpon>AddQuestControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FixedLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="QuestControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuestControl.Designer.cs">
+      <DependentUpon>QuestControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuestGroupControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuestGroupControl.Designer.cs">
+      <DependentUpon>QuestGroupControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QuestLogControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QuestLogControl.Designer.cs">
+      <DependentUpon>QuestLogControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RecurringQuestDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RecurringQuestDialog.Designer.cs">
+      <DependentUpon>RecurringQuestDialog.cs</DependentUpon>
+    </Compile>
+    <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="AddGroupControl.resx">
+      <DependentUpon>AddGroupControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AddQuestControl.resx">
+      <DependentUpon>AddQuestControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestControl.resx">
+      <DependentUpon>QuestControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestGroupControl.resx">
+      <DependentUpon>QuestGroupControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QuestLogControl.resx">
+      <DependentUpon>QuestLogControl.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuestTracker.Data\QuestTracker.Data.csproj">
+      <Project>{1F0F5DE9-AFE9-4E48-9A78-760451C71635}</Project>
+      <Name>QuestTracker.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuestTracker.IO\QuestTracker.IO.csproj">
+      <Project>{5408CE40-88C8-44D9-8426-0146D908B946}</Project>
+      <Name>QuestTracker.IO</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="collapse.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="expand.bmp" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="RecurringQuestDialog.resx">
+      <DependentUpon>RecurringQuestDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

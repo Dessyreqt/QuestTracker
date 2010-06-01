@@ -68,45 +68,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AddGroup.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="AddGroup.Designer.cs">
-      <DependentUpon>AddGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AddQuest.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="AddQuest.Designer.cs">
-      <DependentUpon>AddQuest.cs</DependentUpon>
-    </Compile>
-    <Compile Include="ErrorLog.cs" />
-    <Compile Include="FileConverter.cs" />
-    <Compile Include="FixedLabel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Quest.cs" />
-    <Compile Include="QuestControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="QuestControl.Designer.cs">
-      <DependentUpon>QuestControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="QuestGroup.cs" />
-    <Compile Include="QuestGroupControl.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="QuestGroupControl.Designer.cs">
-      <DependentUpon>QuestGroupControl.cs</DependentUpon>
-    </Compile>
-    <Compile Include="FileWriter.cs" />
-    <Compile Include="QuestLog.cs" />
     <Compile Include="QuestTrackerApp.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="MainForm.resx">
@@ -116,14 +83,6 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QuestControl.resx">
-      <DependentUpon>QuestControl.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="QuestGroupControl.resx">
-      <DependentUpon>QuestGroupControl.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Compile Include="Properties\Resources.Designer.cs">
@@ -140,32 +99,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RecurrenceSchedule.cs" />
-    <Compile Include="RecurringQuestDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="RecurringQuestDialog.Designer.cs">
-      <DependentUpon>RecurringQuestDialog.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Settings.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="collapse.bmp" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="AddGroup.resx">
-      <DependentUpon>AddGroup.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="AddQuest.resx">
-      <DependentUpon>AddQuest.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="expand.bmp" />
-    <EmbeddedResource Include="RecurringQuestDialog.resx">
-      <DependentUpon>RecurringQuestDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -206,6 +139,20 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="QuestTracker.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\QuestTracker.Data\QuestTracker.Data.csproj">
+      <Project>{1F0F5DE9-AFE9-4E48-9A78-760451C71635}</Project>
+      <Name>QuestTracker.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuestTracker.IO\QuestTracker.IO.csproj">
+      <Project>{5408CE40-88C8-44D9-8426-0146D908B946}</Project>
+      <Name>QuestTracker.IO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\QuestTracker.QuestControls\QuestTracker.QuestControls.csproj">
+      <Project>{6E42ED83-E92F-4984-A828-DBCFDB01C88F}</Project>
+      <Name>QuestTracker.QuestControls</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

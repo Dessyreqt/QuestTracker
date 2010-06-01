@@ -32,26 +32,28 @@
             this.bottomPanel = new System.Windows.Forms.Panel();
             this.complete = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
-            this.quests = new System.Windows.Forms.Panel();
-            this.line = new System.Windows.Forms.Panel();
             this.splitter = new System.Windows.Forms.Splitter();
             this.panel1 = new System.Windows.Forms.Panel();
             this.showCompleted = new System.Windows.Forms.CheckBox();
             this.completeDate = new System.Windows.Forms.Label();
             this.startDate = new System.Windows.Forms.Label();
             this.questDescription = new System.Windows.Forms.TextBox();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questTrackerWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.recurringQuestWorker = new System.ComponentModel.BackgroundWorker();
+            this.line = new System.Windows.Forms.Panel();
+            this.questTabs = new System.Windows.Forms.TabControl();
+            this.tabPage = new System.Windows.Forms.TabPage();
+            this.questLogControl = new QuestTracker.QuestControls.QuestLogControl();
             this.bottomPanel.SuspendLayout();
-            this.quests.SuspendLayout();
             this.panel1.SuspendLayout();
-            this.menuStrip1.SuspendLayout();
+            this.menuStrip.SuspendLayout();
+            this.questTabs.SuspendLayout();
+            this.tabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // bottomPanel
@@ -87,31 +89,6 @@
             this.delete.Text = "Delete";
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
-            // 
-            // quests
-            // 
-            this.quests.AllowDrop = true;
-            this.quests.AutoScroll = true;
-            this.quests.BackColor = System.Drawing.SystemColors.Window;
-            this.quests.Controls.Add(this.line);
-            this.quests.Dock = System.Windows.Forms.DockStyle.Left;
-            this.quests.Location = new System.Drawing.Point(0, 24);
-            this.quests.Name = "quests";
-            this.quests.Size = new System.Drawing.Size(393, 446);
-            this.quests.TabIndex = 1;
-            this.quests.DragOver += new System.Windows.Forms.DragEventHandler(this.quests_DragOver);
-            this.quests.DragDrop += new System.Windows.Forms.DragEventHandler(this.quests_DragDrop);
-            this.quests.DragLeave += new System.EventHandler(this.quests_DragLeave);
-            this.quests.DragEnter += new System.Windows.Forms.DragEventHandler(this.quests_DragEnter);
-            // 
-            // line
-            // 
-            this.line.BackColor = System.Drawing.Color.Black;
-            this.line.Location = new System.Drawing.Point(0, 23);
-            this.line.Name = "line";
-            this.line.Size = new System.Drawing.Size(393, 2);
-            this.line.TabIndex = 7;
-            this.line.Visible = false;
             // 
             // splitter
             // 
@@ -181,16 +158,16 @@
             this.questDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questDescription_KeyDown);
             this.questDescription.Enter += new System.EventHandler(this.questDescription_Enter);
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(787, 24);
-            this.menuStrip1.TabIndex = 6;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(787, 24);
+            this.menuStrip.TabIndex = 6;
+            this.menuStrip.Text = "menuStrip";
             // 
             // fileToolStripMenuItem
             // 
@@ -240,11 +217,48 @@
             this.donateToolStripMenuItem.Text = "Donate...";
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
-            // recurringQuestWorker
+            // line
             // 
-            this.recurringQuestWorker.WorkerReportsProgress = true;
-            this.recurringQuestWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.recurringQuestWorker_DoWork);
-            this.recurringQuestWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.recurringQuestWorker_ProgressChanged);
+            this.line.Location = new System.Drawing.Point(0, 0);
+            this.line.Name = "line";
+            this.line.Size = new System.Drawing.Size(200, 100);
+            this.line.TabIndex = 0;
+            // 
+            // questTabs
+            // 
+            this.questTabs.AllowDrop = true;
+            this.questTabs.Controls.Add(this.tabPage);
+            this.questTabs.Dock = System.Windows.Forms.DockStyle.Left;
+            this.questTabs.Location = new System.Drawing.Point(0, 24);
+            this.questTabs.Name = "questTabs";
+            this.questTabs.SelectedIndex = 0;
+            this.questTabs.Size = new System.Drawing.Size(393, 446);
+            this.questTabs.TabIndex = 1;
+            // 
+            // tabPage
+            // 
+            this.tabPage.Controls.Add(this.questLogControl);
+            this.tabPage.Location = new System.Drawing.Point(4, 22);
+            this.tabPage.Name = "tabPage";
+            this.tabPage.Size = new System.Drawing.Size(385, 420);
+            this.tabPage.TabIndex = 0;
+            this.tabPage.Text = "Default Quests";
+            this.tabPage.UseVisualStyleBackColor = true;
+            this.tabPage.Resize += new System.EventHandler(this.tabPage_Resize);
+            // 
+            // questLogControl
+            // 
+            this.questLogControl.AllCheckedComplete = false;
+            this.questLogControl.AnyChecked = false;
+            this.questLogControl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.questLogControl.LastSelectedQuest = null;
+            this.questLogControl.LastSelectedQuestGroup = null;
+            this.questLogControl.Location = new System.Drawing.Point(0, 0);
+            this.questLogControl.Name = "questLogControl";
+            this.questLogControl.Size = new System.Drawing.Size(385, 420);
+            this.questLogControl.TabIndex = 0;
+            this.questLogControl.SelectionPluralityChanged += new System.EventHandler(this.questLogControl_SelectionPluralityChanged);
+            this.questLogControl.QuestSelectionChanged += new System.EventHandler(this.questLogControl_QuestSelectionChanged);
             // 
             // MainForm
             // 
@@ -254,11 +268,11 @@
             this.Controls.Add(this.questDescription);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitter);
-            this.Controls.Add(this.quests);
+            this.Controls.Add(this.questTabs);
             this.Controls.Add(this.bottomPanel);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(625, 325);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
@@ -267,11 +281,12 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.bottomPanel.ResumeLayout(false);
-            this.quests.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
+            this.questTabs.ResumeLayout(false);
+            this.tabPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -280,7 +295,6 @@
         #endregion
 
         private System.Windows.Forms.Panel bottomPanel;
-        public System.Windows.Forms.Panel quests;
         private System.Windows.Forms.Splitter splitter;
         private System.Windows.Forms.Button delete;
         private System.Windows.Forms.Panel panel1;
@@ -289,19 +303,17 @@
         public System.Windows.Forms.Label completeDate;
         private System.Windows.Forms.Button complete;
         public System.Windows.Forms.CheckBox showCompleted;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem importToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem exportToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questTrackerWebsiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
-        private System.ComponentModel.BackgroundWorker recurringQuestWorker;
         private System.Windows.Forms.Panel line;
-
-
-
-
+        public System.Windows.Forms.TabControl questTabs;
+        private System.Windows.Forms.TabPage tabPage;
+        private QuestTracker.QuestControls.QuestLogControl questLogControl;
     }
 }
 
