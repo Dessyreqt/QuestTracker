@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QuestTracker.Properties {
+namespace QuestTracker.QuestControls.Properties {
     using System;
     
     
@@ -39,7 +39,7 @@ namespace QuestTracker.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("QuestTracker.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("QuestTracker.QuestControls.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -60,10 +60,17 @@ namespace QuestTracker.Properties {
             }
         }
         
-        internal static System.Drawing.Icon QuestTracker {
+        internal static System.Drawing.Bitmap collapse {
             get {
-                object obj = ResourceManager.GetObject("QuestTracker", resourceCulture);
-                return ((System.Drawing.Icon)(obj));
+                object obj = ResourceManager.GetObject("collapse", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        internal static System.Drawing.Bitmap expand {
+            get {
+                object obj = ResourceManager.GetObject("expand", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

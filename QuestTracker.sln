@@ -5,6 +5,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestTracker", "QuestTracke
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QuestTrackerSetup", "QuestTrackerSetup\QuestTrackerSetup.vdproj", "{BEEFC111-9E4D-4F6E-BD36-8031B774C37D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestTracker.QuestControls", "QuestTracker.QuestControls\QuestTracker.QuestControls.csproj", "{6E42ED83-E92F-4984-A828-DBCFDB01C88F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestTracker.Data", "QuestTracker.Data\QuestTracker.Data.csproj", "{1F0F5DE9-AFE9-4E48-9A78-760451C71635}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestTracker.IO", "QuestTracker.IO\QuestTracker.IO.csproj", "{5408CE40-88C8-44D9-8426-0146D908B946}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +23,18 @@ Global
 		{87CE7A59-E994-4C3D-8EEC-E4EAA2E9B528}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BEEFC111-9E4D-4F6E-BD36-8031B774C37D}.Debug|Any CPU.ActiveCfg = Release
 		{BEEFC111-9E4D-4F6E-BD36-8031B774C37D}.Release|Any CPU.ActiveCfg = Release
+		{6E42ED83-E92F-4984-A828-DBCFDB01C88F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E42ED83-E92F-4984-A828-DBCFDB01C88F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E42ED83-E92F-4984-A828-DBCFDB01C88F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E42ED83-E92F-4984-A828-DBCFDB01C88F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F0F5DE9-AFE9-4E48-9A78-760451C71635}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F0F5DE9-AFE9-4E48-9A78-760451C71635}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F0F5DE9-AFE9-4E48-9A78-760451C71635}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F0F5DE9-AFE9-4E48-9A78-760451C71635}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5408CE40-88C8-44D9-8426-0146D908B946}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5408CE40-88C8-44D9-8426-0146D908B946}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5408CE40-88C8-44D9-8426-0146D908B946}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5408CE40-88C8-44D9-8426-0146D908B946}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
