@@ -97,6 +97,31 @@ namespace QuestTracker.QuestControls
             Height = newHeight;
         }
 
+        private void RenderCompletionBased()
+        {
+            foreach (Control control in Controls)
+            {
+                if (control.GetType() != typeof(QuestControl))
+                    continue;
+
+                var questControl = (QuestControl)control;
+
+                questControl.SetNormalBackcolor();
+
+                if (questControl.Quest.Completed)
+                {
+                    if (ShowCompleted)
+                    {
+                        questControl.Visible = true;
+                    }
+                    else
+                    {
+                        questControl.Visible = false;
+                    }
+                }
+            }
+        }
+
         private void AddQuestControl(QuestControl questControl)
         {
             var questLog = QuestLogControl.GetQuestLog(this);
@@ -355,6 +380,7 @@ namespace QuestTracker.QuestControls
             }
 
             FixZOrder();
+            RenderCompletionBased();
             RenderCollapseState();
         }
 
