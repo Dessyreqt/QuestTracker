@@ -83,63 +83,42 @@ namespace QuestTracker.QuestControls
 
         private void SetHeight()
         {
-            Height = 48;
+             var newHeight = 48;
 
             foreach (Control control in Controls)
             {
-                if (control.GetType() != typeof(QuestControl))
+                if (!(control is QuestControl))
                     continue;
 
                 if (control.Visible)
-                    Height += 24;
-            }
-        }
-
-        private void RenderCompletionBased()
-        {
-            foreach (Control control in Controls)
-            {
-                if (control.GetType() != typeof(QuestControl))
-                    continue;
-
-                var questControl = (QuestControl)control;
-
-                questControl.SetNormalBackcolor();
-
-                if (questControl.Quest.Completed)
-                {
-                    if (ShowCompleted)
-                    {
-                        if (!questControl.Visible)
-                        {
-                            questControl.Visible = true;
-                        }
-                    }
-                    else
-                    {
-                        if (questControl.Visible)
-                        {
-                            questControl.Visible = false;
-                        }
-                    }
-                }
+                    newHeight += 24;
             }
 
-            RenderCollapseState();
+            Height = newHeight;
         }
 
         private void AddQuestControl(QuestControl questControl)
         {
-            var mainForm = QuestLogControl.GetQuestLog(this);
-
-            if (!collapsed)
-                Height += 24;
+            var questLog = QuestLogControl.GetQuestLog(this);
 
             questControl.Dock = DockStyle.Top;
             questControl.SetNormalBackcolor();
+            
+            if (questControl.Quest.Completed)
+            {
+                if (ShowCompleted)
+                {
+                    questControl.Visible = true;
+                }
+                else
+                {
+                    questControl.Visible = false;
+                }
+            }
+
             Controls.Add(questControl);
             questControls.Add(questControl);
-            mainForm.questControls.Add(questControl);
+            questLog.questControls.Add(questControl);
             questControl.BringToFront();
         }
 
@@ -178,7 +157,7 @@ namespace QuestTracker.QuestControls
             rename.Visible = false;
         }
 
-        private void SetNormalBackcolor()
+        public void SetNormalBackcolor()
         {
             name.BackColor = SystemColors.Control;
             selected.BackColor = SystemColors.Control;
@@ -192,8 +171,8 @@ namespace QuestTracker.QuestControls
 
         private void panel_Resize(object sender, EventArgs e)
         {
-            rename.Width = Width - rename.Left - 2;
-            line.Width = Width;
+            if (rename.Visible)
+                rename.Width = Width - rename.Left - 2;
         }
 
         public void name_DoubleClick(object sender, EventArgs e)
@@ -212,7 +191,7 @@ namespace QuestTracker.QuestControls
             {
                 foreach (Control questControl in Controls)
                 {
-                    if (questControl.GetType() == typeof (QuestControl))
+                    if (questControl is QuestControl)
                         ((QuestControl)questControl).selected.Checked = selected.Checked;
                 }
             }
@@ -270,9 +249,9 @@ namespace QuestTracker.QuestControls
             if (e.Data.GetDataPresent(typeof(QuestControl)))
             {
                 var data = (QuestControl)e.Data.GetData(typeof(QuestControl));
-                var mainForm = QuestLogControl.GetQuestLog(this);
+                var questLogControl = QuestLogControl.GetQuestLog(this);
 
-                int questScrollOffset = mainForm.quests.VerticalScroll.Value;
+                int questScrollOffset = questLogControl.quests.VerticalScroll.Value;
 
                 if (data == null)
                     return;
@@ -280,7 +259,7 @@ namespace QuestTracker.QuestControls
                 var tempQuestControls = new List<QuestControl>();
                 for (int i = Controls.Count - 1; i >= 0; i--)
                 {
-                    if (Controls[i].GetType() != typeof(QuestControl))
+                    if (!(Controls[i] is QuestControl))
                         continue;
 
                     var control = (QuestControl)Controls[i];
@@ -291,8 +270,7 @@ namespace QuestTracker.QuestControls
                     }
                 }
 
-                mainForm.LastSelectedQuestGroup.Quests.Remove(data.Quest);
-                mainForm.lastSelectedQuestGroupControl.RenderGroup();
+                questLogControl.LastSelectedQuestGroup.Quests.Remove(data.Quest);
 
                 foreach (QuestControl control in tempQuestControls)
                 {
@@ -308,17 +286,18 @@ namespace QuestTracker.QuestControls
 
                 line.Visible = false;
 
+                questLogControl.lastSelectedQuestGroupControl.RenderGroup();
                 RenderGroup();
-                mainForm.LastSelectedQuest = data.Quest;
+                questLogControl.LastSelectedQuest = data.Quest;
 
                 var questControl = from Control control in Controls.Cast<Control>()
-                                   where control.GetType() == typeof(QuestControl) && ((QuestControl)control).Quest == data.Quest
+                                   where control is QuestControl && ((QuestControl)control).Quest == data.Quest
                                    select (QuestControl)control;
 
                 questControl.First().Focus();
                 questControl.First().selected.Checked = data.selected.Checked;
 
-                mainForm.quests.VerticalScroll.Value = Math.Min(questScrollOffset, mainForm.quests.VerticalScroll.Maximum);
+                questLogControl.quests.VerticalScroll.Value = Math.Min(questScrollOffset, questLogControl.quests.VerticalScroll.Maximum);
             }
             else if (e.Data.GetDataPresent(typeof(QuestGroupControl)))
             {
@@ -333,6 +312,7 @@ namespace QuestTracker.QuestControls
             {
                 int indicatorY = Cursor.Position.Y - PointToScreen(new Point(0, 0)).Y;
                 line.Top = Math.Min(Math.Max((indicatorY + 12) / 24 * 24, 24), Height - 24) - 1;
+                line.Width = Width;
                 line.Visible = true;
                 line.BringToFront();
             }
@@ -350,7 +330,7 @@ namespace QuestTracker.QuestControls
 
             //remove controls that aren't in the group
             var controlsToDelete = (from Control questControl in Controls.Cast<Control>()
-                                    where questControl.GetType() == typeof(QuestControl) && !questGroup.Quests.Contains(((QuestControl)questControl).Quest)
+                                    where questControl is QuestControl && !questGroup.Quests.Contains(((QuestControl)questControl).Quest)
                                     select questControl).ToList();
 
             foreach (QuestControl questControl in controlsToDelete)
@@ -360,7 +340,7 @@ namespace QuestTracker.QuestControls
 
             //add new controls that are in the group
             var questsInControls = from Control questControl in Controls.Cast<Control>()
-                                   where questControl.GetType() == typeof(QuestControl)
+                                   where questControl is QuestControl
                                    select ((QuestControl)questControl).Quest;
 
             var questsToAdd = from Quest quest in questGroup.Quests
@@ -375,32 +355,88 @@ namespace QuestTracker.QuestControls
             }
 
             FixZOrder();
-            RenderCompletionBased();
+            RenderCollapseState();
         }
 
         private void FixZOrder()
         {
-            var controlsToCheck = new List<QuestControl>();
+            FixZOrderUp();
+            FixZOrderDown();
+        }
 
-            foreach (Control control in Controls)
+        private void FixZOrderDown()
+        {
+            for (int i = Controls.Count - 1; i > -1; i--)
             {
-                if (control.GetType() != typeof(QuestControl))
+                if (!(Controls[i] is QuestControl))
                     continue;
 
-                controlsToCheck.Add((QuestControl)control);
-            }
+                var j = GetPrevQuestControlIndex(i);
 
-            for (int i = 0; i < questGroup.Quests.Count; i++)
-            {
-                foreach (QuestControl control in controlsToCheck)
-                {                                               
-                    if (control.Quest == questGroup.Quests[i])
+                var questControl = (QuestControl)Controls[i];
+                if (j > -1)
+                {
+                    var prevQuestControl = (QuestControl)Controls[j];
+
+                    if (questGroup.Quests.IndexOf(questControl.Quest) > questGroup.Quests.IndexOf(prevQuestControl.Quest))
                     {
-                        control.BringToFront();
-                        break;
+                        Controls.SetChildIndex(questControl, j);
                     }
                 }
             }
+        }
+
+        private int GetPrevQuestControlIndex(int i)
+        {
+            var retVal = i - 1;
+
+            while (retVal > -1 && !(Controls[retVal] is QuestControl))
+            {
+                retVal--;
+                if (retVal == -1)
+                    break;
+            }
+
+            return retVal;
+        }
+
+        private void FixZOrderUp()
+        {
+            for (int i = 0; i < Controls.Count - 1; i++)
+            {
+                if (!(Controls[i] is QuestControl))
+                    continue;
+
+                var j = GetNextQuestControlIndex(i);
+
+                var questControl = (QuestControl)Controls[i];
+                if (j > -1)
+                {
+                    var nextQuestControl = (QuestControl)Controls[j];
+
+                    if (questGroup.Quests.IndexOf(questControl.Quest) < questGroup.Quests.IndexOf(nextQuestControl.Quest))
+                    {
+                        Controls.SetChildIndex(questControl,j);
+                    }
+                }
+            }
+        }
+
+        private int GetNextQuestControlIndex(int i)
+        {
+            var retVal = i + 1;
+
+            while (Controls.Count > retVal && !(Controls[retVal] is QuestControl))
+            {
+                retVal++;
+                if (retVal == Controls.Count)
+                {
+                    retVal = -1;
+                    break;
+                }
+            }
+
+            return retVal;
         }
 
         private void RemoveQuestControl(QuestControl questControl)
@@ -411,8 +447,8 @@ namespace QuestTracker.QuestControls
 
             questControls.Remove(questControl);
 
-            var mainForm = QuestLogControl.GetQuestLog(this);
-            mainForm.questControls.Remove(questControl);
+            var questLog = QuestLogControl.GetQuestLog(this);
+            questLog.questControls.Remove(questControl);
         }
 
         private void QuestGroupControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -423,13 +459,13 @@ namespace QuestTracker.QuestControls
             }
             else if (e.KeyCode == Keys.Delete)
             {
-                var mainForm = QuestLogControl.GetQuestLog(this);
+                var questLog = QuestLogControl.GetQuestLog(this);
                 
                 selected.Checked = true;
                 foreach (QuestControl questControl in questControls)
                     questControl.selected.Checked = true;
 
-                mainForm.DeleteQuests();
+                questLog.DeleteQuests();
             }
             else if (e.Control && e.KeyCode == Keys.N)
             {
@@ -443,15 +479,15 @@ namespace QuestTracker.QuestControls
             questGroup.Quests.Add(newQuest);
             RenderGroup();
 
-            var mainForm = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestLogControl.GetQuestLog(this);
 
-            if (mainForm.lastSelectedQuestControl != null)
-                mainForm.lastSelectedQuestControl.QuestControl_Leave(sender, e);
+            if (questLog.lastSelectedQuestControl != null)
+                questLog.lastSelectedQuestControl.QuestControl_Leave(sender, e);
 
-            mainForm.LastSelectedQuest = newQuest;
+            questLog.LastSelectedQuest = newQuest;
 
-            if (mainForm.lastSelectedQuestControl != null)
-                mainForm.lastSelectedQuestControl.name_DoubleClick(sender, e);
+            if (questLog.lastSelectedQuestControl != null)
+                questLog.lastSelectedQuestControl.name_DoubleClick(sender, e);
         }
 
         private void rename_VisibleChanged(object sender, EventArgs e)
@@ -466,6 +502,7 @@ namespace QuestTracker.QuestControls
                 Focus();
 
                 QuestLogControl.GetQuestLog(this).CollapseAllGroups();
+                SetHighlightedBackcolor();
 
                 DoDragDrop(this, DragDropEffects.Move);
             }

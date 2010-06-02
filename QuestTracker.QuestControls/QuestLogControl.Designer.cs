@@ -40,7 +40,7 @@
             this.quests.AutoScroll = true;
             this.quests.BackColor = System.Drawing.SystemColors.Window;
             this.quests.Controls.Add(this.line);
-            this.quests.Dock = System.Windows.Forms.DockStyle.Left;
+            this.quests.Dock = System.Windows.Forms.DockStyle.Fill;
             this.quests.Location = new System.Drawing.Point(0, 0);
             this.quests.Name = "quests";
             this.quests.Size = new System.Drawing.Size(393, 255);
@@ -65,14 +65,13 @@
             this.recurringQuestWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.recurringQuestWorker_DoWork);
             this.recurringQuestWorker.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.recurringQuestWorker_ProgressChanged);
             // 
-            // QuestLog
+            // QuestLogControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.quests);
-            this.Name = "QuestLog";
+            this.Name = "QuestLogControl";
             this.Size = new System.Drawing.Size(393, 255);
-            this.Resize += new System.EventHandler(this.QuestLog_Resize);
             this.quests.ResumeLayout(false);
             this.ResumeLayout(false);
 
