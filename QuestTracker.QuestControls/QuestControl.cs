@@ -85,7 +85,8 @@ namespace QuestTracker.QuestControls
 
         private void QuestControl_Resize(object sender, EventArgs e)
         {
-            rename.Width = Width - rename.Left - 2;
+            if (rename.Visible)
+                rename.Width = Width - rename.Left - 2;
         }
 
         private void filler_Click(object sender, EventArgs e)
@@ -117,7 +118,7 @@ namespace QuestTracker.QuestControls
 
                 foreach (Control questControl in Parent.Controls)
                 {
-                    if (questControl.GetType() == typeof (QuestControl))
+                    if (questControl is QuestControl)
                     {
                         allQuestsChecked &= ((QuestControl)questControl).selected.Checked;
                         if (!allQuestsChecked) break;

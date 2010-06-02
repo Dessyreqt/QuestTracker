@@ -244,13 +244,12 @@
             this.tabPage.TabIndex = 0;
             this.tabPage.Text = "Default Quests";
             this.tabPage.UseVisualStyleBackColor = true;
-            this.tabPage.Resize += new System.EventHandler(this.tabPage_Resize);
             // 
             // questLogControl
             // 
             this.questLogControl.AllCheckedComplete = false;
             this.questLogControl.AnyChecked = false;
-            this.questLogControl.Dock = System.Windows.Forms.DockStyle.Left;
+            this.questLogControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.questLogControl.LastSelectedQuest = null;
             this.questLogControl.LastSelectedQuestGroup = null;
             this.questLogControl.Location = new System.Drawing.Point(0, 0);

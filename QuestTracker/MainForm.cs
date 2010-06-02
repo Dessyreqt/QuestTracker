@@ -89,14 +89,21 @@ namespace QuestTracker
             {
                 Thread.Sleep(15000);
 
-                FileWriter.WriteToFile(questLogControl.questLog);
+                lock(questLogControl.questLog)
+                {
+                    FileWriter.WriteToFile(questLogControl.questLog);
+                }
             }
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             autoSaveThread.Abort();
-            FileWriter.WriteToFile(questLogControl.questLog);
+
+            lock (questLogControl.questLog)
+            {
+                FileWriter.WriteToFile(questLogControl.questLog);
+            }
         }
 
         private void questDescription_TextChanged(object sender, EventArgs e)
@@ -149,7 +156,10 @@ namespace QuestTracker
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                FileWriter.Export(questLogControl.questLog, saveFileDialog.FileName);
+                lock (questLogControl.questLog)
+                {
+                    FileWriter.Export(questLogControl.questLog, saveFileDialog.FileName);
+                }
             }
         }
 
@@ -210,11 +220,6 @@ namespace QuestTracker
         private void questLogControl_SelectionPluralityChanged(object sender, EventArgs e)
         {
             SetSelectionPlurality();
-        }
-
-        private void tabPage_Resize(object sender, EventArgs e)
-        {
-            questLogControl.Width = tabPage.Width;
         }
     }
 }
