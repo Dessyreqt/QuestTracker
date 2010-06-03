@@ -32,13 +32,13 @@ namespace QuestTracker.QuestControls
 
             var questLog = QuestLogControl.GetQuestLog(this);
 
-            if (questLog.lastSelectedQuestControl != null && questLog.lastSelectedQuestControl != this)
-                questLog.lastSelectedQuestControl.SetNormalBackcolor();
+            if (questLog.LastSelectedQuestControl != null && questLog.LastSelectedQuestControl != this)
+                questLog.LastSelectedQuestControl.SetNormalBackcolor();
 
             questLog.LastSelectedQuest = quest;
-            questLog.lastSelectedQuestControl = this;
+            questLog.LastSelectedQuestControl = this;
             questLog.LastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
-            questLog.lastSelectedQuestGroupControl = (QuestGroupControl)Parent;
+            questLog.LastSelectedQuestGroupControl = (QuestGroupControl)Parent;
 
             questLog.ChangeSelectedQuest();
             questLog.SetSelectionPlurality();
@@ -145,8 +145,8 @@ namespace QuestTracker.QuestControls
         {
             var mainForm = QuestLogControl.GetQuestLog(this);
 
-            if (mainForm.lastSelectedQuestGroupControl !=  null)
-                mainForm.lastSelectedQuestGroupControl.QuestGroupControl_Leave(sender, e);
+            if (mainForm.LastSelectedQuestGroupControl !=  null)
+                mainForm.LastSelectedQuestGroupControl.QuestGroupControl_Leave(sender, e);
 
             QuestControl_Enter(sender, e);
         }

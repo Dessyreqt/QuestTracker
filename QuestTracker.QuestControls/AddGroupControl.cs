@@ -17,17 +17,17 @@ namespace QuestTracker.QuestControls
 
             var newQuestGroup = new QuestGroup();
 
-            questLog.questLog.Groups.Add(newQuestGroup);
+            questLog.QuestLog.Groups.Add(newQuestGroup);
 
-            if (questLog.lastSelectedQuestControl != null)
-                questLog.lastSelectedQuestControl.QuestControl_Leave(sender, e);
+            if (questLog.LastSelectedQuestControl != null)
+                questLog.LastSelectedQuestControl.QuestControl_Leave(sender, e);
 
             questLog.RenderLog();
 
             questLog.LastSelectedQuestGroup = newQuestGroup;
 
-            if (questLog.lastSelectedQuestGroupControl != null)
-                questLog.lastSelectedQuestGroupControl.name_DoubleClick(sender, e);
+            if (questLog.LastSelectedQuestGroupControl != null)
+                questLog.LastSelectedQuestGroupControl.name_DoubleClick(sender, e);
         }
 
         private void AddGroup_DragDrop(object sender, DragEventArgs e)

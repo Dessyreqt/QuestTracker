@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using QuestTracker.Data.Properties;
 
 namespace QuestTracker.Data
 {
@@ -8,15 +9,15 @@ namespace QuestTracker.Data
         public string Name { get; set;}
         public string Description { get; set;}
         public DateTime StartDate { get; set;}
-        public List<DateTime> CompleteDates { get; set;}
+        public List<DateTime> CompleteDates { get; private set;}
         public bool Completed { get; set; }
         public bool Recurring { get; set; }
-        public RecurrenceSchedule Schedule { get; set; }
+        public RecurrenceSchedule Schedule { get; private set; }
        
         public Quest()
         {
-            Name = "Unspecified Quest";
-            Description = "Enter Description Here!";
+            Name = Resources.DefaultQuestName;
+            Description = Resources.DefaultQuestDescription;
             StartDate = DateTime.Now;
             CompleteDates = new List<DateTime>();
             Completed = false;
@@ -35,8 +36,8 @@ namespace QuestTracker.Data
 
         public Quest_0_2()
         {
-            Name = "Unspecified Quest";
-            Description = "Enter Description Here!";
+            Name = Resources.DefaultQuestName;
+            Description = Resources.DefaultQuestDescription;
             StartDate = DateTime.Now;
             CompleteDate = DateTime.MinValue;
             Completed = false;

@@ -37,7 +37,7 @@ namespace QuestTracker.IO
 
         private static QuestGroup ConverQuestGroup0_2to0_3(QuestGroup_0_2 oldGroup)
         {
-            var retVal = new QuestGroup {collapsed = oldGroup.collapsed, Name = oldGroup.Name};
+            var retVal = new QuestGroup {Collapsed = oldGroup.collapsed, Name = oldGroup.Name};
 
             foreach(var oldQuest in oldGroup.Quests)
             {

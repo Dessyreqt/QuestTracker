@@ -1,4 +1,6 @@
-﻿namespace QuestTracker.QuestControls
+﻿using QuestTracker.QuestControls.Properties;
+
+namespace QuestTracker.QuestControls
 {
     partial class AddGroupControl
     {
@@ -40,7 +42,7 @@
             this.add.Name = "add";
             this.add.Size = new System.Drawing.Size(346, 24);
             this.add.TabIndex = 0;
-            this.add.Text = "Add Group";
+            this.add.Text = Resources.AddGroup;
             this.add.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.add.Click += new System.EventHandler(this.add_Click);
             // 

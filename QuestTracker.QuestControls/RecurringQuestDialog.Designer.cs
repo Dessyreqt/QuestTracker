@@ -1,4 +1,6 @@
-﻿namespace QuestTracker
+﻿using QuestTracker.QuestControls.Properties;
+
+namespace QuestTracker.QuestControls
 {
     partial class RecurringQuestDialog
     {
@@ -45,7 +47,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(147, 13);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Starting on this date and time:";
+            this.label1.Text = Resources.DateTimeText;
             // 
             // startDate
             // 
@@ -64,7 +66,7 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(116, 13);
             this.label2.TabIndex = 2;
-            this.label2.Text = "Recur this quest every:";
+            this.label2.Text = Resources.RecurFrequencyText;
             // 
             // frequency
             // 
@@ -81,9 +83,9 @@
             this.unit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.unit.FormattingEnabled = true;
             this.unit.Items.AddRange(new object[] {
-            "Minutes",
-            "Hours",
-            "Days"});
+            Resources.Minutes,
+            Resources.Hours,
+            Resources.Days});
             this.unit.Location = new System.Drawing.Point(63, 87);
             this.unit.Name = "unit";
             this.unit.Size = new System.Drawing.Size(103, 21);
@@ -95,7 +97,7 @@
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(85, 26);
             this.save.TabIndex = 5;
-            this.save.Text = "Save";
+            this.save.Text = Resources.Save;
             this.save.UseVisualStyleBackColor = true;
             this.save.Click += new System.EventHandler(this.save_Click);
             // 
@@ -107,7 +109,7 @@
             this.cancel.Size = new System.Drawing.Size(40, 13);
             this.cancel.TabIndex = 6;
             this.cancel.TabStop = false;
-            this.cancel.Text = "Cancel";
+            this.cancel.Text = Resources.Cancel;
             this.cancel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.cancel_LinkClicked);
             // 
             // recur
@@ -117,7 +119,7 @@
             this.recur.Name = "recur";
             this.recur.Size = new System.Drawing.Size(103, 17);
             this.recur.TabIndex = 7;
-            this.recur.Text = "Recur this quest";
+            this.recur.Text = Resources.RecurText;
             this.recur.UseVisualStyleBackColor = true;
             // 
             // RecurringQuestDialog
@@ -139,7 +141,7 @@
             this.Name = "RecurringQuestDialog";
             this.ShowIcon = false;
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-            this.Text = "Set Recurring Quest...";
+            this.Text = Resources.RecurQuestTitle;
             this.Load += new System.EventHandler(this.RecurringQuestDialog_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
