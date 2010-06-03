@@ -124,4 +124,54 @@
   <data name="expand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expand.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+	<data name="DeleteQuestsDialogText">
+		<value><![CDATA[Are you sure you wish to delete the selected quests?
+
+A backup of the current file will be made if you choose to delete.]]></value>
+	</data>
+	<data name="DeleteQuestsDialogTitle">
+		<value xml:space="preserve">Confirm Delete</value>
+	</data>
+	<data name="AddGroup">
+		<value xml:space="preserve">Add Group</value>
+	</data>
+	<data name="AddQuest">
+		<value xml:space="preserve">Add Quest</value>
+	</data>
+	<data name="RecurringQuestFrequencyError">
+		<value><![CDATA[The frequency for a recurring quest cannot be 0. To fix this, do one of the following:
+
+- Uncheck "Recur this quest"
+- Set the frequency at which to recur this quest to a non-zero value.]]></value>
+	</data>
+	<data name="ErrorTitle">
+		<value xml:space="preserve">Error</value>
+	</data>
+	<data name="DateTimeText">
+		<value xml:space="preserve">Starting on this date and time:</value>
+	</data>
+	<data name="RecurFrequencyText">
+		<value xml:space="preserve">Recur this quest every:</value>
+	</data>
+	<data name="Minutes">
+		<value xml:space="preserve">Minutes</value>
+	</data>
+	<data name="Hours">
+		<value xml:space="preserve">Hours</value>
+	</data>
+	<data name="Days">
+		<value xml:space="preserve">Days</value>
+	</data>
+	<data name="Save">
+		<value xml:space="preserve">Save</value>
+	</data>
+	<data name="Cancel">
+		<value xml:space="preserve">Cancel</value>
+	</data>
+	<data name="RecurText">
+		<value xml:space="preserve">Recur this quest</value>
+	</data>
+	<data name="RecurQuestTitle">
+		<value xml:space="preserve">Set Recurring Quest...</value>
+	</data>
 </root>

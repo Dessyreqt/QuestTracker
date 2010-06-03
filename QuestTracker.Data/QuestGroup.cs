@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Xml.Serialization;
+using QuestTracker.Data.Properties;
 
 namespace QuestTracker.Data
 {
@@ -7,12 +8,12 @@ namespace QuestTracker.Data
     {
         public string Name { get; set; }
         [XmlArrayItem("Quest", typeof(Quest))]
-        public List<Quest> Quests { get; set; }
-        public bool collapsed;
+        public List<Quest> Quests { get; private set; }
+        public bool Collapsed { get; set; }
         
         public QuestGroup()
         {
-            Name = "Nonspecific Quests";
+            Name = Resources.DefaultQuestGroupName;
             Quests = new List<Quest>();
         }
     }
@@ -26,7 +27,7 @@ namespace QuestTracker.Data
 
         public QuestGroup_0_2()
         {
-            Name = "Nonspecific Quests";
+            Name = Resources.DefaultQuestGroupName;
             Quests = new List<Quest_0_2>();
         }
     }

@@ -2,8 +2,9 @@
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
 using QuestTracker.Data;
+using QuestTracker.QuestControls.Properties;
 
-namespace QuestTracker
+namespace QuestTracker.QuestControls
 {
     public partial class RecurringQuestDialog : Form
     {
@@ -23,10 +24,7 @@ namespace QuestTracker
 
             recur.Checked = quest.Recurring;
             
-            if (quest.Schedule.StartDate == DateTime.MinValue)
-                startDate.Value = DateTime.Now;
-            else
-                startDate.Value = quest.Schedule.StartDate;
+            startDate.Value = quest.Schedule.StartDate == DateTime.MinValue ? DateTime.Now : quest.Schedule.StartDate;
 
             frequency.Text = quest.Schedule.Frequency.ToString();
             unit.SelectedIndex = (int)quest.Schedule.Unit;
@@ -46,7 +44,7 @@ namespace QuestTracker
         {
             if (recur.Checked && int.Parse(frequency.Text) == 0)
             {
-                MessageBox.Show("The frequency for a recurring quest cannot be 0. To fix this, do one of the following:\n\n- Uncheck \"Recur this quest\"\n- Set the frequency at which to recur this quest to a non-zero value.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(Resources.RecurringQuestFrequencyError, Resources.ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
 

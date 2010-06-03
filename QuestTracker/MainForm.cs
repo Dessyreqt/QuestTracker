@@ -3,7 +3,8 @@ using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 using QuestTracker.IO;
-using QuestTracker.QuestControls;
+using QuestTracker.Properties;
+using Settings = QuestTracker.IO.Settings;
 
 namespace QuestTracker
 {
@@ -26,8 +27,8 @@ namespace QuestTracker
         {
             splitRatio = (float)questTabs.Width / Width;
 
-            questLogControl.questLog = FileWriter.ReadFromFile();
-            showCompleted.Checked = questLogControl.questLog.ShowCompletedQuests;
+            questLogControl.QuestLog = FileWriter.ReadFromFile();
+            showCompleted.Checked = questLogControl.QuestLog.ShowCompletedQuests;
 
             questLogControl.RenderLog(showCompleted.Checked);
         }
@@ -51,18 +52,18 @@ namespace QuestTracker
         {
             if (questLogControl.AnyChecked)
             {
-                complete.Text = questLogControl.AllCheckedComplete ? "Uncomplete Checked" : "Complete Checked";
+                complete.Text = questLogControl.AllCheckedComplete ? Resources.UncompleteChecked : Resources.CompleteChecked;
 
-                delete.Text = "Delete Checked";
+                delete.Text = Resources.DeleteChecked;
             }
             else
             {
                 if (questLogControl.LastSelectedQuest == null || !questLogControl.LastSelectedQuest.Completed)
-                    complete.Text = "Complete";
+                    complete.Text = Resources.Complete;
                 else
-                    complete.Text = "Uncomplete";
+                    complete.Text = Resources.Uncomplete;
 
-                delete.Text = "Delete";
+                delete.Text = Resources.Delete;
             }
         }
 
@@ -78,7 +79,7 @@ namespace QuestTracker
 
         private void showCompleted_CheckedChanged(object sender, EventArgs e)
         {
-            questLogControl.questLog.ShowCompletedQuests = showCompleted.Checked;
+            questLogControl.QuestLog.ShowCompletedQuests = showCompleted.Checked;
             questLogControl.RenderLog(showCompleted.Checked);
             questLogControl.SelectLastSelected();
         }
@@ -89,9 +90,9 @@ namespace QuestTracker
             {
                 Thread.Sleep(15000);
 
-                lock(questLogControl.questLog)
+                lock(questLogControl.QuestLog)
                 {
-                    FileWriter.WriteToFile(questLogControl.questLog);
+                    FileWriter.WriteToFile(questLogControl.QuestLog);
                 }
             }
         }
@@ -100,9 +101,9 @@ namespace QuestTracker
         {
             autoSaveThread.Abort();
 
-            lock (questLogControl.questLog)
+            lock (questLogControl.QuestLog)
             {
-                FileWriter.WriteToFile(questLogControl.questLog);
+                FileWriter.WriteToFile(questLogControl.QuestLog);
             }
         }
 
@@ -115,19 +116,19 @@ namespace QuestTracker
 
         private void questDescription_Enter(object sender, EventArgs e)
         {
-            if (questLogControl.lastSelectedQuestControl != null)
-                questLogControl.lastSelectedQuestControl.SetHighlightedBackcolor();
+            if (questLogControl.LastSelectedQuestControl != null)
+                questLogControl.LastSelectedQuestControl.SetHighlightedBackcolor();
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var openFileDialog = new OpenFileDialog
                                      {
-                                         Filter = "XML files (*.xml)|*.xml",
+                                         Filter = Resources.XmlFiles,
                                          FilterIndex = 0,
                                          InitialDirectory = Settings.GetPath(),
                                          RestoreDirectory = false,
-                                         Title = "Select File to Import"
+                                         Title = Resources.ImportFileTitle
                                      };
 
             if (openFileDialog.ShowDialog() != DialogResult.OK)
@@ -135,8 +136,8 @@ namespace QuestTracker
 
             var filename = openFileDialog.FileName;
 
-            questLogControl.questLog = FileWriter.Import(filename);
-            showCompleted.Checked = questLogControl.questLog.ShowCompletedQuests;
+            questLogControl.QuestLog = FileWriter.Import(filename);
+            showCompleted.Checked = questLogControl.QuestLog.ShowCompletedQuests;
 
             questLogControl.RenderLog(showCompleted.Checked);
         }
@@ -147,18 +148,18 @@ namespace QuestTracker
             var saveFileDialog = new SaveFileDialog
                                      {
                                          FileName = "QuestTracker." + now.Month.ToString("00") + "-" + now.Day.ToString("00") + "-" + now.Year.ToString("0000") + "-" + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00") + ".xml",
-                                         Filter = "XML files (*.xml)|*.xml",
+                                         Filter = Resources.XmlFiles,
                                          FilterIndex = 0,
                                          InitialDirectory = Settings.GetPath(),
                                          RestoreDirectory = true,
-                                         Title = "Select file to Export"
+                                         Title = Resources.ExportFileTitle
                                      };
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
-                lock (questLogControl.questLog)
+                lock (questLogControl.QuestLog)
                 {
-                    FileWriter.Export(questLogControl.questLog, saveFileDialog.FileName);
+                    FileWriter.Export(questLogControl.QuestLog, saveFileDialog.FileName);
                 }
             }
         }
@@ -186,17 +187,17 @@ namespace QuestTracker
             if (questLogControl.LastSelectedQuest != null)
             {
                 var quest = questLogControl.LastSelectedQuest;
-                startDate.Text = "Date Started: " + quest.StartDate;
+                startDate.Text = Resources.DateStarted + quest.StartDate;
                 completeDate.Visible = true;
                 if (quest.Completed)
                 {
                     completeDate.ForeColor = Color.Green;
-                    completeDate.Text = "Date Last Completed: " + quest.CompleteDates[quest.CompleteDates.Count - 1];
+                    completeDate.Text = Resources.DateLastCompleted + quest.CompleteDates[quest.CompleteDates.Count - 1];
                 }
                 else
                 {
                     completeDate.ForeColor = Color.Red;
-                    completeDate.Text = "Not Completed";
+                    completeDate.Text = Resources.NotCompleted;
                 }
 
                 questDescription.Enabled = true;
@@ -204,7 +205,7 @@ namespace QuestTracker
             }
             else
             {
-                startDate.Text = "Date Started: ";
+                startDate.Text = Resources.DateStarted;
                 completeDate.Visible = false;
 
                 questDescription.Enabled = false;

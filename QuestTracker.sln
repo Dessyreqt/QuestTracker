@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestTracker", "QuestTracker\QuestTracker.csproj", "{87CE7A59-E994-4C3D-8EEC-E4EAA2E9B528}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "QuestTrackerSetup", "QuestTrackerSetup\QuestTrackerSetup.vdproj", "{BEEFC111-9E4D-4F6E-BD36-8031B774C37D}"

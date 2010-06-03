@@ -1,4 +1,6 @@
-﻿namespace QuestTracker
+﻿using QuestTracker.Properties;
+
+namespace QuestTracker
 {
     partial class MainForm
     {
@@ -74,7 +76,7 @@
             this.complete.Name = "complete";
             this.complete.Size = new System.Drawing.Size(130, 28);
             this.complete.TabIndex = 1;
-            this.complete.Text = "Complete";
+            this.complete.Text = Resources.Complete;
             this.complete.UseVisualStyleBackColor = true;
             this.complete.Click += new System.EventHandler(this.complete_Click);
             // 
@@ -86,7 +88,7 @@
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(102, 28);
             this.delete.TabIndex = 3;
-            this.delete.Text = "Delete";
+            this.delete.Text = Resources.Delete;
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
@@ -120,7 +122,7 @@
             this.showCompleted.Size = new System.Drawing.Size(142, 17);
             this.showCompleted.TabIndex = 2;
             this.showCompleted.TabStop = false;
-            this.showCompleted.Text = "Show Completed Quests";
+            this.showCompleted.Text = Resources.ShowCompleted;
             this.showCompleted.UseVisualStyleBackColor = true;
             this.showCompleted.CheckedChanged += new System.EventHandler(this.showCompleted_CheckedChanged);
             // 
@@ -132,7 +134,7 @@
             this.completeDate.Name = "completeDate";
             this.completeDate.Size = new System.Drawing.Size(77, 13);
             this.completeDate.TabIndex = 1;
-            this.completeDate.Text = "Not Completed";
+            this.completeDate.Text = Resources.NotCompleted;
             this.completeDate.Visible = false;
             // 
             // startDate
@@ -142,7 +144,7 @@
             this.startDate.Name = "startDate";
             this.startDate.Size = new System.Drawing.Size(70, 13);
             this.startDate.TabIndex = 0;
-            this.startDate.Text = "Date Started:";
+            this.startDate.Text = Resources.DateStarted;
             // 
             // questDescription
             // 
@@ -176,14 +178,14 @@
             this.exportToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = "&File";
+            this.fileToolStripMenuItem.Text = Resources.FileMenu;
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.importToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.importToolStripMenuItem.Text = "&Import";
+            this.importToolStripMenuItem.Text = Resources.ImportCommand;
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
@@ -191,7 +193,7 @@
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.exportToolStripMenuItem.Text = "&Export";
+            this.exportToolStripMenuItem.Text = Resources.ExportCommand;
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -201,20 +203,20 @@
             this.donateToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Text = Resources.HelpMenu;
             // 
             // questTrackerWebsiteToolStripMenuItem
             // 
             this.questTrackerWebsiteToolStripMenuItem.Name = "questTrackerWebsiteToolStripMenuItem";
             this.questTrackerWebsiteToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.questTrackerWebsiteToolStripMenuItem.Text = "QuestTracker Website";
+            this.questTrackerWebsiteToolStripMenuItem.Text = Resources.QuestTrackerWebsiteLink;
             this.questTrackerWebsiteToolStripMenuItem.Click += new System.EventHandler(this.questTrackerWebsiteToolStripMenuItem_Click);
             // 
             // donateToolStripMenuItem
             // 
             this.donateToolStripMenuItem.Name = "donateToolStripMenuItem";
             this.donateToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.donateToolStripMenuItem.Text = "Donate...";
+            this.donateToolStripMenuItem.Text = Resources.DonateLink;
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
             // line
@@ -242,7 +244,7 @@
             this.tabPage.Name = "tabPage";
             this.tabPage.Size = new System.Drawing.Size(385, 420);
             this.tabPage.TabIndex = 0;
-            this.tabPage.Text = "Default Quests";
+            this.tabPage.Text = Resources.DefaultQuestTabName;
             this.tabPage.UseVisualStyleBackColor = true;
             // 
             // questLogControl
@@ -275,7 +277,7 @@
             this.MinimumSize = new System.Drawing.Size(625, 325);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = "QuestTracker";
+            this.Text = Resources.QuestTrackerTitle;
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.Resize += new System.EventHandler(this.MainForm_Resize);

@@ -1,4 +1,6 @@
-﻿namespace QuestTracker.QuestControls
+﻿using QuestTracker.QuestControls.Properties;
+
+namespace QuestTracker.QuestControls
 {
     partial class AddQuestControl
     {
@@ -50,7 +52,7 @@
             this.add.Name = "add";
             this.add.Size = new System.Drawing.Size(300, 24);
             this.add.TabIndex = 1;
-            this.add.Text = "Add Quest";
+            this.add.Text = Resources.AddQuest;
             this.add.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.add.Click += new System.EventHandler(this.add_Click);
             // 
