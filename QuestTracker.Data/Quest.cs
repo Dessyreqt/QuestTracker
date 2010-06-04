@@ -9,10 +9,10 @@ namespace QuestTracker.Data
         public string Name { get; set;}
         public string Description { get; set;}
         public DateTime StartDate { get; set;}
-        public List<DateTime> CompleteDates { get; private set;}
+        public List<DateTime> CompleteDates { get; set;}
         public bool Completed { get; set; }
         public bool Recurring { get; set; }
-        public RecurrenceSchedule Schedule { get; private set; }
+        public RecurrenceSchedule Schedule { get; set; }
        
         public Quest()
         {
