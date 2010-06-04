@@ -9,7 +9,7 @@ namespace QuestTracker.IO
     {
         public static QuestLog ReadFromFile()
         {
-            string path = Settings.GetPath();
+            var path = Settings.GetPath();
 
             if (!Directory.Exists(path))
                 Directory.CreateDirectory(path);

@@ -8,7 +8,7 @@ namespace QuestTracker.Data
     {
         public string Name { get; set; }
         [XmlArrayItem("Quest", typeof(Quest))]
-        public List<Quest> Quests { get; private set; }
+        public List<Quest> Quests { get; set; }
         public bool Collapsed { get; set; }
         
         public QuestGroup()

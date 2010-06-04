@@ -48,7 +48,7 @@ namespace QuestTracker
             splitRatio = (float)questTabs.Width / Width;
         }
 
-        public void SetSelectionPlurality()
+        private void SetSelectionPlurality()
         {
             if (questLogControl.AnyChecked)
             {
@@ -155,12 +155,12 @@ namespace QuestTracker
                                          Title = Resources.ExportFileTitle
                                      };
 
-            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            if (saveFileDialog.ShowDialog() != DialogResult.OK)
+                return;
+            
+            lock (questLogControl.QuestLog)
             {
-                lock (questLogControl.QuestLog)
-                {
-                    FileWriter.Export(questLogControl.QuestLog, saveFileDialog.FileName);
-                }
+                FileWriter.Export(questLogControl.QuestLog, saveFileDialog.FileName);
             }
         }
 

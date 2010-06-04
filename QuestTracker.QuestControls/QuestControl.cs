@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using QuestTracker.Data;
 
@@ -102,27 +103,24 @@ namespace QuestTracker.QuestControls
 
         private void rename_KeyPress(object sender, KeyPressEventArgs e)
         {
-            if (e.KeyChar == '\r')
-            {
-                rename.SelectionLength = 0;
-                rename.Visible = false;
-                name.Focus();
-            }
+            if (e.KeyChar != '\r')
+                return;
+            
+            rename.SelectionLength = 0;
+            rename.Visible = false;
+            name.Focus();
         }
 
         private void selected_CheckedChanged(object sender, EventArgs e)
         {
             if (selected.Focused)
             {
-                bool allQuestsChecked = true;
+                var allQuestsChecked = true;
 
-                foreach (Control questControl in Parent.Controls)
+                foreach (var questControl in Parent.Controls.OfType<QuestControl>())
                 {
-                    if (questControl is QuestControl)
-                    {
-                        allQuestsChecked &= ((QuestControl)questControl).selected.Checked;
-                        if (!allQuestsChecked) break;
-                    }
+                    allQuestsChecked &= questControl.selected.Checked;
+                    if (!allQuestsChecked) break;
                 }
 
                 ((QuestGroupControl)Parent).selected.Checked &= allQuestsChecked;
@@ -133,12 +131,12 @@ namespace QuestTracker.QuestControls
 
         private void rename_KeyDown(object sender, KeyEventArgs e)
         {
-            if (e.KeyCode == Keys.Escape)
-            {
-                rename.Text = currentName;
-                rename.Visible = false;
-                name.Focus();
-            }
+            if (e.KeyCode != Keys.Escape)
+                return;
+            
+            rename.Text = currentName;
+            rename.Visible = false;
+            name.Focus();
         }
 
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
@@ -160,11 +158,11 @@ namespace QuestTracker.QuestControls
 
         private void QuestControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if ((Cursor.Position.Y < PointToScreen(new Point(0, 0)).Y || Cursor.Position.Y > PointToScreen(new Point(0, 23)).Y) && MouseButtons == MouseButtons.Left)
-            {
-                Focus();
-                DoDragDrop(this, DragDropEffects.Move);
-            }
+            if ((Cursor.Position.Y >= PointToScreen(new Point(0, 0)).Y && Cursor.Position.Y <= PointToScreen(new Point(0, 23)).Y) || MouseButtons != MouseButtons.Left)
+                return;
+            
+            Focus();
+            DoDragDrop(this, DragDropEffects.Move);
         }
 
         private void name_Click(object sender, EventArgs e)
@@ -174,23 +172,28 @@ namespace QuestTracker.QuestControls
 
         private void QuestControl_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (e.KeyCode == Keys.F2)
+            switch (e.KeyCode)
             {
-                name_DoubleClick(sender, e);
-            }
-            else if (e.KeyCode == Keys.Delete)
-            {
-                var questLog = QuestLogControl.GetQuestLog(this);
-                questLog.DeleteQuests();
-            }
-            else if (e.Control && e.KeyCode == Keys.N)
-            {
-                var parentQuestGroupControl = (QuestGroupControl)Parent;
+                case Keys.F2:
+                    name_DoubleClick(sender, e);
+                    break;
+                case Keys.Delete:
+                    {
+                        var questLog = QuestLogControl.GetQuestLog(this);
+                        questLog.DeleteQuests();
+                    }
+                    break;
+                case Keys.N:
+                    if (e.Control)
+                    {
+                        var parentQuestGroupControl = (QuestGroupControl)Parent;
 
-                if (parentQuestGroupControl == null)
-                    throw new Exception("Could not identify parent quest group control.");
+                        if (parentQuestGroupControl == null)
+                            throw new Exception("Could not identify parent quest group control.");
 
-                parentQuestGroupControl.AddNewQuest(sender, e);
+                        parentQuestGroupControl.AddNewQuest(sender, e);
+                    }
+                    break;
             }
         }
     }
