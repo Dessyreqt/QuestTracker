@@ -51,6 +51,8 @@ namespace QuestTracker
             this.questTabs = new System.Windows.Forms.TabControl();
             this.tabPage = new System.Windows.Forms.TabPage();
             this.questLogControl = new QuestTracker.QuestControls.QuestLogControl();
+            this.addTab = new System.Windows.Forms.TabPage();
+            this.rename = new System.Windows.Forms.TextBox();
             this.bottomPanel.SuspendLayout();
             this.panel1.SuspendLayout();
             this.menuStrip.SuspendLayout();
@@ -76,7 +78,7 @@ namespace QuestTracker
             this.complete.Name = "complete";
             this.complete.Size = new System.Drawing.Size(130, 28);
             this.complete.TabIndex = 1;
-            this.complete.Text = Resources.Complete;
+            this.complete.Text = global::QuestTracker.Properties.Resources.Complete;
             this.complete.UseVisualStyleBackColor = true;
             this.complete.Click += new System.EventHandler(this.complete_Click);
             // 
@@ -88,7 +90,7 @@ namespace QuestTracker
             this.delete.Name = "delete";
             this.delete.Size = new System.Drawing.Size(102, 28);
             this.delete.TabIndex = 3;
-            this.delete.Text = Resources.Delete;
+            this.delete.Text = global::QuestTracker.Properties.Resources.Delete;
             this.delete.UseVisualStyleBackColor = true;
             this.delete.Click += new System.EventHandler(this.delete_Click);
             // 
@@ -122,7 +124,7 @@ namespace QuestTracker
             this.showCompleted.Size = new System.Drawing.Size(142, 17);
             this.showCompleted.TabIndex = 2;
             this.showCompleted.TabStop = false;
-            this.showCompleted.Text = Resources.ShowCompleted;
+            this.showCompleted.Text = global::QuestTracker.Properties.Resources.ShowCompleted;
             this.showCompleted.UseVisualStyleBackColor = true;
             this.showCompleted.CheckedChanged += new System.EventHandler(this.showCompleted_CheckedChanged);
             // 
@@ -134,7 +136,7 @@ namespace QuestTracker
             this.completeDate.Name = "completeDate";
             this.completeDate.Size = new System.Drawing.Size(77, 13);
             this.completeDate.TabIndex = 1;
-            this.completeDate.Text = Resources.NotCompleted;
+            this.completeDate.Text = "Not Completed";
             this.completeDate.Visible = false;
             // 
             // startDate
@@ -142,9 +144,9 @@ namespace QuestTracker
             this.startDate.AutoSize = true;
             this.startDate.Location = new System.Drawing.Point(6, 9);
             this.startDate.Name = "startDate";
-            this.startDate.Size = new System.Drawing.Size(70, 13);
+            this.startDate.Size = new System.Drawing.Size(73, 13);
             this.startDate.TabIndex = 0;
-            this.startDate.Text = Resources.DateStarted;
+            this.startDate.Text = "Date Started: ";
             // 
             // questDescription
             // 
@@ -157,8 +159,8 @@ namespace QuestTracker
             this.questDescription.Size = new System.Drawing.Size(384, 373);
             this.questDescription.TabIndex = 0;
             this.questDescription.TextChanged += new System.EventHandler(this.questDescription_TextChanged);
-            this.questDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questDescription_KeyDown);
             this.questDescription.Enter += new System.EventHandler(this.questDescription_Enter);
+            this.questDescription.KeyDown += new System.Windows.Forms.KeyEventHandler(this.questDescription_KeyDown);
             // 
             // menuStrip
             // 
@@ -178,14 +180,14 @@ namespace QuestTracker
             this.exportToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
-            this.fileToolStripMenuItem.Text = Resources.FileMenu;
+            this.fileToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.FileMenu;
             // 
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
             this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.importToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.importToolStripMenuItem.Text = Resources.ImportCommand;
+            this.importToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.ImportCommand;
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
@@ -193,7 +195,7 @@ namespace QuestTracker
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
-            this.exportToolStripMenuItem.Text = Resources.ExportCommand;
+            this.exportToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.ExportCommand;
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // helpToolStripMenuItem
@@ -203,20 +205,20 @@ namespace QuestTracker
             this.donateToolStripMenuItem});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-            this.helpToolStripMenuItem.Text = Resources.HelpMenu;
+            this.helpToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.HelpMenu;
             // 
             // questTrackerWebsiteToolStripMenuItem
             // 
             this.questTrackerWebsiteToolStripMenuItem.Name = "questTrackerWebsiteToolStripMenuItem";
             this.questTrackerWebsiteToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.questTrackerWebsiteToolStripMenuItem.Text = Resources.QuestTrackerWebsiteLink;
+            this.questTrackerWebsiteToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.QuestTrackerWebsiteLink;
             this.questTrackerWebsiteToolStripMenuItem.Click += new System.EventHandler(this.questTrackerWebsiteToolStripMenuItem_Click);
             // 
             // donateToolStripMenuItem
             // 
             this.donateToolStripMenuItem.Name = "donateToolStripMenuItem";
             this.donateToolStripMenuItem.Size = new System.Drawing.Size(189, 22);
-            this.donateToolStripMenuItem.Text = Resources.DonateLink;
+            this.donateToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.DonateLink;
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
             // line
@@ -230,12 +232,15 @@ namespace QuestTracker
             // 
             this.questTabs.AllowDrop = true;
             this.questTabs.Controls.Add(this.tabPage);
+            this.questTabs.Controls.Add(this.addTab);
             this.questTabs.Dock = System.Windows.Forms.DockStyle.Left;
             this.questTabs.Location = new System.Drawing.Point(0, 24);
             this.questTabs.Name = "questTabs";
             this.questTabs.SelectedIndex = 0;
             this.questTabs.Size = new System.Drawing.Size(393, 446);
             this.questTabs.TabIndex = 1;
+            this.questTabs.Click += new System.EventHandler(this.questTabs_Click);
+            this.questTabs.DoubleClick += new System.EventHandler(this.questTabs_DoubleClick);
             // 
             // tabPage
             // 
@@ -244,7 +249,7 @@ namespace QuestTracker
             this.tabPage.Name = "tabPage";
             this.tabPage.Size = new System.Drawing.Size(385, 420);
             this.tabPage.TabIndex = 0;
-            this.tabPage.Text = Resources.DefaultQuestTabName;
+            this.tabPage.Text = global::QuestTracker.Properties.Resources.DefaultQuestTabName;
             this.tabPage.UseVisualStyleBackColor = true;
             // 
             // questLogControl
@@ -253,19 +258,45 @@ namespace QuestTracker
             this.questLogControl.AnyChecked = false;
             this.questLogControl.Dock = System.Windows.Forms.DockStyle.Fill;
             this.questLogControl.LastSelectedQuest = null;
+            this.questLogControl.LastSelectedQuestControl = null;
             this.questLogControl.LastSelectedQuestGroup = null;
+            this.questLogControl.LastSelectedQuestGroupControl = null;
             this.questLogControl.Location = new System.Drawing.Point(0, 0);
             this.questLogControl.Name = "questLogControl";
+            this.questLogControl.QuestLog = null;
             this.questLogControl.Size = new System.Drawing.Size(385, 420);
             this.questLogControl.TabIndex = 0;
             this.questLogControl.SelectionPluralityChanged += new System.EventHandler(this.questLogControl_SelectionPluralityChanged);
             this.questLogControl.QuestSelectionChanged += new System.EventHandler(this.questLogControl_QuestSelectionChanged);
+            // 
+            // addTab
+            // 
+            this.addTab.Location = new System.Drawing.Point(4, 22);
+            this.addTab.Name = "addTab";
+            this.addTab.Size = new System.Drawing.Size(385, 420);
+            this.addTab.TabIndex = 7;
+            this.addTab.Text = "Add Tab";
+            this.addTab.UseVisualStyleBackColor = true;
+            // 
+            // rename
+            // 
+            this.rename.Location = new System.Drawing.Point(5, 24);
+            this.rename.Name = "rename";
+            this.rename.Size = new System.Drawing.Size(100, 20);
+            this.rename.TabIndex = 1;
+            this.rename.Text = "Default Quests";
+            this.rename.Visible = false;
+            this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
+            this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
+            this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
+            this.rename.Leave += new System.EventHandler(this.rename_Leave);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 516);
+            this.Controls.Add(this.rename);
             this.Controls.Add(this.questDescription);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.splitter);
@@ -277,9 +308,9 @@ namespace QuestTracker
             this.MinimumSize = new System.Drawing.Size(625, 325);
             this.Name = "MainForm";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Show;
-            this.Text = Resources.QuestTrackerTitle;
-            this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Text = "QuestTracker";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.bottomPanel.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
@@ -315,6 +346,8 @@ namespace QuestTracker
         public System.Windows.Forms.TabControl questTabs;
         private System.Windows.Forms.TabPage tabPage;
         private QuestTracker.QuestControls.QuestLogControl questLogControl;
+        private System.Windows.Forms.TabPage addTab;
+        private System.Windows.Forms.TextBox rename;
     }
 }
 

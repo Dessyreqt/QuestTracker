@@ -12,6 +12,7 @@ namespace QuestTracker
     {
         private float splitRatio;
         private readonly Thread autoSaveThread;
+        private string currentName;
 
         public MainForm()
         {
@@ -221,6 +222,59 @@ namespace QuestTracker
         private void questLogControl_SelectionPluralityChanged(object sender, EventArgs e)
         {
             SetSelectionPlurality();
+        }
+
+        private void questTabs_DoubleClick(object sender, EventArgs e)
+        {
+            rename.Width = questTabs.GetTabRect(questTabs.SelectedIndex).Width - 2;
+            rename.Left = questTabs.GetTabRect(questTabs.SelectedIndex).Left + 3;
+            rename.Text = questTabs.SelectedTab.Text;
+            currentName = questTabs.SelectedTab.Text;
+            rename.Visible = true;
+            rename.SelectAll();
+            rename.Focus();
+        }
+
+        private void rename_TextChanged(object sender, EventArgs e)
+        {
+            questTabs.SelectedTab.Text = rename.Text.Trim().Replace("\r", "").Replace("\n", "");
+            rename.Width = questTabs.GetTabRect(questTabs.SelectedIndex).Width - 2;
+            //quest.Name = name.Text;
+        }
+
+        private void rename_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar != '\r')
+                return;
+
+            rename.SelectionLength = 0;
+            rename.Visible = false;
+            questTabs.SelectedTab.Focus();
+        }
+
+        private void rename_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Escape)
+                return;
+
+            rename.Text = currentName;
+            rename.Visible = false;
+            questTabs.SelectedTab.Focus();
+        }
+
+        private void rename_Leave(object sender, EventArgs e)
+        {
+            rename.Visible = false;
+        }
+
+        private void questTabs_Click(object sender, EventArgs e)
+        {
+            if (questTabs.SelectedTab == addTab)
+            {
+                var newTab = new TabPage("New Tab");
+                questTabs.TabPages.Insert(questTabs.TabPages.Count - 1, newTab);
+                questTabs.SelectTab(newTab);
+            }
         }
     }
 }
