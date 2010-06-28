@@ -361,9 +361,10 @@ namespace QuestTracker.QuestControls
                         }
 
                         questControl.selected.Checked = false;
-                    }
+                   }
                 }
 
+                LastSelectedQuest = null;
                 RenderLog();
                 SelectLastSelected();
 
@@ -387,7 +388,8 @@ namespace QuestTracker.QuestControls
                         LastSelectedQuest.CompleteDates.Add(DateTime.Now);
                         SetNextRecurDate(LastSelectedQuest);
                     }
-                    
+
+                    LastSelectedQuest = null;
                     RenderLog();
                     SelectLastSelected();
                 }
