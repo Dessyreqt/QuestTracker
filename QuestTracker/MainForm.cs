@@ -2,8 +2,10 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
+using QuestTracker.Data;
 using QuestTracker.IO;
 using QuestTracker.Properties;
+using QuestTracker.QuestControls;
 using Settings = QuestTracker.IO.Settings;
 
 namespace QuestTracker
@@ -20,8 +22,6 @@ namespace QuestTracker
 
             autoSaveThread = new Thread(AutoSave);
             autoSaveThread.Start();
-
-            //recurringQuestWorker.RunWorkerAsync();
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -271,9 +271,14 @@ namespace QuestTracker
         {
             if (questTabs.SelectedTab == addTab)
             {
+                var newQuestLogControl = new QuestLogControl {Dock = DockStyle.Fill, QuestLog = new QuestLog()};
+                
                 var newTab = new TabPage("New Tab");
+                newTab.Controls.Add(newQuestLogControl);
+                newQuestLogControl.RenderLog();
                 questTabs.TabPages.Insert(questTabs.TabPages.Count - 1, newTab);
                 questTabs.SelectTab(newTab);
+                questTabs_DoubleClick(sender, e);
             }
         }
     }
