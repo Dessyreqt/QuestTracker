@@ -13,7 +13,7 @@ namespace QuestTracker.QuestControls
 
         private void add_Click(object sender, EventArgs e)
         {
-            var questLog = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestTabControl.GetQuestLog(this);
 
             var newQuestGroup = new QuestGroup();
 
@@ -32,12 +32,12 @@ namespace QuestTracker.QuestControls
 
         private void AddGroup_DragDrop(object sender, DragEventArgs e)
         {
-            QuestLogControl.GetQuestLog(this).quests_DragDrop(sender, e);
+            QuestTabControl.GetQuestLog(this).quests_DragDrop(sender, e);
         }
 
         private void AddGroup_DragOver(object sender, DragEventArgs e)
         {
-            QuestLogControl.GetQuestLog(this).quests_DragOver(sender, e);
+            QuestTabControl.GetQuestLog(this).quests_DragOver(sender, e);
         }
 
         private void AddGroup_DragEnter(object sender, DragEventArgs e)

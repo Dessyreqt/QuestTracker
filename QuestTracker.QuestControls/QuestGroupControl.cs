@@ -103,7 +103,7 @@ namespace QuestTracker.QuestControls
 
         private void AddQuestControl(QuestControl questControl)
         {
-            var questLog = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestTabControl.GetQuestLog(this);
 
             questControl.Dock = DockStyle.Top;
             questControl.SetNormalBackcolor();
@@ -126,7 +126,7 @@ namespace QuestTracker.QuestControls
             if (ParentForm == null)
                 return;
 
-            var questLog = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestTabControl.GetQuestLog(this);
 
             questLog.RestoreAllGroups();
 
@@ -192,7 +192,7 @@ namespace QuestTracker.QuestControls
                 }
             }
 
-            var mainForm = QuestLogControl.GetQuestLog(this);
+            var mainForm = QuestTabControl.GetQuestLog(this);
 
             mainForm.SetSelectionPlurality();
         }
@@ -245,7 +245,7 @@ namespace QuestTracker.QuestControls
             if (e.Data.GetDataPresent(typeof(QuestControl)))
             {
                 var data = (QuestControl)e.Data.GetData(typeof(QuestControl));
-                var questLogControl = QuestLogControl.GetQuestLog(this);
+                var questLogControl = QuestTabControl.GetQuestLog(this);
 
                 var questScrollOffset = questLogControl.quests.VerticalScroll.Value;
 
@@ -298,7 +298,7 @@ namespace QuestTracker.QuestControls
             }
             else if (e.Data.GetDataPresent(typeof(QuestGroupControl)))
             {
-                var questLog = QuestLogControl.GetQuestLog(this);
+                var questLog = QuestTabControl.GetQuestLog(this);
 
                 questLog.RestoreAllGroups();
                 questLog.quests_DragDrop(sender, e);
@@ -315,7 +315,7 @@ namespace QuestTracker.QuestControls
                 line.Visible = true;
                 line.BringToFront();
             }
-            QuestLogControl.GetQuestLog(this).quests_DragOver(sender, e);
+            QuestTabControl.GetQuestLog(this).quests_DragOver(sender, e);
         }
 
         private void QuestGroupControl_DragLeave(object sender, EventArgs e)
@@ -384,7 +384,7 @@ namespace QuestTracker.QuestControls
 
             QuestControls.Remove(questControl);
 
-            var questLog = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestTabControl.GetQuestLog(this);
             questLog.QuestControls.Remove(questControl);
         }
 
@@ -397,7 +397,7 @@ namespace QuestTracker.QuestControls
                     break;
                 case Keys.Delete:
                     {
-                        var questLog = QuestLogControl.GetQuestLog(this);
+                        var questLog = QuestTabControl.GetQuestLog(this);
 
                         selected.Checked = true;
                         foreach (var questControl in QuestControls)
@@ -421,7 +421,7 @@ namespace QuestTracker.QuestControls
             questGroup.Quests.Add(newQuest);
             RenderGroup();
 
-            var questLog = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestTabControl.GetQuestLog(this);
 
             if (questLog.LastSelectedQuestControl != null)
                 questLog.LastSelectedQuestControl.QuestControl_Leave(sender, e);
@@ -444,7 +444,7 @@ namespace QuestTracker.QuestControls
             
             Focus();
 
-            QuestLogControl.GetQuestLog(this).CollapseAllGroups();
+            QuestTabControl.GetQuestLog(this).CollapseAllGroups();
             SetHighlightedBackcolor();
 
             DoDragDrop(this, DragDropEffects.Move);
