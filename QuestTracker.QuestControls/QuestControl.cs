@@ -31,7 +31,7 @@ namespace QuestTracker.QuestControls
         {
             SetHighlightedBackcolor();
 
-            var questLog = QuestLogControl.GetQuestLog(this);
+            var questLog = QuestTabControl.GetQuestLog(this);
 
             if (questLog.LastSelectedQuestControl != null && questLog.LastSelectedQuestControl != this)
                 questLog.LastSelectedQuestControl.SetNormalBackcolor();
@@ -126,7 +126,7 @@ namespace QuestTracker.QuestControls
                 ((QuestGroupControl)Parent).selected.Checked &= allQuestsChecked;
             }
 
-            QuestLogControl.GetQuestLog(this).SetSelectionPlurality();
+            QuestTabControl.GetQuestLog(this).SetSelectionPlurality();
         }
 
         private void rename_KeyDown(object sender, KeyEventArgs e)
@@ -141,7 +141,7 @@ namespace QuestTracker.QuestControls
 
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var mainForm = QuestLogControl.GetQuestLog(this);
+            var mainForm = QuestTabControl.GetQuestLog(this);
 
             if (mainForm.LastSelectedQuestGroupControl !=  null)
                 mainForm.LastSelectedQuestGroupControl.QuestGroupControl_Leave(sender, e);
@@ -179,7 +179,7 @@ namespace QuestTracker.QuestControls
                     break;
                 case Keys.Delete:
                     {
-                        var questLog = QuestLogControl.GetQuestLog(this);
+                        var questLog = QuestTabControl.GetQuestLog(this);
                         questLog.DeleteQuests();
                     }
                     break;
