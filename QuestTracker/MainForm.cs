@@ -14,7 +14,6 @@ namespace QuestTracker
     {
         private float splitRatio;
         private readonly Thread autoSaveThread;
-        private string currentName;
 
         public MainForm()
         {
@@ -26,12 +25,12 @@ namespace QuestTracker
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            splitRatio = (float)questTabs.Width / Width;
+            splitRatio = (float)questLog.Width / Width;
 
-            questLogControl.QuestLog = FileWriter.ReadFromFile();
-            showCompleted.Checked = questLogControl.QuestLog.ShowCompletedQuests;
+            questLog.QuestLog = FileWriter.ReadFromFile();
+            showCompleted.Checked = questLog.QuestLog.ShowCompletedQuests;
 
-            questLogControl.RenderLog(showCompleted.Checked);
+            questLog.RenderLog(showCompleted.Checked);
         }
 
         private void MainForm_Resize(object sender, EventArgs e)
@@ -41,25 +40,25 @@ namespace QuestTracker
             var newWidth = (int)(Width * splitRatio);
             newWidth = Width - newWidth < 176 ? Width - 176 : newWidth;
             newWidth = newWidth < 150 ? 150 : newWidth;
-            questTabs.Width = newWidth;
+            questLog.Width = newWidth;
         }
 
         private void splitter_SplitterMoved(object sender, SplitterEventArgs e)
         {
-            splitRatio = (float)questTabs.Width / Width;
+            splitRatio = (float)questLog.Width / Width;
         }
 
         private void SetSelectionPlurality()
         {
-            if (questLogControl.AnyChecked)
+            if (questLog.AnyChecked)
             {
-                complete.Text = questLogControl.AllCheckedComplete ? Resources.UncompleteChecked : Resources.CompleteChecked;
+                complete.Text = questLog.AllCheckedComplete ? Resources.UncompleteChecked : Resources.CompleteChecked;
 
                 delete.Text = Resources.DeleteChecked;
             }
             else
             {
-                if (questLogControl.LastSelectedQuest == null || !questLogControl.LastSelectedQuest.Completed)
+                if (questLog.LastSelectedQuest == null || !questLog.LastSelectedQuest.Completed)
                     complete.Text = Resources.Complete;
                 else
                     complete.Text = Resources.Uncomplete;
@@ -70,19 +69,19 @@ namespace QuestTracker
 
         private void complete_Click(object sender, EventArgs e)
         {
-            questLogControl.CompleteQuests();
+            questLog.CompleteQuests();
         }
 
         private void delete_Click(object sender, EventArgs e)
         {
-            questLogControl.DeleteQuests();
+            questLog.DeleteQuests();
         }
 
         private void showCompleted_CheckedChanged(object sender, EventArgs e)
         {
-            questLogControl.QuestLog.ShowCompletedQuests = showCompleted.Checked;
-            questLogControl.RenderLog(showCompleted.Checked);
-            questLogControl.SelectLastSelected();
+            questLog.QuestLog.ShowCompletedQuests = showCompleted.Checked;
+            questLog.RenderLog(showCompleted.Checked);
+            questLog.SelectLastSelected();
         }
 
         private void AutoSave()
@@ -91,9 +90,9 @@ namespace QuestTracker
             {
                 Thread.Sleep(15000);
 
-                lock(questLogControl.QuestLog)
+                lock (questLog.QuestLog)
                 {
-                    FileWriter.WriteToFile(questLogControl.QuestLog);
+                    FileWriter.WriteToFile(questLog.QuestLog);
                 }
             }
         }
@@ -102,23 +101,23 @@ namespace QuestTracker
         {
             autoSaveThread.Abort();
 
-            lock (questLogControl.QuestLog)
+            lock (questLog.QuestLog)
             {
-                FileWriter.WriteToFile(questLogControl.QuestLog);
+                FileWriter.WriteToFile(questLog.QuestLog);
             }
         }
 
         private void questDescription_TextChanged(object sender, EventArgs e)
         {
             if (questDescription.Focused)
-                if (questLogControl.LastSelectedQuest != null)
-                    questLogControl.LastSelectedQuest.Description = questDescription.Text;
+                if (questLog.LastSelectedQuest != null)
+                    questLog.LastSelectedQuest.Description = questDescription.Text;
         }
 
         private void questDescription_Enter(object sender, EventArgs e)
         {
-            if (questLogControl.LastSelectedQuestControl != null)
-                questLogControl.LastSelectedQuestControl.SetHighlightedBackcolor();
+            if (questLog.LastSelectedQuestControl != null)
+                questLog.LastSelectedQuestControl.SetHighlightedBackcolor();
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -137,10 +136,10 @@ namespace QuestTracker
 
             var filename = openFileDialog.FileName;
 
-            questLogControl.QuestLog = FileWriter.Import(filename);
-            showCompleted.Checked = questLogControl.QuestLog.ShowCompletedQuests;
+            questLog.QuestLog = FileWriter.Import(filename);
+            showCompleted.Checked = questLog.QuestLog.ShowCompletedQuests;
 
-            questLogControl.RenderLog(showCompleted.Checked);
+            questLog.RenderLog(showCompleted.Checked);
         }
 
         private void exportToolStripMenuItem_Click(object sender, EventArgs e)
@@ -158,10 +157,10 @@ namespace QuestTracker
 
             if (saveFileDialog.ShowDialog() != DialogResult.OK)
                 return;
-            
-            lock (questLogControl.QuestLog)
+
+            lock (questLog.QuestLog)
             {
-                FileWriter.Export(questLogControl.QuestLog, saveFileDialog.FileName);
+                FileWriter.Export(questLog.QuestLog, saveFileDialog.FileName);
             }
         }
 
@@ -185,9 +184,9 @@ namespace QuestTracker
 
         private void ChangeQuestSelection()
         {
-            if (questLogControl.LastSelectedQuest != null)
+            if (questLog.LastSelectedQuest != null)
             {
-                var quest = questLogControl.LastSelectedQuest;
+                var quest = questLog.LastSelectedQuest;
                 startDate.Text = Resources.DateStarted + quest.StartDate;
                 completeDate.Visible = true;
                 if (quest.Completed)
@@ -214,72 +213,14 @@ namespace QuestTracker
             }
         }
 
-        private void questLogControl_QuestSelectionChanged(object sender, EventArgs e)
+        private void questLog_QuestSelectionChanged(object sender, EventArgs e)
         {
             ChangeQuestSelection();
         }
 
-        private void questLogControl_SelectionPluralityChanged(object sender, EventArgs e)
+        private void questLog_SelectionPluralityChanged(object sender, EventArgs e)
         {
             SetSelectionPlurality();
-        }
-
-        private void questTabs_DoubleClick(object sender, EventArgs e)
-        {
-            rename.Width = questTabs.GetTabRect(questTabs.SelectedIndex).Width - 2;
-            rename.Left = questTabs.GetTabRect(questTabs.SelectedIndex).Left + 3;
-            rename.Text = questTabs.SelectedTab.Text;
-            currentName = questTabs.SelectedTab.Text;
-            rename.Visible = true;
-            rename.SelectAll();
-            rename.Focus();
-        }
-
-        private void rename_TextChanged(object sender, EventArgs e)
-        {
-            questTabs.SelectedTab.Text = rename.Text.Trim().Replace("\r", "").Replace("\n", "");
-            rename.Width = questTabs.GetTabRect(questTabs.SelectedIndex).Width - 2;
-            //quest.Name = name.Text;
-        }
-
-        private void rename_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar != '\r')
-                return;
-
-            rename.SelectionLength = 0;
-            rename.Visible = false;
-            questTabs.SelectedTab.Focus();
-        }
-
-        private void rename_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.Escape)
-                return;
-
-            rename.Text = currentName;
-            rename.Visible = false;
-            questTabs.SelectedTab.Focus();
-        }
-
-        private void rename_Leave(object sender, EventArgs e)
-        {
-            rename.Visible = false;
-        }
-
-        private void questTabs_Click(object sender, EventArgs e)
-        {
-            if (questTabs.SelectedTab == addTab)
-            {
-                var newQuestLogControl = new QuestLogControl {Dock = DockStyle.Fill, QuestLog = new QuestLog()};
-                
-                var newTab = new TabPage("New Tab");
-                newTab.Controls.Add(newQuestLogControl);
-                newQuestLogControl.RenderLog();
-                questTabs.TabPages.Insert(questTabs.TabPages.Count - 1, newTab);
-                questTabs.SelectTab(newTab);
-                questTabs_DoubleClick(sender, e);
-            }
         }
     }
 }

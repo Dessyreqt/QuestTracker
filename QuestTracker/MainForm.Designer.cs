@@ -35,7 +35,7 @@ namespace QuestTracker
             this.complete = new System.Windows.Forms.Button();
             this.delete = new System.Windows.Forms.Button();
             this.splitter = new System.Windows.Forms.Splitter();
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.statusPanel = new System.Windows.Forms.Panel();
             this.showCompleted = new System.Windows.Forms.CheckBox();
             this.completeDate = new System.Windows.Forms.Label();
             this.startDate = new System.Windows.Forms.Label();
@@ -47,17 +47,10 @@ namespace QuestTracker
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questTrackerWebsiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.donateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.line = new System.Windows.Forms.Panel();
-            this.questTabs = new System.Windows.Forms.TabControl();
-            this.tabPage = new System.Windows.Forms.TabPage();
-            this.questLogControl = new QuestTracker.QuestControls.QuestLogControl();
-            this.addTab = new System.Windows.Forms.TabPage();
-            this.rename = new System.Windows.Forms.TextBox();
+            this.questLog = new QuestTracker.QuestControls.QuestLogControl();
             this.bottomPanel.SuspendLayout();
-            this.panel1.SuspendLayout();
+            this.statusPanel.SuspendLayout();
             this.menuStrip.SuspendLayout();
-            this.questTabs.SuspendLayout();
-            this.tabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // bottomPanel
@@ -96,7 +89,7 @@ namespace QuestTracker
             // 
             // splitter
             // 
-            this.splitter.Location = new System.Drawing.Point(393, 24);
+            this.splitter.Location = new System.Drawing.Point(379, 24);
             this.splitter.MinExtra = 150;
             this.splitter.MinSize = 150;
             this.splitter.Name = "splitter";
@@ -105,16 +98,16 @@ namespace QuestTracker
             this.splitter.TabStop = false;
             this.splitter.SplitterMoved += new System.Windows.Forms.SplitterEventHandler(this.splitter_SplitterMoved);
             // 
-            // panel1
+            // statusPanel
             // 
-            this.panel1.Controls.Add(this.showCompleted);
-            this.panel1.Controls.Add(this.completeDate);
-            this.panel1.Controls.Add(this.startDate);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(403, 24);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(384, 73);
-            this.panel1.TabIndex = 4;
+            this.statusPanel.Controls.Add(this.showCompleted);
+            this.statusPanel.Controls.Add(this.completeDate);
+            this.statusPanel.Controls.Add(this.startDate);
+            this.statusPanel.Dock = System.Windows.Forms.DockStyle.Top;
+            this.statusPanel.Location = new System.Drawing.Point(389, 24);
+            this.statusPanel.Name = "statusPanel";
+            this.statusPanel.Size = new System.Drawing.Size(398, 73);
+            this.statusPanel.TabIndex = 4;
             // 
             // showCompleted
             // 
@@ -152,11 +145,11 @@ namespace QuestTracker
             // 
             this.questDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.questDescription.Enabled = false;
-            this.questDescription.Location = new System.Drawing.Point(403, 97);
+            this.questDescription.Location = new System.Drawing.Point(389, 97);
             this.questDescription.Multiline = true;
             this.questDescription.Name = "questDescription";
             this.questDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.questDescription.Size = new System.Drawing.Size(384, 373);
+            this.questDescription.Size = new System.Drawing.Size(398, 373);
             this.questDescription.TabIndex = 0;
             this.questDescription.TextChanged += new System.EventHandler(this.questDescription_TextChanged);
             this.questDescription.Enter += new System.EventHandler(this.questDescription_Enter);
@@ -221,86 +214,26 @@ namespace QuestTracker
             this.donateToolStripMenuItem.Text = global::QuestTracker.Properties.Resources.DonateLink;
             this.donateToolStripMenuItem.Click += new System.EventHandler(this.donateToolStripMenuItem_Click);
             // 
-            // line
+            // questLog
             // 
-            this.line.Location = new System.Drawing.Point(0, 0);
-            this.line.Name = "line";
-            this.line.Size = new System.Drawing.Size(200, 100);
-            this.line.TabIndex = 0;
-            // 
-            // questTabs
-            // 
-            this.questTabs.AllowDrop = true;
-            this.questTabs.Controls.Add(this.tabPage);
-            this.questTabs.Controls.Add(this.addTab);
-            this.questTabs.Dock = System.Windows.Forms.DockStyle.Left;
-            this.questTabs.Location = new System.Drawing.Point(0, 24);
-            this.questTabs.Name = "questTabs";
-            this.questTabs.SelectedIndex = 0;
-            this.questTabs.Size = new System.Drawing.Size(393, 446);
-            this.questTabs.TabIndex = 1;
-            this.questTabs.Click += new System.EventHandler(this.questTabs_Click);
-            this.questTabs.DoubleClick += new System.EventHandler(this.questTabs_DoubleClick);
-            // 
-            // tabPage
-            // 
-            this.tabPage.Controls.Add(this.questLogControl);
-            this.tabPage.Location = new System.Drawing.Point(4, 22);
-            this.tabPage.Name = "tabPage";
-            this.tabPage.Size = new System.Drawing.Size(385, 420);
-            this.tabPage.TabIndex = 0;
-            this.tabPage.Text = global::QuestTracker.Properties.Resources.DefaultQuestTabName;
-            this.tabPage.UseVisualStyleBackColor = true;
-            // 
-            // questLogControl
-            // 
-            this.questLogControl.AllCheckedComplete = false;
-            this.questLogControl.AnyChecked = false;
-            this.questLogControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.questLogControl.LastSelectedQuest = null;
-            this.questLogControl.LastSelectedQuestControl = null;
-            this.questLogControl.LastSelectedQuestGroup = null;
-            this.questLogControl.LastSelectedQuestGroupControl = null;
-            this.questLogControl.Location = new System.Drawing.Point(0, 0);
-            this.questLogControl.Name = "questLogControl";
-            this.questLogControl.QuestLog = null;
-            this.questLogControl.Size = new System.Drawing.Size(385, 420);
-            this.questLogControl.TabIndex = 0;
-            this.questLogControl.SelectionPluralityChanged += new System.EventHandler(this.questLogControl_SelectionPluralityChanged);
-            this.questLogControl.QuestSelectionChanged += new System.EventHandler(this.questLogControl_QuestSelectionChanged);
-            // 
-            // addTab
-            // 
-            this.addTab.Location = new System.Drawing.Point(4, 22);
-            this.addTab.Name = "addTab";
-            this.addTab.Size = new System.Drawing.Size(385, 420);
-            this.addTab.TabIndex = 7;
-            this.addTab.Text = "Add Tab";
-            this.addTab.UseVisualStyleBackColor = true;
-            // 
-            // rename
-            // 
-            this.rename.Location = new System.Drawing.Point(5, 24);
-            this.rename.Name = "rename";
-            this.rename.Size = new System.Drawing.Size(100, 20);
-            this.rename.TabIndex = 1;
-            this.rename.Text = "Default Quests";
-            this.rename.Visible = false;
-            this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
-            this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
-            this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
-            this.rename.Leave += new System.EventHandler(this.rename_Leave);
+            this.questLog.Dock = System.Windows.Forms.DockStyle.Left;
+            this.questLog.Location = new System.Drawing.Point(0, 24);
+            this.questLog.Name = "questLog";
+            this.questLog.QuestLog = null;
+            this.questLog.Size = new System.Drawing.Size(379, 446);
+            this.questLog.TabIndex = 7;
+            this.questLog.SelectionPluralityChanged += new System.EventHandler(this.questLog_SelectionPluralityChanged);
+            this.questLog.QuestSelectionChanged += new System.EventHandler(this.questLog_QuestSelectionChanged);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(787, 516);
-            this.Controls.Add(this.rename);
             this.Controls.Add(this.questDescription);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.statusPanel);
             this.Controls.Add(this.splitter);
-            this.Controls.Add(this.questTabs);
+            this.Controls.Add(this.questLog);
             this.Controls.Add(this.bottomPanel);
             this.Controls.Add(this.menuStrip);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -313,12 +246,10 @@ namespace QuestTracker
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.bottomPanel.ResumeLayout(false);
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.statusPanel.ResumeLayout(false);
+            this.statusPanel.PerformLayout();
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
-            this.questTabs.ResumeLayout(false);
-            this.tabPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -329,7 +260,7 @@ namespace QuestTracker
         private System.Windows.Forms.Panel bottomPanel;
         private System.Windows.Forms.Splitter splitter;
         private System.Windows.Forms.Button delete;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel statusPanel;
         public System.Windows.Forms.TextBox questDescription;
         public System.Windows.Forms.Label startDate;
         public System.Windows.Forms.Label completeDate;
@@ -342,12 +273,7 @@ namespace QuestTracker
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem questTrackerWebsiteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem donateToolStripMenuItem;
-        private System.Windows.Forms.Panel line;
-        public System.Windows.Forms.TabControl questTabs;
-        private System.Windows.Forms.TabPage tabPage;
-        private QuestTracker.QuestControls.QuestLogControl questLogControl;
-        private System.Windows.Forms.TabPage addTab;
-        private System.Windows.Forms.TextBox rename;
+        private QuestControls.QuestLogControl questLog;
     }
 }
 
