@@ -12,14 +12,45 @@ namespace QuestTracker.QuestControls
 {
     public partial class QuestLogControl : UserControl
     {
-        private string currentName;
+        public QuestLog QuestLog
+        {
+            get
+            {
+                return questLog;
+            }
+            set
+            {
+                questLog = value;
+                questTabControl.QuestLog = questLog;
+            }
+        }
+        public QuestGroupControl LastSelectedQuestGroupControl { get { return questTabControl.LastSelectedQuestGroupControl;  } }
+        public QuestControl LastSelectedQuestControl { get { return questTabControl.LastSelectedQuestControl; } }
+        public List<QuestControl> QuestControls { get { return questTabControl.QuestControls; } }
+        public bool AnyChecked { get { return questTabControl.AnyChecked; } }
+        public bool AllCheckedComplete { get { return questTabControl.AllCheckedComplete; } }
+        public QuestGroup LastSelectedQuestGroup { get { return questTabControl.LastSelectedQuestGroup; } }
+        public Quest LastSelectedQuest { get { return questTabControl.LastSelectedQuest; } }
 
         public event EventHandler SelectionPluralityChanged;
         public event EventHandler QuestSelectionChanged;
 
+        private string currentName;
+        private QuestLog questLog;
+
         public QuestLogControl()
         {
             InitializeComponent();
+        }
+
+        public void RenderLog()
+        {
+            questTabControl.RenderLog();
+        }
+
+        public void RenderLog(bool showCompleted)
+        {
+            questTabControl.RenderLog(showCompleted);
         }
 
         private void questTabs_Click(object sender, EventArgs e)
@@ -87,6 +118,21 @@ namespace QuestTracker.QuestControls
         private void questTabControl_SelectionPluralityChanged(object sender, EventArgs e)
         {
             SelectionPluralityChanged(this, e);
+        }
+
+        public void CompleteQuests()
+        {
+            questTabControl.CompleteQuests();
+        }
+
+        public void DeleteQuests()
+        {
+            questTabControl.DeleteQuests();
+        }
+
+        public void SelectLastSelected()
+        {
+            questTabControl.SelectLastSelected();
         }
     }
 }
