@@ -28,17 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.questTabs = new System.Windows.Forms.TabControl();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.removeTabToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabPage = new System.Windows.Forms.TabPage();
             this.addTab = new System.Windows.Forms.TabPage();
             this.rename = new System.Windows.Forms.TextBox();
             this.questTabControl = new QuestTracker.QuestControls.QuestTabControl();
             this.questTabs.SuspendLayout();
+            this.contextMenu.SuspendLayout();
             this.tabPage.SuspendLayout();
             this.SuspendLayout();
             // 
             // questTabs
             // 
+            this.questTabs.AllowDrop = true;
+            this.questTabs.ContextMenuStrip = this.contextMenu;
             this.questTabs.Controls.Add(this.tabPage);
             this.questTabs.Controls.Add(this.addTab);
             this.questTabs.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -47,11 +53,30 @@
             this.questTabs.SelectedIndex = 0;
             this.questTabs.Size = new System.Drawing.Size(379, 392);
             this.questTabs.TabIndex = 0;
+            this.questTabs.SelectedIndexChanged += new System.EventHandler(this.questTabs_SelectedIndexChanged);
             this.questTabs.Click += new System.EventHandler(this.questTabs_Click);
+            this.questTabs.DragOver += new System.Windows.Forms.DragEventHandler(this.questTabs_DragOver);
             this.questTabs.DoubleClick += new System.EventHandler(this.questTabs_DoubleClick);
+            this.questTabs.MouseMove += new System.Windows.Forms.MouseEventHandler(this.questTabs_MouseMove);
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.removeTabToolStripMenuItem});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(160, 26);
+            this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
+            // 
+            // removeTabToolStripMenuItem
+            // 
+            this.removeTabToolStripMenuItem.Name = "removeTabToolStripMenuItem";
+            this.removeTabToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.removeTabToolStripMenuItem.Text = "Remove this tab";
+            this.removeTabToolStripMenuItem.Click += new System.EventHandler(this.removeTabToolStripMenuItem_Click);
             // 
             // tabPage
             // 
+            this.tabPage.ContextMenuStrip = this.contextMenu;
             this.tabPage.Controls.Add(this.questTabControl);
             this.tabPage.Location = new System.Drawing.Point(4, 22);
             this.tabPage.Name = "tabPage";
@@ -95,7 +120,7 @@
             this.questTabControl.LastSelectedQuestGroupControl = null;
             this.questTabControl.Location = new System.Drawing.Point(3, 3);
             this.questTabControl.Name = "questTabControl";
-            this.questTabControl.QuestLog = null;
+            this.questTabControl.QuestTab = null;
             this.questTabControl.Size = new System.Drawing.Size(365, 360);
             this.questTabControl.TabIndex = 0;
             this.questTabControl.SelectionPluralityChanged += new System.EventHandler(this.questTabControl_SelectionPluralityChanged);
@@ -110,6 +135,7 @@
             this.Name = "QuestLogControl";
             this.Size = new System.Drawing.Size(379, 392);
             this.questTabs.ResumeLayout(false);
+            this.contextMenu.ResumeLayout(false);
             this.tabPage.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -123,5 +149,7 @@
         private System.Windows.Forms.TabPage addTab;
         private System.Windows.Forms.TextBox rename;
         private QuestTabControl questTabControl;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ToolStripMenuItem removeTabToolStripMenuItem;
     }
 }

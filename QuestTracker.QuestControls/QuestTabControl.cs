@@ -6,16 +6,12 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 using QuestTracker.Data;
-using QuestTracker.IO;
-using QuestTracker.QuestControls.Properties;
 
 namespace QuestTracker.QuestControls
 {
     public partial class QuestTabControl : UserControl
     {
-        public QuestLog QuestLog { get; set; }
-        public QuestGroupControl LastSelectedQuestGroupControl { get; set; }
-        public QuestControl LastSelectedQuestControl { get; set; }
+        public QuestTab QuestTab { get; set; }
         public List<QuestControl> QuestControls { get; private set; }
         public bool AnyChecked { get; set; }
         public bool AllCheckedComplete { get; set; }
@@ -24,11 +20,61 @@ namespace QuestTracker.QuestControls
         public event EventHandler QuestSelectionChanged;
 
         private readonly List<QuestGroupControl> questGroupControls;
+        private QuestGroupControl lastSelectedQuestGroupControl;
+        private QuestControl lastSelectedQuestControl;
         private QuestGroup lastSelectedQuestGroup;
         private Quest lastSelectedQuest;
         private bool addGroupPresent;
         private bool lastShowCompleted;
         private bool forcedCollapse;
+
+        public QuestGroupControl LastSelectedQuestGroupControl
+        {
+            get
+            {
+                return lastSelectedQuestGroupControl;
+            }
+            set
+            {
+                lastSelectedQuestGroupControl = value;
+
+                if (value == null)
+                    return;
+                
+                var questLog = QuestLogControl.GetQuestLog(this);
+
+                if (questLog == null)
+                    return;
+                
+                questLog.LastSelectedQuestGroupControl = value;
+                questLog.LastSelectedQuestGroup = value.QuestGroup;
+                questLog.LastSelectedQuestTab = QuestTab;
+            }
+        }
+        
+        public QuestControl LastSelectedQuestControl
+        {
+            get
+            {
+                return lastSelectedQuestControl;
+            } 
+            set
+            {
+                lastSelectedQuestControl = value;
+
+                if (value == null)
+                    return;
+
+                var questLog = QuestLogControl.GetQuestLog(this);
+                
+                if (questLog == null) 
+                    return;
+                
+                questLog.LastSelectedQuestControl = value;
+                questLog.LastSelectedQuest = value.Quest;
+                questLog.LastSelectedQuestTab = QuestTab;
+            }
+        }
 
         public QuestGroup LastSelectedQuestGroup
         {
@@ -79,8 +125,10 @@ namespace QuestTracker.QuestControls
             if (!e.Data.GetDataPresent(typeof(QuestGroupControl)))
                 return;
             
+            CollapseAllGroups();
+
             var indicatorY = Cursor.Position.Y - quests.PointToScreen(new Point(0, 0)).Y;
-            line.Top = Math.Min(Math.Max((indicatorY + 12) / 24 * 24, 0), QuestLog.Groups.Count * 24) - 1;
+            line.Top = Math.Min(Math.Max((indicatorY + 12) / 24 * 24, 0), QuestTab.Groups.Count * 24) - 1;
             line.Width = Width;
             line.Visible = true;
             line.BringToFront();
@@ -93,10 +141,10 @@ namespace QuestTracker.QuestControls
 
         public void quests_DragDrop(object sender, DragEventArgs e)
         {
-            if (!e.Data.GetDataPresent(typeof(QuestGroupControl)))
+            if (!e.Data.GetDataPresent(typeof (QuestGroupControl)))
                 return;
-            
-            var data = (QuestGroupControl)e.Data.GetData(typeof(QuestGroupControl));
+
+            var data = (QuestGroupControl) e.Data.GetData(typeof (QuestGroupControl));
 
             var questScrollOffset = quests.VerticalScroll.Value;
 
@@ -105,53 +153,70 @@ namespace QuestTracker.QuestControls
 
             var tempQuestControls = new List<QuestGroupControl>();
             var controlY = 0;
+
+            //Get a list of groups under the destination
             for (var i = quests.Controls.Count - 1; i >= 0; i--)
             {
                 if (!(quests.Controls[i] is QuestGroupControl))
                     continue;
 
-                var control = (QuestGroupControl)quests.Controls[i];
+                var control = (QuestGroupControl) quests.Controls[i];
                 controlY = controlY == 0 ? control.PointToScreen(new Point(0, 0)).Y : controlY + 24;
-                
+
                 if (controlY <= Cursor.Position.Y - 12)
                     continue;
-                
+
                 if (control != data)
                     tempQuestControls.Add(control);
             }
 
-            QuestLog.Groups.Remove(data.QuestGroup);
+            var questLogControl = QuestLogControl.GetQuestLog(this);
 
+            questLogControl.LastSelectedQuestTab.Groups.Remove(data.QuestGroup);
+
+            //Remove every group under the destination 
             foreach (var control in tempQuestControls)
             {
-                QuestLog.Groups.Remove(control.QuestGroup);
+                QuestTab.Groups.Remove(control.QuestGroup);
             }
 
-            QuestLog.Groups.Add(data.QuestGroup);
+            //Put the groups back in order
+            QuestTab.Groups.Add(data.QuestGroup);
 
             foreach (var control in tempQuestControls)
             {
-                QuestLog.Groups.Add(control.QuestGroup);
+                QuestTab.Groups.Add(control.QuestGroup);
             }
 
             line.Visible = false;
 
-            RenderLog();
-   
-            LastSelectedQuestGroup = data.QuestGroup;
+            questLogControl.RenderLog();
 
-            var questGroupControl = (from Control control in quests.Controls.Cast<Control>()
-                                     where control is QuestGroupControl && ((QuestGroupControl)control).QuestGroup == data.QuestGroup
-                                     select (QuestGroupControl)control).First();
+            questLogControl.LastSelectedQuestGroup = data.QuestGroup;
 
-            if (LastSelectedQuestControl != null)
+
+            IEnumerable<QuestGroupControl> groupControls = from Control control in quests.Controls.Cast<Control>()
+                                                           where control is QuestGroupControl && ((QuestGroupControl) control).QuestGroup == data.QuestGroup
+                                                           select (QuestGroupControl) control;
+            
+            var questGroupControl = groupControls.First();
+
+            questLogControl.LastSelectedQuestControl = null;
+
+            var lastSelectedQuery = from Control control in questGroupControl.Controls
+                                    where control is QuestControl && ((QuestControl)control).Quest == questLogControl.LastSelectedQuest
+                                    select (QuestControl)control;
+
+            if (lastSelectedQuery.Count() != 0)
             {
-                LastSelectedQuestControl = (from Control control in questGroupControl.Controls
-                                            where control is QuestControl && ((QuestControl)control).Quest == LastSelectedQuest
-                                            select (QuestControl)control).First();
+                questLogControl.LastSelectedQuestControl = lastSelectedQuery.First();
 
-                LastSelectedQuestControl.SetHighlightedBackcolor();
+                questLogControl.LastSelectedQuestControl.SetHighlightedBackcolor();
                 data.SetNormalBackcolor();
+            }
+            else
+            {
+                questLogControl.LastSelectedQuest = null;
             }
 
             SelectLastSelected();
@@ -173,7 +238,7 @@ namespace QuestTracker.QuestControls
 
         private void recurringQuestWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            RenderLog();
+            RenderTab();
         }
 
         public void ChangeSelectedQuest()
@@ -186,11 +251,11 @@ namespace QuestTracker.QuestControls
         {
             while (true)
             {
-                if (QuestLog != null)
+                if (QuestTab != null)
                 {
                     var refreshLog = false;
 
-                    foreach (var group in QuestLog.Groups)
+                    foreach (var group in QuestTab.Groups)
                     {
                         foreach (var quest in group.Quests.Where(quest => quest.Recurring).Where(quest => quest.Completed).Where(ShouldRecurQuest))
                         {
@@ -244,19 +309,19 @@ namespace QuestTracker.QuestControls
             }
         }
 
-        public void RenderLog()
+        public void RenderTab()
         {
-            RenderLog(lastShowCompleted);
+            RenderTab(lastShowCompleted);
         }
 
-        public void RenderLog(bool showCompleted)
+        public void RenderTab(bool showCompleted)
         {
             lastShowCompleted = showCompleted;
             var questScrollOffset = quests.VerticalScroll.Value;
 
             //remove groups that aren't in the log
             var controlsToDelete = (from Control questGroupControl in quests.Controls.Cast<Control>()
-                                    where questGroupControl is QuestGroupControl && !QuestLog.Groups.Contains(((QuestGroupControl)questGroupControl).QuestGroup)
+                                    where questGroupControl is QuestGroupControl && !QuestTab.Groups.Contains(((QuestGroupControl)questGroupControl).QuestGroup)
                                     select (QuestGroupControl)questGroupControl).ToList();
 
             foreach (var questGroupControl in controlsToDelete)
@@ -275,7 +340,7 @@ namespace QuestTracker.QuestControls
                                         where questGroupControl is QuestGroupControl
                                         select ((QuestGroupControl)questGroupControl).QuestGroup;
 
-            var questGroupsToAdd = from QuestGroup questGroup in QuestLog.Groups
+            var questGroupsToAdd = from QuestGroup questGroup in QuestTab.Groups
                                    where !questGroupsInControls.Contains(questGroup)
                                    select questGroup;
 
@@ -315,7 +380,7 @@ namespace QuestTracker.QuestControls
         private void FixZOrder()
         {
             var questControlsOrdered = (from QuestGroupControl questGroupControl in quests.Controls.OfType<QuestGroupControl>()
-                                        orderby QuestLog.Groups.IndexOf(questGroupControl.QuestGroup) descending
+                                        orderby QuestTab.Groups.IndexOf(questGroupControl.QuestGroup) descending
                                         select questGroupControl).ToArray();
 
             var i = -1;
@@ -365,7 +430,7 @@ namespace QuestTracker.QuestControls
                 }
 
                 LastSelectedQuest = null;
-                RenderLog();
+                RenderTab();
                 SelectLastSelected();
 
                 foreach (var questGroupControl in questGroupControls)
@@ -390,7 +455,7 @@ namespace QuestTracker.QuestControls
                     }
 
                     LastSelectedQuest = null;
-                    RenderLog();
+                    RenderTab();
                     SelectLastSelected();
                 }
             }
@@ -423,10 +488,10 @@ namespace QuestTracker.QuestControls
                     }
 
                     if (questGroup.selected.Checked)
-                        QuestLog.Groups.Remove(questGroup.QuestGroup);
+                        QuestTab.Groups.Remove(questGroup.QuestGroup);
                 }
 
-                RenderLog();
+                RenderTab();
             }
             else
             {
@@ -436,7 +501,7 @@ namespace QuestTracker.QuestControls
 
                     lastSelectedQuestGroup.Quests.Remove(lastSelectedQuest);
 
-                    RenderLog();
+                    RenderTab();
                 }
             }
 
@@ -461,7 +526,7 @@ namespace QuestTracker.QuestControls
                 SelectionPluralityChanged(this, EventArgs.Empty);
         }
 
-        public static QuestTabControl GetQuestLog(Control control)
+        public static QuestTabControl GetQuestTab(Control control)
         {
             var retVal = control.Parent;
 
@@ -499,4 +564,24 @@ namespace QuestTracker.QuestControls
             forcedCollapse = false;
         }
     }
+
+    public static class TabPageExtensions
+    {
+        public static QuestTabControl QuestTabControl(this TabPage questTabPage)
+        {
+            //questTabPage can be null during a Drag and Drop operation
+            if (questTabPage == null)
+                return null;
+
+            if (questTabPage.Controls.Count == 0)
+                return null;
+
+            var questTabControl = (from Control control in questTabPage.Controls.Cast<Control>()
+                                where control is QuestTabControl
+                                select (QuestTabControl)control).First();
+
+            return questTabControl;
+        }
+    }
 }
+
