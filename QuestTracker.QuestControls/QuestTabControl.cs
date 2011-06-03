@@ -473,13 +473,8 @@ namespace QuestTracker.QuestControls
 
         public void DeleteQuests()
         {
-            if (MessageBox.Show(Resources.DeleteQuestsDialogText, Resources.DeleteQuestsDialogTitle, MessageBoxButtons.YesNo, MessageBoxIcon.Warning, MessageBoxDefaultButton.Button2) == DialogResult.No)
-                return;
-
             if (AnyChecked)
             {
-                FileWriter.Export(QuestLog);
-
                 foreach (var questGroup in questGroupControls)
                 {
                     foreach (var questControl in questGroup.QuestControls.Where(questControl => questControl.selected.Checked))
@@ -497,8 +492,6 @@ namespace QuestTracker.QuestControls
             {
                 if (lastSelectedQuest != null)
                 {
-                    FileWriter.Export(QuestLog);
-
                     lastSelectedQuestGroup.Quests.Remove(lastSelectedQuest);
 
                     RenderTab();

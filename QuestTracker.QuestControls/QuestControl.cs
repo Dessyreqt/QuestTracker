@@ -187,7 +187,7 @@ namespace QuestTracker.QuestControls
                     break;
                 case Keys.Delete:
                     {
-                        var questLog = QuestTabControl.GetQuestTab(this);
+                        var questLog = QuestLogControl.GetQuestLog(this);
                         questLog.DeleteQuests();
                     }
                     break;

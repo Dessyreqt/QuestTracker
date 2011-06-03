@@ -406,7 +406,7 @@ namespace QuestTracker.QuestControls
                     break;
                 case Keys.Delete:
                     {
-                        var questLog = QuestTabControl.GetQuestTab(this);
+                        var questLog = QuestLogControl.GetQuestLog(this);
 
                         selected.Checked = true;
                         foreach (var questControl in QuestControls)
