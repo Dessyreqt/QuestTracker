@@ -36,8 +36,9 @@ namespace QuestTracker.QuestControls
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.makeQuestRecurring = new System.Windows.Forms.ToolStripMenuItem();
             this.rename = new System.Windows.Forms.TextBox();
-            this.name = new FixedLabel();
-            this.filler = new FixedLabel();
+            this.name = new QuestTracker.QuestControls.FixedLabel();
+            this.filler = new QuestTracker.QuestControls.FixedLabel();
+            this.renameQuestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,16 +53,17 @@ namespace QuestTracker.QuestControls
             this.selected.TabIndex = 1;
             this.selected.TabStop = false;
             this.selected.UseVisualStyleBackColor = false;
-            this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
             this.selected.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
+            this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             // 
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-                                                                                         this.makeQuestRecurring});
+            this.renameQuestToolStripMenuItem,
+            this.makeQuestRecurring});
             this.contextMenu.Name = "contextMenuStrip1";
-            this.contextMenu.Size = new System.Drawing.Size(201, 26);
+            this.contextMenu.Size = new System.Drawing.Size(201, 70);
             this.contextMenu.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenu_Opening);
             // 
             // makeQuestRecurring
@@ -81,9 +83,9 @@ namespace QuestTracker.QuestControls
             this.rename.TabStop = false;
             this.rename.Visible = false;
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
-            this.rename.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
+            this.rename.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             // 
             // name
             // 
@@ -97,10 +99,10 @@ namespace QuestTracker.QuestControls
             this.name.Size = new System.Drawing.Size(253, 24);
             this.name.TabIndex = 2;
             this.name.Text = "Unnamed Quest";
-            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
+            this.name.Click += new System.EventHandler(this.name_Click);
             this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
             this.name.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
-            this.name.Click += new System.EventHandler(this.name_Click);
+            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
             // 
             // filler
             // 
@@ -111,9 +113,16 @@ namespace QuestTracker.QuestControls
             this.filler.Name = "filler";
             this.filler.Size = new System.Drawing.Size(46, 24);
             this.filler.TabIndex = 0;
-            this.filler.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
-            this.filler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
             this.filler.Click += new System.EventHandler(this.filler_Click);
+            this.filler.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
+            this.filler.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
+            // 
+            // renameQuestToolStripMenuItem
+            // 
+            this.renameQuestToolStripMenuItem.Name = "renameQuestToolStripMenuItem";
+            this.renameQuestToolStripMenuItem.Size = new System.Drawing.Size(200, 22);
+            this.renameQuestToolStripMenuItem.Text = "Rename Quest";
+            this.renameQuestToolStripMenuItem.Click += new System.EventHandler(this.renameQuestToolStripMenuItem_Click);
             // 
             // QuestControl
             // 
@@ -125,11 +134,11 @@ namespace QuestTracker.QuestControls
             this.Controls.Add(this.filler);
             this.Name = "QuestControl";
             this.Size = new System.Drawing.Size(314, 24);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
-            this.Leave += new System.EventHandler(this.QuestControl_Leave);
-            this.Resize += new System.EventHandler(this.QuestControl_Resize);
             this.Enter += new System.EventHandler(this.QuestControl_Enter);
+            this.Leave += new System.EventHandler(this.QuestControl_Leave);
+            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestControl_MouseMove);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestControl_PreviewKeyDown);
+            this.Resize += new System.EventHandler(this.QuestControl_Resize);
             this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -144,6 +153,7 @@ namespace QuestTracker.QuestControls
         private TextBox rename;
         private ContextMenuStrip contextMenu;
         private ToolStripMenuItem makeQuestRecurring;
+        private ToolStripMenuItem renameQuestToolStripMenuItem;
 
     }
 }

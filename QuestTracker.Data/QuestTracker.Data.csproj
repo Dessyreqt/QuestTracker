@@ -70,6 +70,7 @@
     <Compile Include="Quest.cs" />
     <Compile Include="QuestGroup.cs" />
     <Compile Include="QuestLog.cs" />
+    <Compile Include="QuestTab.cs" />
     <Compile Include="RecurrenceSchedule.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>

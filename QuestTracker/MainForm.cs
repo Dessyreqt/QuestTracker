@@ -2,10 +2,8 @@
 using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
-using QuestTracker.Data;
 using QuestTracker.IO;
 using QuestTracker.Properties;
-using QuestTracker.QuestControls;
 using Settings = QuestTracker.IO.Settings;
 
 namespace QuestTracker
@@ -50,15 +48,17 @@ namespace QuestTracker
 
         private void SetSelectionPlurality()
         {
-            if (questLog.AnyChecked)
+            var currentTabControl = questLog.CurrentTabControl;
+
+            if (currentTabControl.AnyChecked)
             {
-                complete.Text = questLog.AllCheckedComplete ? Resources.UncompleteChecked : Resources.CompleteChecked;
+                complete.Text = currentTabControl.AllCheckedComplete ? Resources.UncompleteChecked : Resources.CompleteChecked;
 
                 delete.Text = Resources.DeleteChecked;
             }
             else
             {
-                if (questLog.LastSelectedQuest == null || !questLog.LastSelectedQuest.Completed)
+                if (currentTabControl.LastSelectedQuest == null || !currentTabControl.LastSelectedQuest.Completed)
                     complete.Text = Resources.Complete;
                 else
                     complete.Text = Resources.Uncomplete;
@@ -109,15 +109,19 @@ namespace QuestTracker
 
         private void questDescription_TextChanged(object sender, EventArgs e)
         {
+            var currentTabControl = questLog.CurrentTabControl;
+
             if (questDescription.Focused)
-                if (questLog.LastSelectedQuest != null)
-                    questLog.LastSelectedQuest.Description = questDescription.Text;
+                if (currentTabControl.LastSelectedQuest != null)
+                    currentTabControl.LastSelectedQuest.Description = questDescription.Text;
         }
 
         private void questDescription_Enter(object sender, EventArgs e)
         {
-            if (questLog.LastSelectedQuestControl != null)
-                questLog.LastSelectedQuestControl.SetHighlightedBackcolor();
+            var currentTabControl = questLog.CurrentTabControl;
+
+            if (currentTabControl.LastSelectedQuestControl != null)
+                currentTabControl.LastSelectedQuestControl.SetHighlightedBackcolor();
         }
 
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
@@ -184,9 +188,10 @@ namespace QuestTracker
 
         private void ChangeQuestSelection()
         {
-            if (questLog.LastSelectedQuest != null)
+            var currentTabControl = questLog.CurrentTabControl;
+            if (currentTabControl.LastSelectedQuest != null)
             {
-                var quest = questLog.LastSelectedQuest;
+                var quest = currentTabControl.LastSelectedQuest;
                 startDate.Text = Resources.DateStarted + quest.StartDate;
                 completeDate.Visible = true;
                 if (quest.Completed)

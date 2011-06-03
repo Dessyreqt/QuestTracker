@@ -117,61 +117,67 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="collapse" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\collapse.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="expand" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\expand.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-	<data name="DeleteQuestsDialogText">
-		<value><![CDATA[Are you sure you wish to delete the selected quests?
+  <data name="DeleteQuestsDialogText" xml:space="preserve">
+    <value>Are you sure you wish to delete the selected quests?
 
-A backup of the current file will be made if you choose to delete.]]></value>
-	</data>
-	<data name="DeleteQuestsDialogTitle">
-		<value xml:space="preserve">Confirm Delete</value>
-	</data>
-	<data name="AddGroup">
-		<value xml:space="preserve">Add Group</value>
-	</data>
-	<data name="AddQuest">
-		<value xml:space="preserve">Add Quest</value>
-	</data>
-	<data name="RecurringQuestFrequencyError">
-		<value><![CDATA[The frequency for a recurring quest cannot be 0. To fix this, do one of the following:
+A backup of the current file will be made if you choose to delete.</value>
+  </data>
+  <data name="DeleteQuestsDialogTitle" xml:space="preserve">
+    <value>Confirm Quest Deletion</value>
+  </data>
+  <data name="AddGroup" xml:space="preserve">
+    <value>Add Group</value>
+  </data>
+  <data name="AddQuest" xml:space="preserve">
+    <value>Add Quest</value>
+  </data>
+  <data name="RecurringQuestFrequencyError" xml:space="preserve">
+    <value>The frequency for a recurring quest cannot be 0. To fix this, do one of the following:
 
 - Uncheck "Recur this quest"
-- Set the frequency at which to recur this quest to a non-zero value.]]></value>
-	</data>
-	<data name="ErrorTitle">
-		<value xml:space="preserve">Error</value>
-	</data>
-	<data name="DateTimeText">
-		<value xml:space="preserve">Starting on this date and time:</value>
-	</data>
-	<data name="RecurFrequencyText">
-		<value xml:space="preserve">Recur this quest every:</value>
-	</data>
-	<data name="Minutes">
-		<value xml:space="preserve">Minutes</value>
-	</data>
-	<data name="Hours">
-		<value xml:space="preserve">Hours</value>
-	</data>
-	<data name="Days">
-		<value xml:space="preserve">Days</value>
-	</data>
-	<data name="Save">
-		<value xml:space="preserve">Save</value>
-	</data>
-	<data name="Cancel">
-		<value xml:space="preserve">Cancel</value>
-	</data>
-	<data name="RecurText">
-		<value xml:space="preserve">Recur this quest</value>
-	</data>
-	<data name="RecurQuestTitle">
-		<value xml:space="preserve">Set Recurring Quest...</value>
-	</data>
+- Set the frequency at which to recur this quest to a non-zero value.</value>
+  </data>
+  <data name="ErrorTitle" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="DateTimeText" xml:space="preserve">
+    <value>Starting on this date and time:</value>
+  </data>
+  <data name="RecurFrequencyText" xml:space="preserve">
+    <value>Recur this quest every:</value>
+  </data>
+  <data name="Minutes" xml:space="preserve">
+    <value>Minutes</value>
+  </data>
+  <data name="Hours" xml:space="preserve">
+    <value>Hours</value>
+  </data>
+  <data name="Days" xml:space="preserve">
+    <value>Days</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="RecurText" xml:space="preserve">
+    <value>Recur this quest</value>
+  </data>
+  <data name="RecurQuestTitle" xml:space="preserve">
+    <value>Set Recurring Quest...</value>
+  </data>
+  <data name="RemoveTabDialogText" xml:space="preserve">
+    <value>Are you sure you wish to remove this tab?</value>
+  </data>
+  <data name="RemoveTabDialogTitle" xml:space="preserve">
+    <value>Confirm Tab Removal</value>
+  </data>
 </root>

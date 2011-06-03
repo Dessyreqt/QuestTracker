@@ -31,25 +31,26 @@ namespace QuestTracker.QuestControls
         {
             SetHighlightedBackcolor();
 
-            var questLog = QuestTabControl.GetQuestLog(this);
+            var questTab = QuestTabControl.GetQuestTab(this);
 
-            if (questLog.LastSelectedQuestControl != null && questLog.LastSelectedQuestControl != this)
-                questLog.LastSelectedQuestControl.SetNormalBackcolor();
+            if (questTab.LastSelectedQuestControl != null && questTab.LastSelectedQuestControl != this)
+                questTab.LastSelectedQuestControl.SetNormalBackcolor();
 
-            questLog.LastSelectedQuest = quest;
-            questLog.LastSelectedQuestControl = this;
-            questLog.LastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
-            questLog.LastSelectedQuestGroupControl = (QuestGroupControl)Parent;
+            questTab.LastSelectedQuest = quest;
+            questTab.LastSelectedQuestControl = this;
+            questTab.LastSelectedQuestGroup = ((QuestGroupControl)Parent).QuestGroup;
+            questTab.LastSelectedQuestGroupControl = (QuestGroupControl)Parent;
 
-            questLog.ChangeSelectedQuest();
-            questLog.SetSelectionPlurality();
+            questTab.ChangeSelectedQuest();
+            questTab.SetSelectionPlurality();
         }
 
         public void SetHighlightedBackcolor()
         {
-            name.BackColor = SystemColors.MenuHighlight;
-            selected.BackColor = SystemColors.MenuHighlight;
-            filler.BackColor = SystemColors.MenuHighlight;
+            name.BackColor = SystemColors.Highlight;
+            selected.BackColor = SystemColors.Highlight;
+            filler.BackColor = SystemColors.Highlight;
+            name.ForeColor = SystemColors.HighlightText;
         }
 
         public void QuestControl_Leave(object sender, EventArgs e)
@@ -65,16 +66,23 @@ namespace QuestTracker.QuestControls
                 name.BackColor = Color.LightGreen;
                 selected.BackColor = Color.LightGreen;
                 filler.BackColor = Color.LightGreen;
+                name.ForeColor = SystemColors.ControlText;
             }
             else
             {
                 name.BackColor = SystemColors.Window;
                 selected.BackColor = SystemColors.Window;
                 filler.BackColor = SystemColors.Window;
+                name.ForeColor = SystemColors.ControlText;
             }
         }
 
         public void name_DoubleClick(object sender, EventArgs e)
+        {
+            StartRenameQuest();
+        }
+
+        private void StartRenameQuest()
         {
             rename.Width = Width - rename.Left - 2;
             rename.Text = name.Text;
@@ -126,7 +134,7 @@ namespace QuestTracker.QuestControls
                 ((QuestGroupControl)Parent).selected.Checked &= allQuestsChecked;
             }
 
-            QuestTabControl.GetQuestLog(this).SetSelectionPlurality();
+            QuestTabControl.GetQuestTab(this).SetSelectionPlurality();
         }
 
         private void rename_KeyDown(object sender, KeyEventArgs e)
@@ -141,7 +149,7 @@ namespace QuestTracker.QuestControls
 
         private void contextMenu_Opening(object sender, System.ComponentModel.CancelEventArgs e)
         {
-            var mainForm = QuestTabControl.GetQuestLog(this);
+            var mainForm = QuestTabControl.GetQuestTab(this);
 
             if (mainForm.LastSelectedQuestGroupControl !=  null)
                 mainForm.LastSelectedQuestGroupControl.QuestGroupControl_Leave(sender, e);
@@ -179,7 +187,7 @@ namespace QuestTracker.QuestControls
                     break;
                 case Keys.Delete:
                     {
-                        var questLog = QuestTabControl.GetQuestLog(this);
+                        var questLog = QuestTabControl.GetQuestTab(this);
                         questLog.DeleteQuests();
                     }
                     break;
@@ -195,6 +203,11 @@ namespace QuestTracker.QuestControls
                     }
                     break;
             }
+        }
+
+        private void renameQuestToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            StartRenameQuest();
         }
     }
 }

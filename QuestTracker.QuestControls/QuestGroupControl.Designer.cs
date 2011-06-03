@@ -31,14 +31,18 @@ namespace QuestTracker.QuestControls
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel = new System.Windows.Forms.Panel();
             this.rename = new System.Windows.Forms.TextBox();
-            this.name = new FixedLabel();
+            this.name = new QuestTracker.QuestControls.FixedLabel();
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.renameGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selected = new System.Windows.Forms.CheckBox();
-            this.expand = new FixedLabel();
+            this.expand = new QuestTracker.QuestControls.FixedLabel();
             this.line = new System.Windows.Forms.Panel();
-            this.addQuest = new AddQuestControl();
+            this.addQuest = new QuestTracker.QuestControls.AddQuestControl();
             this.panel.SuspendLayout();
+            this.contextMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel
@@ -53,9 +57,9 @@ namespace QuestTracker.QuestControls
             this.panel.Name = "panel";
             this.panel.Size = new System.Drawing.Size(346, 24);
             this.panel.TabIndex = 0;
+            this.panel.Enter += new System.EventHandler(this.QuestGroupControl_Enter);
             this.panel.Leave += new System.EventHandler(this.QuestGroupControl_Leave);
             this.panel.Resize += new System.EventHandler(this.panel_Resize);
-            this.panel.Enter += new System.EventHandler(this.QuestGroupControl_Enter);
             // 
             // rename
             // 
@@ -65,8 +69,8 @@ namespace QuestTracker.QuestControls
             this.rename.Size = new System.Drawing.Size(100, 20);
             this.rename.TabIndex = 6;
             this.rename.Visible = false;
-            this.rename.VisibleChanged += new System.EventHandler(this.rename_VisibleChanged);
             this.rename.TextChanged += new System.EventHandler(this.rename_TextChanged);
+            this.rename.VisibleChanged += new System.EventHandler(this.rename_VisibleChanged);
             this.rename.KeyDown += new System.Windows.Forms.KeyEventHandler(this.rename_KeyDown);
             this.rename.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.rename_KeyPress);
             // 
@@ -74,6 +78,7 @@ namespace QuestTracker.QuestControls
             // 
             this.name.AutoEllipsis = true;
             this.name.BackColor = System.Drawing.SystemColors.Control;
+            this.name.ContextMenuStrip = this.contextMenu;
             this.name.Dock = System.Windows.Forms.DockStyle.Fill;
             this.name.Location = new System.Drawing.Point(38, 0);
             this.name.Name = "name";
@@ -81,37 +86,53 @@ namespace QuestTracker.QuestControls
             this.name.Size = new System.Drawing.Size(308, 24);
             this.name.TabIndex = 5;
             this.name.Text = "Unnamed Quest Group";
-            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
+            this.name.Click += new System.EventHandler(this.name_Click);
             this.name.DoubleClick += new System.EventHandler(this.name_DoubleClick);
             this.name.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
-            this.name.Click += new System.EventHandler(this.name_Click);
+            this.name.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
+            // 
+            // contextMenu
+            // 
+            this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.renameGroupToolStripMenuItem});
+            this.contextMenu.Name = "contextMenu";
+            this.contextMenu.Size = new System.Drawing.Size(154, 48);
+            // 
+            // renameGroupToolStripMenuItem
+            // 
+            this.renameGroupToolStripMenuItem.Name = "renameGroupToolStripMenuItem";
+            this.renameGroupToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.renameGroupToolStripMenuItem.Text = "Rename Group";
+            this.renameGroupToolStripMenuItem.Click += new System.EventHandler(this.renameGroupToolStripMenuItem_Click);
             // 
             // selected
             // 
             this.selected.BackColor = System.Drawing.SystemColors.Control;
+            this.selected.ContextMenuStrip = this.contextMenu;
             this.selected.Dock = System.Windows.Forms.DockStyle.Left;
             this.selected.Location = new System.Drawing.Point(23, 0);
             this.selected.Name = "selected";
             this.selected.Size = new System.Drawing.Size(15, 24);
             this.selected.TabIndex = 4;
             this.selected.UseVisualStyleBackColor = false;
-            this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             this.selected.CheckedChanged += new System.EventHandler(this.selected_CheckedChanged);
             this.selected.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
+            this.selected.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             // 
             // expand
             // 
             this.expand.BackColor = System.Drawing.SystemColors.Control;
+            this.expand.ContextMenuStrip = this.contextMenu;
             this.expand.Dock = System.Windows.Forms.DockStyle.Left;
             this.expand.Font = new System.Drawing.Font("Arial Narrow", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.expand.Image = Properties.Resources.collapse;
+            this.expand.Image = global::QuestTracker.QuestControls.Properties.Resources.collapse;
             this.expand.Location = new System.Drawing.Point(0, 0);
             this.expand.Name = "expand";
             this.expand.Size = new System.Drawing.Size(23, 24);
             this.expand.TabIndex = 3;
-            this.expand.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
-            this.expand.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
             this.expand.Click += new System.EventHandler(this.expand_Click);
+            this.expand.MouseMove += new System.Windows.Forms.MouseEventHandler(this.QuestGroupControl_MouseMove);
+            this.expand.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             // 
             // line
             // 
@@ -142,13 +163,14 @@ namespace QuestTracker.QuestControls
             this.MinimumSize = new System.Drawing.Size(0, 24);
             this.Name = "QuestGroupControl";
             this.Size = new System.Drawing.Size(346, 48);
-            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
-            this.DragOver += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragOver);
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragDrop);
-            this.DragLeave += new System.EventHandler(this.QuestGroupControl_DragLeave);
             this.DragEnter += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragEnter);
+            this.DragOver += new System.Windows.Forms.DragEventHandler(this.QuestGroupControl_DragOver);
+            this.DragLeave += new System.EventHandler(this.QuestGroupControl_DragLeave);
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.QuestGroupControl_PreviewKeyDown);
             this.panel.ResumeLayout(false);
             this.panel.PerformLayout();
+            this.contextMenu.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -162,5 +184,7 @@ namespace QuestTracker.QuestControls
         private Panel panel;
         private AddQuestControl addQuest;
         private Panel line;
+        private ContextMenuStrip contextMenu;
+        private ToolStripMenuItem renameGroupToolStripMenuItem;
     }
 }

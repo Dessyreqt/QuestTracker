@@ -25,22 +25,4 @@ namespace QuestTracker.Data
             Schedule = new RecurrenceSchedule();
         }
     }
-
-    public class Quest_0_2
-    {
-        public string Name { get; set;}
-        public string Description { get; set;}
-        public DateTime StartDate { get; set;}
-        public DateTime CompleteDate { get; set;}
-        public bool Completed { get; set; }
-
-        public Quest_0_2()
-        {
-            Name = Resources.DefaultQuestName;
-            Description = Resources.DefaultQuestDescription;
-            StartDate = DateTime.Now;
-            CompleteDate = DateTime.MinValue;
-            Completed = false;
-        }
-    }
 }

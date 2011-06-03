@@ -13,31 +13,31 @@ namespace QuestTracker.QuestControls
 
         private void add_Click(object sender, EventArgs e)
         {
-            var questLog = QuestTabControl.GetQuestLog(this);
+            var questTab = QuestTabControl.GetQuestTab(this);
 
             var newQuestGroup = new QuestGroup();
 
-            questLog.QuestLog.Groups.Add(newQuestGroup);
+            questTab.QuestTab.Groups.Add(newQuestGroup);
 
-            if (questLog.LastSelectedQuestControl != null)
-                questLog.LastSelectedQuestControl.QuestControl_Leave(sender, e);
+            if (questTab.LastSelectedQuestControl != null)
+                questTab.LastSelectedQuestControl.QuestControl_Leave(sender, e);
 
-            questLog.RenderLog();
+            questTab.RenderTab();
 
-            questLog.LastSelectedQuestGroup = newQuestGroup;
+            questTab.LastSelectedQuestGroup = newQuestGroup;
 
-            if (questLog.LastSelectedQuestGroupControl != null)
-                questLog.LastSelectedQuestGroupControl.name_DoubleClick(sender, e);
+            if (questTab.LastSelectedQuestGroupControl != null)
+                questTab.LastSelectedQuestGroupControl.name_DoubleClick(sender, e);
         }
 
         private void AddGroup_DragDrop(object sender, DragEventArgs e)
         {
-            QuestTabControl.GetQuestLog(this).quests_DragDrop(sender, e);
+            QuestTabControl.GetQuestTab(this).quests_DragDrop(sender, e);
         }
 
         private void AddGroup_DragOver(object sender, DragEventArgs e)
         {
-            QuestTabControl.GetQuestLog(this).quests_DragOver(sender, e);
+            QuestTabControl.GetQuestTab(this).quests_DragOver(sender, e);
         }
 
         private void AddGroup_DragEnter(object sender, DragEventArgs e)
