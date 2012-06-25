@@ -10,6 +10,8 @@ namespace QuestTracker.Data
         [XmlArrayItem("QuestTab", typeof(QuestTab))]
         public List<QuestTab> Tabs { get; set; }
         public bool ShowCompletedQuests { get; set; }
+        [XmlIgnore]
+        public bool Edited { get; set; }
 
         public QuestLog()
         {

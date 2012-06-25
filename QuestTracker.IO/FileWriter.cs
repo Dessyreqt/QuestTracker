@@ -24,6 +24,13 @@ namespace QuestTracker.IO
             }
         }
 
+        public static DateTime LastFileChanged()
+        {
+            var file = Settings.GetPath() + "QuestTracker.xml";
+
+            return File.GetLastWriteTimeUtc(file);
+        }
+
         private static QuestLog DefaultQuestLog()
         {
             var defaultQuestLog = new QuestLog { Version = "0.3" };

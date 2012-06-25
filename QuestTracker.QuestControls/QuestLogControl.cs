@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using QuestTracker;
 using QuestTracker.Data;
 using QuestTracker.IO;
 using QuestTracker.QuestControls.Properties;
@@ -184,6 +185,7 @@ namespace QuestTracker.QuestControls
             rename.SelectionLength = 0;
             rename.Visible = false;
             questTabs.SelectedTab.Focus();
+            questLog.Edited = true;
         }
 
         private void rename_KeyDown(object sender, KeyEventArgs e)
@@ -216,6 +218,8 @@ namespace QuestTracker.QuestControls
         public void CompleteQuests()
         {
             CurrentTabControl.CompleteQuests();
+
+            questLog.Edited = true;
         }
 
         public void DeleteQuests()
@@ -230,6 +234,8 @@ namespace QuestTracker.QuestControls
                 FileWriter.Export(QuestLog);
 
                 currentTabControl.DeleteQuests();
+
+                questLog.Edited = true;
             }
         }
 
@@ -284,6 +290,7 @@ namespace QuestTracker.QuestControls
 
             FileWriter.Export(questLog);
             questLog.Tabs.Remove(CurrentTabControl.QuestTab);
+            questLog.Edited = true;
             RenderLog();
         }
 
