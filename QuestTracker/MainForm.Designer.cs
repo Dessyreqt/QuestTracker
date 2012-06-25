@@ -165,6 +165,7 @@ namespace QuestTracker
             this.menuStrip.Size = new System.Drawing.Size(787, 24);
             this.menuStrip.TabIndex = 6;
             this.menuStrip.Text = "menuStrip";
+            this.menuStrip.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.menuStrip_ItemClicked);
             // 
             // fileToolStripMenuItem
             // 
@@ -217,6 +218,12 @@ namespace QuestTracker
             // questLog
             // 
             this.questLog.Dock = System.Windows.Forms.DockStyle.Left;
+            this.questLog.LastSelectedQuest = null;
+            this.questLog.LastSelectedQuestControl = null;
+            this.questLog.LastSelectedQuestGroup = null;
+            this.questLog.LastSelectedQuestGroupControl = null;
+            this.questLog.LastSelectedQuestTab = null;
+            this.questLog.LastSelectedQuestTabControl = null;
             this.questLog.Location = new System.Drawing.Point(0, 24);
             this.questLog.Name = "questLog";
             this.questLog.QuestLog = null;

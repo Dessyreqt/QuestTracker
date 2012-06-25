@@ -463,5 +463,12 @@ namespace QuestTracker.QuestControls
         {
             StartRenameGroup();
         }
+
+        private void timeboxGroupToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var timebox = new Timebox(questGroup);
+
+            timebox.Show(ParentForm);
+        }
     }
 }

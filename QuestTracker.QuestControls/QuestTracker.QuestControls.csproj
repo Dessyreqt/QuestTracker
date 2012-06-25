@@ -118,6 +118,24 @@
     <Compile Include="RecurringQuestDialog.Designer.cs">
       <DependentUpon>RecurringQuestDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Timebox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Timebox.Designer.cs">
+      <DependentUpon>Timebox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeboxBreakDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeboxBreakDialog.Designer.cs">
+      <DependentUpon>TimeboxBreakDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TimeboxTaskDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TimeboxTaskDialog.Designer.cs">
+      <DependentUpon>TimeboxTaskDialog.cs</DependentUpon>
+    </Compile>
     <Service Include="{94E38DFF-614B-4cbd-B67C-F211BB35CE8B}" />
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +160,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="QuestTabControl.resx">
       <DependentUpon>QuestTabControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Timebox.resx">
+      <DependentUpon>Timebox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeboxBreakDialog.resx">
+      <DependentUpon>TimeboxBreakDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TimeboxTaskDialog.resx">
+      <DependentUpon>TimeboxTaskDialog.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -12,7 +12,8 @@ namespace QuestTracker
     {
         private float splitRatio;
         private readonly Thread autoSaveThread;
-
+        private DateTime lastKnownWrite;
+        
         public MainForm()
         {
             InitializeComponent();
@@ -26,6 +27,7 @@ namespace QuestTracker
             splitRatio = (float)questLog.Width / Width;
 
             questLog.QuestLog = FileWriter.ReadFromFile();
+            lastKnownWrite = FileWriter.LastFileChanged();
             showCompleted.Checked = questLog.QuestLog.ShowCompletedQuests;
 
             questLog.RenderLog(showCompleted.Checked);
@@ -88,11 +90,28 @@ namespace QuestTracker
         {
             while (true)
             {
-                Thread.Sleep(15000);
+                Thread.Sleep(1000);
 
-                lock (questLog.QuestLog)
+                if (questLog != null && questLog.QuestLog != null)
                 {
-                    FileWriter.WriteToFile(questLog.QuestLog);
+                    if (questLog.QuestLog.Edited)
+                    {
+                        lock (questLog.QuestLog)
+                        {
+                            FileWriter.WriteToFile(questLog.QuestLog);
+                            lastKnownWrite = FileWriter.LastFileChanged();
+                            questLog.QuestLog.Edited = false;
+                        }
+                    }
+
+                    if (lastKnownWrite < FileWriter.LastFileChanged())
+                    {
+                        lock (questLog.QuestLog)
+                        {
+                            questLog.QuestLog = FileWriter.ReadFromFile();
+                            lastKnownWrite = FileWriter.LastFileChanged();
+                        }
+                    }
                 }
             }
         }
@@ -112,8 +131,13 @@ namespace QuestTracker
             var currentTabControl = questLog.CurrentTabControl;
 
             if (questDescription.Focused)
+            {
                 if (currentTabControl.LastSelectedQuest != null)
+                {
                     currentTabControl.LastSelectedQuest.Description = questDescription.Text;
+                    questLog.QuestLog.Edited = true;
+                }
+            }
         }
 
         private void questDescription_Enter(object sender, EventArgs e)
@@ -151,7 +175,7 @@ namespace QuestTracker
             var now = DateTime.Now;
             var saveFileDialog = new SaveFileDialog
                                      {
-                                         FileName = "QuestTracker." + now.Month.ToString("00") + "-" + now.Day.ToString("00") + "-" + now.Year.ToString("0000") + "-" + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00") + ".xml",
+                                         FileName = "QuestTracker." + now.Year.ToString("0000") + "-" + now.Month.ToString("00") + "-" + now.Day.ToString("00") + "-" + now.Hour.ToString("00") + now.Minute.ToString("00") + now.Second.ToString("00") + ".xml",
                                          Filter = Resources.XmlFiles,
                                          FilterIndex = 0,
                                          InitialDirectory = Settings.GetPath(),

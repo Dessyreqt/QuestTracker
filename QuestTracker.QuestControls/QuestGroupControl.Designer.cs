@@ -41,6 +41,7 @@ namespace QuestTracker.QuestControls
             this.expand = new QuestTracker.QuestControls.FixedLabel();
             this.line = new System.Windows.Forms.Panel();
             this.addQuest = new QuestTracker.QuestControls.AddQuestControl();
+            this.timeboxGroupToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.panel.SuspendLayout();
             this.contextMenu.SuspendLayout();
             this.SuspendLayout();
@@ -94,14 +95,15 @@ namespace QuestTracker.QuestControls
             // contextMenu
             // 
             this.contextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.renameGroupToolStripMenuItem});
+            this.renameGroupToolStripMenuItem,
+            this.timeboxGroupToolStripMenuItem});
             this.contextMenu.Name = "contextMenu";
-            this.contextMenu.Size = new System.Drawing.Size(154, 48);
+            this.contextMenu.Size = new System.Drawing.Size(157, 70);
             // 
             // renameGroupToolStripMenuItem
             // 
             this.renameGroupToolStripMenuItem.Name = "renameGroupToolStripMenuItem";
-            this.renameGroupToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.renameGroupToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
             this.renameGroupToolStripMenuItem.Text = "Rename Group";
             this.renameGroupToolStripMenuItem.Click += new System.EventHandler(this.renameGroupToolStripMenuItem_Click);
             // 
@@ -152,6 +154,13 @@ namespace QuestTracker.QuestControls
             this.addQuest.TabIndex = 1;
             this.addQuest.TabStop = false;
             // 
+            // timeboxGroupToolStripMenuItem
+            // 
+            this.timeboxGroupToolStripMenuItem.Name = "timeboxGroupToolStripMenuItem";
+            this.timeboxGroupToolStripMenuItem.Size = new System.Drawing.Size(156, 22);
+            this.timeboxGroupToolStripMenuItem.Text = "Timebox Group";
+            this.timeboxGroupToolStripMenuItem.Click += new System.EventHandler(this.timeboxGroupToolStripMenuItem_Click);
+            // 
             // QuestGroupControl
             // 
             this.AllowDrop = true;
@@ -186,5 +195,6 @@ namespace QuestTracker.QuestControls
         private Panel line;
         private ContextMenuStrip contextMenu;
         private ToolStripMenuItem renameGroupToolStripMenuItem;
+        private ToolStripMenuItem timeboxGroupToolStripMenuItem;
     }
 }
